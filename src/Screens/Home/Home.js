@@ -3,7 +3,8 @@ import React from "react";
 import homeStyle from "./homeStyle";
 
 import Card from "../../components/card/card";
-
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 import {
     View,
@@ -16,8 +17,14 @@ import {
     ScrollView,
 } from "react-native";
 
-
 export default function Home({ navigation }) {
+
+    // Esses Consts trás o mes diacordo com as datas em tempo real
+    // Já o moment.locale trás o mes traduzido para PT-BR
+    moment.locale('pt-br');
+    const currentMonth = moment().format('MMMM');
+    const currentYear = moment().format('YYYY');
+
     return (
 
         <View style={homeStyle.container}>
@@ -41,7 +48,7 @@ export default function Home({ navigation }) {
             >
                 <Text
                     style={homeStyle.txt1}
-                >MAR, 2023</Text>
+                >{currentMonth}, {currentYear}</Text>
 
                 <Text
                     style={homeStyle.txt2}

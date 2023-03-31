@@ -4,7 +4,6 @@ const homeStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2C3C51',
-        color: '#2C3C51',
     },
     container2: {
         paddingTop: '10%',
@@ -30,6 +29,7 @@ const homeStyle = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
         color: '#fff',
+        textTransform: 'uppercase'
     },
     txt2: {
         top: '40%',

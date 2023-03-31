@@ -8,25 +8,17 @@ const gastoAgendadoStyle = StyleSheet.create({
     },
     menuContainer:{
         flexDirection: 'row',
-        top: -55,
+        top: 55,
     },
     texto1: {
         fontWeight: "bold",
         fontSize: 18,
-        color: '#fff',
+        color: '#000',
     },
     back: {
         marginRight: 200,
     },
-    upContainer:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    fundo:{
-        position: 'absolute',
-    },
    
 })
 
-export default gastoAgendadoStyle
+export default gastoAgendadoStyle;

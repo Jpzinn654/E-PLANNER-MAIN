@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Slider /> accessibilityState disabled sets disabled={true} 1`] = `
+<RNCSlider
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  disabled={true}
+  enabled={false}
+  inverted={false}
+  maximumValue={1}
+  minimumValue={0}
+  onChange={null}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={null}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={null}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  value={0}
+/>
+`;
+
+exports[`<Slider /> disabled prop overrides accessibilityState.disabled 1`] = `
+<RNCSlider
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  disabled={true}
+  enabled={false}
+  inverted={false}
+  maximumValue={1}
+  minimumValue={0}
+  onChange={null}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={null}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={null}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  value={0}
+/>
+`;
+
+exports[`<Slider /> disabled prop overrides accessibilityState.enabled 1`] = `
+<RNCSlider
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  disabled={false}
+  enabled={true}
+  inverted={false}
+  maximumValue={1}
+  minimumValue={0}
+  onChange={null}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={null}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={null}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  value={0}
+/>
+`;
+
+exports[`<Slider /> renders a slider with custom props 1`] = `
+<RNCSlider
+  disabled={false}
+  enabled={true}
+  inverted={false}
+  maximumTrackTintColor="red"
+  maximumValue={2}
+  minimumTrackTintColor="blue"
+  minimumValue={-1}
+  onChange={[Function]}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={[Function]}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0.25}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  thumbTintColor="green"
+  value={0.5}
+/>
+`;
+
+exports[`<Slider /> renders disabled slider 1`] = `
+<RNCSlider
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  disabled={true}
+  enabled={false}
+  inverted={false}
+  maximumValue={1}
+  minimumValue={0}
+  onChange={null}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={null}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={null}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  value={0}
+/>
+`;
+
+exports[`<Slider /> renders enabled slider 1`] = `
+<RNCSlider
+  disabled={false}
+  enabled={true}
+  inverted={false}
+  maximumValue={1}
+  minimumValue={0}
+  onChange={null}
+  onRNCSliderAccessibilityAction={null}
+  onRNCSliderSlidingComplete={null}
+  onRNCSliderSlidingStart={null}
+  onRNCSliderValueChange={null}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  step={0}
+  style={
+    Object {
+      "height": 40,
+    }
+  }
+  tapToSeek={false}
+  thumbImage={null}
+  value={0}
+/>
+`;

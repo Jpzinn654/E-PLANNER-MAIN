@@ -29,7 +29,7 @@ export default function PrincipalHome({navigation}) {
 
                 <TouchableOpacity 
                 style={stylesPrincipal.btn}
-                onPress={ () => navigation.navigate('Register')}
+                onPress={ () => navigation.navigate('Registrar')}
                 >
                 <Text style={stylesPrincipal.btnText}>Começar</Text>
                 </TouchableOpacity>

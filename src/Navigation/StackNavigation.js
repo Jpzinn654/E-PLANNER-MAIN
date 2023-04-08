@@ -13,6 +13,7 @@ import {
   PrincipalHome,
   Categorias,
   GastoAgendado,
+  GastosGerais,
 } from "../Screens"
 
 
@@ -23,6 +24,7 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
+      initialRouteName='GastosGerais'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
@@ -32,7 +34,8 @@ function Navigation() {
       <Stack.Screen name="Registrar" component={Register} />
       <Stack.Screen name="PrinciaplHome" component={PrincipalHome} />
       <Stack.Screen name="Categorias" component={Categorias} />
-      <Stack.Screen name="GastoAgendados" component={GastoAgendado} />
+      <Stack.Screen name="GastoAgendados" component={HomeStack} />
+      <Stack.Screen name="GastosGerais" component={HomeStack} />
     </Stack.Navigator>
   );
 }
@@ -41,20 +44,19 @@ function Navigation() {
 function HomeStack() {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName='GastosAgendadosTab'>
+      screenOptions={{ headerShown: false }} >
       <Tab.Screen name="HomeTab" component={MyDrawer} />
       <Tab.Screen name="GastosAgendadosTab" component={GastoAgendado} />
-      <Tab.Screen name="AdCatTab" component={AdicionarGastos} />
+      <Tab.Screen name="GastosGeraisTab" component={GastosGerais} />
     </Tab.Navigator>
   );
 }
 
-function MyDrawer(){
-  return(
+function MyDrawer() {
+  return (
     <Drawer.Navigator
-    screenOptions={{ headerShown: false }}>
-      <Drawer.Screen name="HomeDrawer" component={Home}/>
+      screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name="HomeDrawer" component={Home} />
     </Drawer.Navigator>
   )
 }

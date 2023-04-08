@@ -17,6 +17,7 @@ const homeStyle = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18,
         color: '#fff',
+    
     },
     menu: {
         position: 'absolute',

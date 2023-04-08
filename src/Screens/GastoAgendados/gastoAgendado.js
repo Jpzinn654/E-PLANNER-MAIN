@@ -5,7 +5,9 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    ScrollView,
+    StatusBar
 } from "react-native"
 
 import gastoAgendadoStyle from "./gastoAgendadoStyle";
@@ -13,25 +15,37 @@ import Card from "../../components/card/card";
 
 export default function GastoAgendado() {
     return (
-        <View styles={gastoAgendadoStyle.container}>
-            
-            <View
-                style={gastoAgendadoStyle.menuContainer}
-            >
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}>
-                    <Image
-                        style={gastoAgendadoStyle.back}
-                        source={require('../../assets/menuDark.png')}
-                    />
-                </TouchableOpacity>
+        <View style={gastoAgendadoStyle.container}>
+            <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
-                <Text
-                    style={gastoAgendadoStyle.texto1}
-                >E-PLANNER</Text>
+            <View style={gastoAgendadoStyle.upContainer}>
+                <View
+                    style={gastoAgendadoStyle.menuContainer}>
+                    <TouchableOpacity>
+                        <Image
+                            style={gastoAgendadoStyle.menu}
+                            source={require('../../assets/menuDark.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <Text style={gastoAgendadoStyle.texto1}>E-PLANNER</Text>
+                </View>
+
+                <View 
+                style={gastoAgendadoStyle.dateContainer}
+                >
+                    <Text>a</Text>
+                </View>
+
             </View>
 
-            
+
+            <View 
+            style={gastoAgendadoStyle.container2}
+            >
+
+            </View>
+
         </View>
     )
 }

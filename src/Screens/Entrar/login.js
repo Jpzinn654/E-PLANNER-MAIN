@@ -21,9 +21,9 @@ export default function Login({ navigation }) {
 
     //estados que armazenam os dados do formuário
     const [display, setDisplay] = useState('none')
-    const [email, setEmail] = useState(null)
-    const [senha, setSenha] = useState(null)
-    const [login, setLogin] = useState(null)
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [login, setLogin] = useState('')
 
     //enviar dados do formulario para a api
     async function sendForm() {

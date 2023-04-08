@@ -7,6 +7,7 @@ import Register from "./Registrar/register";
 import PrincipalHome from "./BemVindo/PrincipalHome";
 import Categorias from "./AdicionarCategorias/adcCat";
 import GastoAgendado from "./GastoAgendados/gastoAgendado";
+import GastosGerais from "./GastosGerais/gastosGerais";
 
 export {
     Home,
@@ -18,4 +19,5 @@ export {
     PrincipalHome,
     Categorias,
     GastoAgendado,
+    GastosGerais
 }

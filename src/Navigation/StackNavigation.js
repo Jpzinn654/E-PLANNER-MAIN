@@ -25,7 +25,7 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
-      initialRouteName='GastosGerais'
+      initialRouteName='Registrar'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
@@ -33,7 +33,7 @@ function Navigation() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="DefinirRenda" component={DefinirRenda} />
       <Stack.Screen name="Registrar" component={Register} />
-      <Stack.Screen name="PrinciaplHome" component={PrincipalHome} />
+      <Stack.Screen name="PrincipalHome" component={PrincipalHome} />
       <Stack.Screen name="Categorias" component={Categorias} />
       <Stack.Screen name="GastoAgendados" component={HomeStack} />
       <Stack.Screen name="GastosGerais" component={HomeStack} />

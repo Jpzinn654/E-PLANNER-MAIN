@@ -123,7 +123,7 @@ export default function Login({ navigation }) {
                 </View>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}
+                    onPress={() => navigation.navigate('Registrar')}
                 >
                     <Text style={loginStyle.touchText}>Eu não tenho uma conta</Text>
                 </TouchableOpacity>

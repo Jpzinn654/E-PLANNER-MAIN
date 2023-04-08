@@ -96,7 +96,7 @@ const registerStyle = StyleSheet.create({
         top: 28,
     },
     areaBtn:{
-        flex:1,
+        top: 50,
         justifyContent: 'center',
         alignItems: 'center',
     },

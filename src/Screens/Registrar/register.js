@@ -54,11 +54,8 @@ export default function Register({ navigation }) {
                 <Text style={registerStyle.register}>Registre-se</Text>
 
                 
-                <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? 'padding' : 'height'}
-                >
-                    <KeyboardAvoidingView
-                        behavior={Platform.OS == "ios" ? 'padding' : 'height'}
+                <View>
+                    <View
                         style={registerStyle.inputArea1}>
                         <Image
                             style={registerStyle.icons}
@@ -73,10 +70,9 @@ export default function Register({ navigation }) {
                             onChangeText={value => setName(value)}
                             returnKeyType="next"
                         />
-                    </KeyboardAvoidingView>
+                    </View>
 
-                    <KeyboardAvoidingView
-                    behavior={Platform.OS == "ios" ? 'padding' : 'height'}
+                    <View
                     style={registerStyle.inputArea2}>
                         <Image
                             style={registerStyle.icons}
@@ -90,10 +86,9 @@ export default function Register({ navigation }) {
                             returnKeyType="next"
                             onChangeText={value => setEmail(value)}
                         />
-                    </KeyboardAvoidingView>
+                    </View>
 
-                    <KeyboardAvoidingView
-                    behavior={Platform.OS == "ios" ? 'padding' : 'height'}
+                    <View
                     style={registerStyle.inputArea3}>
                         <Image
                             style={registerStyle.icons}
@@ -107,10 +102,9 @@ export default function Register({ navigation }) {
                             returnKeyType="next"
                             onChangeText={value => setSenha(value)}
                         />
-                    </KeyboardAvoidingView>
+                    </View>
 
-                    <KeyboardAvoidingView 
-                    behavior={Platform.OS == "ios" ? 'padding' : 'height'}
+                    <View   
                     style={registerStyle.inputArea4}>
                         <Image
                             style={registerStyle.icons}
@@ -123,9 +117,9 @@ export default function Register({ navigation }) {
                             returnKeyType="done"
                             onChangeText={value => setConfirmeSenha(value)}
                         />
-                    </KeyboardAvoidingView>
+                    </View>
 
-                </KeyboardAvoidingView>
+                </View>
                 
 
                 <TouchableOpacity

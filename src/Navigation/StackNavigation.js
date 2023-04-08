@@ -16,6 +16,7 @@ import {
   GastosGerais,
 } from "../Screens"
 
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,10 +45,44 @@ function Navigation() {
 function HomeStack() {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }} >
-      <Tab.Screen name="HomeTab" component={MyDrawer} />
-      <Tab.Screen name="GastosAgendadosTab" component={GastoAgendado} />
-      <Tab.Screen name="GastosGeraisTab" component={GastosGerais} />
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#EEEEEF',
+        }
+      }}
+    >
+      <Tab.Screen 
+      name="HomeTab" 
+      component={MyDrawer} 
+      options={{
+        tabBarIcon: ({ color, size, focused }) => {
+          if(focused){
+            return <Ionicons name='home' size={size} color={color}/>
+          }
+          return <Ionicons name='home-outline' size={size} color={color}/>
+        }
+      }}/>
+      <Tab.Screen 
+      name="GastosAgendadosTab" 
+      component={GastoAgendado} 
+      options={{
+        tabBarIcon: ({ color, size, focused }) => {
+          if(focused){
+            return <Ionicons name='calendar' size={size} color={color}/>
+          }
+          return <Ionicons name='calendar-outline' size={size} color={color}/>
+        }
+      }}/>
+      <Tab.Screen 
+      name="GastosGeraisTab" 
+      component={GastosGerais} 
+      options={{
+        tabBarIcon: ({ color, size }) => {
+          return <MaterialIcons name='attach-money' size={size} color={color} />
+        }
+        }}/>
     </Tab.Navigator>
   );
 }

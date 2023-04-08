@@ -7,10 +7,13 @@ const gastoAgendadoStyle = StyleSheet.create({
     },
     upContainer:{
         flex: 1,
-        backgroundColor: '#d9d9d9'
+        backgroundColor: '#eeeeef',
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
     },
     menuContainer:{
         flexDirection: 'row',
+        top: 20,
     },
     texto1: {
         fontWeight: "bold",
@@ -18,7 +21,7 @@ const gastoAgendadoStyle = StyleSheet.create({
         color: '#000',
         marginLeft: '8%'
     },
-    back: {
+    menu: {
         marginRight: 200,
         left: '10%'
     },
@@ -27,9 +30,27 @@ const gastoAgendadoStyle = StyleSheet.create({
         alignItems: 'center',
         textTransform: 'uppercase',
     },
+    dateTxt:{
+        fontWeight: 'bold',
+        fontSize: 20,
+        top: 65,
+        textTransform: 'uppercase',
+    },
     container2: {
-        flex: 2,
+        flex: 3,
         backgroundColor: '#2C3C51',
+    },
+    gastoText:{
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+        top: 15,
+        left: 40,
+    },
+    cards:{
+        top: 15,
+        justifyContent:'center',
+        alignItems: 'center',
     },
 })
 

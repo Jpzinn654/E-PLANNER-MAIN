@@ -12,11 +12,18 @@ import {
 
 import gastoAgendadoStyle from "./gastoAgendadoStyle";
 import Card from "../../components/card/card";
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 export default function GastoAgendado() {
+
+    moment.locale('pt-br');
+    const currentMonth = moment().format('MMMM');
+    const currentYear = moment().format('YYYY');
+
     return (
         <View style={gastoAgendadoStyle.container}>
-            <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
+            <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
 
             <View style={gastoAgendadoStyle.upContainer}>
                 <View
@@ -31,19 +38,35 @@ export default function GastoAgendado() {
                     <Text style={gastoAgendadoStyle.texto1}>E-PLANNER</Text>
                 </View>
 
-                <View 
-                style={gastoAgendadoStyle.dateContainer}
+                <View
+                    style={gastoAgendadoStyle.dateContainer}
                 >
-                    <Text>a</Text>
+                    <Text
+                        style={gastoAgendadoStyle.dateTxt}>
+                        {currentMonth}, {currentYear}</Text>
                 </View>
-
             </View>
 
 
-            <View 
-            style={gastoAgendadoStyle.container2}
+            <View
+                style={gastoAgendadoStyle.container2}
             >
+                <Text
+                    style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
 
+                <View
+                    style={gastoAgendadoStyle.cards}>
+                    <ScrollView>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                    </ScrollView>
+                </View>
             </View>
 
         </View>

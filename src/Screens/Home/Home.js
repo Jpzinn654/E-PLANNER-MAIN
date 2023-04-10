@@ -147,21 +147,18 @@ export default function Home({ navigation }) {
                 }>Categorias</Text>
 
                 <ScrollView
-                style={homeStyle.components}>
+                    style={homeStyle.components}>
                     <Card />
-                    <Card/>
-                    <Card/>
+                    <Card />
+                    <Card />
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('GastoAgendados')}
+                        style={homeStyle.btnCat}>
+                        <Text
+                            style={homeStyle.btnTxt}
+                        >Adicionar Categoria</Text>
+                    </TouchableOpacity>
                 </ScrollView>
-                
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('GastoAgendados')}
-                    style={homeStyle.btnCat}
-                >
-
-                    <Text
-                        style={homeStyle.btnTxt}
-                    >Adicionar Categoria</Text>
-                </TouchableOpacity>
 
 
             </View>

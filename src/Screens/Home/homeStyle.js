@@ -137,12 +137,12 @@ const homeStyle = StyleSheet.create({
         borderRadius: 20,
     },
     container5: {
-        flex: 1,
+        flex: 2,
         alignItems: 'center',
         backgroundColor: '#EEEEEF',
     },
     txtCat: {
-        marginTop: '10%',
+        marginTop: '2%',
         fontWeight: '600',
         fontSize: 22,
         
@@ -154,17 +154,15 @@ const homeStyle = StyleSheet.create({
         fontWeight: '400',
         fontSize: 18,
     },
-    components:{
-        flex: 2,
-    },
     btnCat: {
         backgroundColor: '#D9D9D9',
-        width: '70%',
+        width: '100%',
         height: '25%',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '4%',
+        marginTop: '3%',
+        marginBottom: '10%'
     },
     btnTxt: {
         fontSize: 18,

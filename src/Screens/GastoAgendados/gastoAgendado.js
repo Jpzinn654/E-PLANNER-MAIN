@@ -14,6 +14,7 @@ import gastoAgendadoStyle from "./gastoAgendadoStyle";
 import Card from "../../components/card/card";
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import CardAgendado from "../../components/cardAgendado/cardAgendado";
 
 export default function GastoAgendado() {
 
@@ -57,14 +58,12 @@ export default function GastoAgendado() {
                 <View
                     style={gastoAgendadoStyle.cards}>
                     <ScrollView>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                        <CardAgendado />
+                        <CardAgendado />
+                        <CardAgendado />
+                        <CardAgendado />
+                        <CardAgendado />
+                        <CardAgendado />
                     </ScrollView>
                 </View>
             </View>

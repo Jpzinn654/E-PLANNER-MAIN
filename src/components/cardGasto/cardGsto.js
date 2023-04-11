@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
-export default function CardAgendado() {
+export default function CardGasto() {
     const [isActive, setIsActive] = useState(false);
 
     const toggleCard = () => {
@@ -21,26 +21,13 @@ export default function CardAgendado() {
         )
     }
 
-    const leftSwipe = () => {
-        return (
-            <View style={styles.leftView}>
-                <TouchableOpacity style={styles.check}>
-                    <FontAwesome5 name="check" size={24} color="white" />
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
 
     return (
 
         <TouchableOpacity style={styles.card} onPress={toggleCard}>
-            <Swipeable renderRightActions={rightSwipe} renderLeftActions={leftSwipe}>
+            <Swipeable renderRightActions={rightSwipe}>
                 <View style={styles.upContainer}>
-                    <View style={styles.task}>
-                        <FontAwesome5 name="tasks" size={24} color="white" />
-                    </View>
-                    <Text style={styles.title}>SEU GASTO AGENDADO</Text>
+                    <Text style={styles.title}>SEU GASTO</Text>
                     <Text style={styles.value}>R$ 0,00</Text>
                 </View>
             </Swipeable>
@@ -73,13 +60,6 @@ const styles = StyleSheet.create({
         width: 320,
         marginTop: 10,
     },
-    task: {
-        width: 30,
-        backgroundColor: 'red',
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     rightView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -88,10 +68,6 @@ const styles = StyleSheet.create({
     },
     right: {
         backgroundColor: 'blue',
-        padding: 4,
-    },
-    check: {
-        backgroundColor: 'green',
         padding: 4,
     },
     upContainer: {

@@ -14,6 +14,7 @@ import {
   Categorias,
   GastoAgendado,
   GastosGerais,
+  EditarRenda,
 } from "../Screens"
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -92,6 +93,7 @@ function MyDrawer() {
     <Drawer.Navigator
       screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="HomeDrawer" component={Home} />
+      <Drawer.Screen name="EditarRendaDrawer" component={EditarRenda} />
     </Drawer.Navigator>
   )
 }

@@ -10,9 +10,9 @@ import {
 } from "react-native"
 
 import gastosGeraisStyles from "./gastosGeraisStyles";
-import Card from "../../components/card/card";
 import { TextInput } from "react-native-gesture-handler";
 import { TextInputMask } from "react-native-masked-text";
+import CardGasto from "../../components/cardGasto/cardGsto";
 
 
 export default function GastosGerais() {
@@ -72,13 +72,17 @@ export default function GastosGerais() {
                 <View
                    style={gastosGeraisStyles.cardsConatiner}>
                     <ScrollView>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+
                     </ScrollView>
                 </View>
 

@@ -9,6 +9,7 @@ import Categorias from "./AdicionarCategorias/adcCat";
 import GastoAgendado from "./GastoAgendados/gastoAgendado";
 import GastosGerais from "./GastosGerais/gastosGerais";
 import EditarRenda from "./EditarRenda/editarRenda";
+import GastoCategorias from "./GastoPorCategoria/gastoCategoria";
 
 export {
     Home,
@@ -21,5 +22,6 @@ export {
     Categorias,
     GastoAgendado,
     GastosGerais,
-    EditarRenda
+    EditarRenda,
+    GastoCategorias
 }

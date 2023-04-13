@@ -38,6 +38,7 @@ export default function Home({ navigation }) {
                 <Image
                     style={homeStyle.menu}
                     source={require('../../assets/menu.png')}
+                    onPress={() => navigation.toggleDrawer()}
                 />
             </TouchableOpacity>
 

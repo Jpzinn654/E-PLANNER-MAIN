@@ -15,7 +15,7 @@ import { TextInputMask } from "react-native-masked-text";
 import CardGasto from "../../components/cardGasto/cardGsto";
 
 
-export default function GastosGerais() {
+export default function GastosGerais({ navigation }) {
     return (
         <View style={gastosGeraisStyles.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
@@ -57,9 +57,13 @@ export default function GastosGerais() {
                 <View
                     style={gastosGeraisStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.button1}><Text style={gastosGeraisStyles.buttonText1}>Gastos</Text></TouchableOpacity>
+                        style={gastosGeraisStyles.button1}
+                        onPress={() => navigation.navigate('GastosGerais')}
+                        ><Text style={gastosGeraisStyles.buttonText1}>Gastos</Text></TouchableOpacity>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.button2}><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
+                        style={gastosGeraisStyles.button2}
+                        onPress={() => navigation.navigate('GastosCategoriasTab')}
+                        ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.button3}><Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
                 </View>

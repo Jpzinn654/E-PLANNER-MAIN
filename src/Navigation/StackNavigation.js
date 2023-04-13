@@ -15,6 +15,7 @@ import {
   GastoAgendado,
   GastosGerais,
   EditarRenda,
+  GastoCategorias
 } from "../Screens"
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -38,6 +39,7 @@ function Navigation() {
       <Stack.Screen name="Categorias" component={Categorias} />
       <Stack.Screen name="GastoAgendados" component={HomeStack} />
       <Stack.Screen name="GastosGerais" component={HomeStack} />
+      <Stack.Screen name="GastosCategorias" component={HomeStack} />
     </Stack.Navigator>
   );
 }
@@ -54,36 +56,39 @@ function HomeStack() {
         }
       }}
     >
-      <Tab.Screen 
-      name="HomeTab" 
-      component={MyDrawer} 
-      options={{
-        tabBarIcon: ({ color, size, focused }) => {
-          if(focused){
-            return <Ionicons name='home' size={size} color={color}/>
+      <Tab.Screen
+        name="HomeTab"
+        component={MyDrawer}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => {
+            if (focused) {
+              return <Ionicons name='home' size={size} color={color} />
+            }
+            return <Ionicons name='home-outline' size={size} color={color} />
           }
-          return <Ionicons name='home-outline' size={size} color={color}/>
-        }
-      }}/>
-      <Tab.Screen 
-      name="GastosAgendadosTab" 
-      component={GastoAgendado} 
-      options={{
-        tabBarIcon: ({ color, size, focused }) => {
-          if(focused){
-            return <Ionicons name='calendar' size={size} color={color}/>
+        }} />
+      <Tab.Screen
+        name="GastosAgendadosTab"
+        component={GastoAgendado}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => {
+            if (focused) {
+              return <Ionicons name='calendar' size={size} color={color} />
+            }
+            return <Ionicons name='calendar-outline' size={size} color={color} />
           }
-          return <Ionicons name='calendar-outline' size={size} color={color}/>
-        }
-      }}/>
-      <Tab.Screen 
-      name="GastosGeraisTab" 
-      component={GastosGerais} 
-      options={{
-        tabBarIcon: ({ color, size }) => {
-          return <MaterialIcons name='attach-money' size={size} color={color} />
-        }
-        }}/>
+        }} />
+      <Tab.Screen
+        name="GastosGeraisTab"
+        component={GastosGerais}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <MaterialIcons name='attach-money' size={size} color={color} />
+          }
+        }} />
+        <Tab.Screen
+        name="GastosCategoriasTab"
+        component={GastoCategorias}/>
     </Tab.Navigator>
   );
 }

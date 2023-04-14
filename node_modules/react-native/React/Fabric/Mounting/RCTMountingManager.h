@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setIsJSResponder:(BOOL)isJSResponder
     blockNativeResponder:(BOOL)blockNativeResponder
-           forShadowView:(facebook::react::ShadowView const &)shadowView;
+           forShadowView:(facebook::react::ShadowView)shadowView;
 
 - (void)synchronouslyUpdateViewOnUIThread:(ReactTag)reactTag
                              changedProps:(NSDictionary *)props

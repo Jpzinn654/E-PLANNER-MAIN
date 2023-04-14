@@ -23,7 +23,6 @@ export default function CardGasto() {
 
 
     return (
-
         <TouchableOpacity style={styles.card} onPress={toggleCard}>
             <Swipeable renderRightActions={rightSwipe}>
                 <View style={styles.upContainer}>
@@ -39,7 +38,6 @@ export default function CardGasto() {
                 </View>
             )}
         </TouchableOpacity>
-
     );
 }
 

@@ -7,10 +7,7 @@
 
 package com.facebook.react.uimanager;
 
-import android.content.ComponentCallbacks2;
-import android.content.res.Configuration;
 import androidx.annotation.Nullable;
-import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.MapBuilder;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +16,7 @@ import java.util.Map;
  * Class that stores the mapping between native view name used in JS and the corresponding instance
  * of {@link ViewManager}.
  */
-public final class ViewManagerRegistry implements ComponentCallbacks2 {
+public final class ViewManagerRegistry {
 
   private final Map<String, ViewManager> mViewManagers;
   private final @Nullable ViewManagerResolver mViewManagerResolver;
@@ -93,52 +90,5 @@ public final class ViewManagerRegistry implements ComponentCallbacks2 {
       return getViewManagerFromResolver(className);
     }
     return null;
-  }
-
-  /** Send lifecycle signal to all ViewManagers that StopSurface has been called. */
-  public void onSurfaceStopped(final int surfaceId) {
-    Runnable runnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            for (Map.Entry<String, ViewManager> entry : mViewManagers.entrySet()) {
-              entry.getValue().onSurfaceStopped(surfaceId);
-            }
-          }
-        };
-    if (UiThreadUtil.isOnUiThread()) {
-      runnable.run();
-    } else {
-      UiThreadUtil.runOnUiThread(runnable);
-    }
-  }
-
-  /** ComponentCallbacks2 method. */
-  @Override
-  public void onTrimMemory(int level) {
-    Runnable runnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            for (Map.Entry<String, ViewManager> entry : mViewManagers.entrySet()) {
-              entry.getValue().trimMemory();
-            }
-          }
-        };
-    if (UiThreadUtil.isOnUiThread()) {
-      runnable.run();
-    } else {
-      UiThreadUtil.runOnUiThread(runnable);
-    }
-  }
-
-  /** ComponentCallbacks2 method. */
-  @Override
-  public void onConfigurationChanged(Configuration newConfig) {}
-
-  /** ComponentCallbacks2 method. */
-  @Override
-  public void onLowMemory() {
-    this.onTrimMemory(0);
   }
 }

@@ -47,7 +47,6 @@ class ConcreteShadowNode : public BaseShadowNodeT {
 
   using ConcreteProps = PropsT;
   using SharedConcreteProps = std::shared_ptr<PropsT const>;
-  using UnsharedConcreteProps = std::shared_ptr<PropsT>;
   using ConcreteEventEmitter = EventEmitterT;
   using SharedConcreteEventEmitter = std::shared_ptr<EventEmitterT const>;
   using SharedConcreteShadowNode = std::shared_ptr<ConcreteShadowNode const>;
@@ -70,11 +69,11 @@ class ConcreteShadowNode : public BaseShadowNodeT {
     return BaseShadowNodeT::BaseTraits();
   }
 
-  static UnsharedConcreteProps Props(
+  static SharedConcreteProps Props(
       const PropsParserContext &context,
       RawProps const &rawProps,
-      Props::Shared const &baseProps = nullptr) {
-    return std::make_shared<PropsT>(
+      SharedProps const &baseProps = nullptr) {
+    return std::make_shared<PropsT const>(
         context,
         baseProps ? static_cast<PropsT const &>(*baseProps) : PropsT(),
         rawProps);

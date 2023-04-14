@@ -14,10 +14,9 @@ const adcCatStyle = StyleSheet.create({
         fontSize: 18,
         color: '#fff',
     },
-    menu: {
-        position: 'absolute',
-        top: 30,
-        left: '8%',
+    back: {
+        top: 33,
+        left: 30,
     },
     fundoImg: {
         position: 'absolute',
@@ -123,9 +122,9 @@ const adcCatStyle = StyleSheet.create({
         alignItems: 'center',
         top: '10%'
     },
-    btnConinuarTxt: {
-        color: '#000',
-        fontSize: 189,
+    btnContinuarTxt: {
+        color: '#fff',
+        fontSize: 16,
     },
     categoriaMsg: {
         fontSize: 16,

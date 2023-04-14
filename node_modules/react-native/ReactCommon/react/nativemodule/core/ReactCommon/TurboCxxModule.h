@@ -29,15 +29,13 @@ class JSI_EXPORT TurboCxxModule : public TurboModule {
       std::unique_ptr<facebook::xplat::module::CxxModule> cxxModule,
       std::shared_ptr<CallInvoker> jsInvoker);
 
-  facebook::jsi::Value get(
+  virtual facebook::jsi::Value get(
       facebook::jsi::Runtime &runtime,
       const facebook::jsi::PropNameID &propName) override;
 
-  std::vector<facebook::jsi::PropNameID> getPropertyNames(
-      facebook::jsi::Runtime &runtime) override;
-
   jsi::Value invokeMethod(
       jsi::Runtime &runtime,
+      TurboModuleMethodValueKind valueKind,
       const std::string &methodName,
       const jsi::Value *args,
       size_t count);

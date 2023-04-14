@@ -16,7 +16,7 @@ public class DispatchStringCommandMountItem extends DispatchCommandMountItem {
 
   private final int mSurfaceId;
   private final int mReactTag;
-  private final @NonNull String mCommandId;
+  @NonNull private final String mCommandId;
   private final @Nullable ReadableArray mCommandArgs;
 
   public DispatchStringCommandMountItem(

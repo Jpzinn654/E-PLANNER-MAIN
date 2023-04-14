@@ -23,12 +23,6 @@ class ScrollViewProps final : public ViewProps {
       ScrollViewProps const &sourceProps,
       RawProps const &rawProps);
 
-  void setProp(
-      const PropsParserContext &context,
-      RawPropsPropNameHash hash,
-      const char *propName,
-      RawValue const &value);
-
 #pragma mark - Props
 
   bool alwaysBounceHorizontal{};

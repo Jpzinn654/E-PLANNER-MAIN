@@ -27,7 +27,7 @@ TEST(ComponentDescriptorTest, createShadowNode) {
   PropsParserContext parserContext{-1, contextContainer};
 
   const auto &raw = RawProps(folly::dynamic::object("nativeID", "abc"));
-  Props::Shared props = descriptor->cloneProps(parserContext, nullptr, raw);
+  SharedProps props = descriptor->cloneProps(parserContext, nullptr, raw);
 
   auto family = descriptor->createFamily(
       ShadowNodeFamilyFragment{
@@ -37,7 +37,7 @@ TEST(ComponentDescriptorTest, createShadowNode) {
       },
       nullptr);
 
-  ShadowNode::Shared node = descriptor->createShadowNode(
+  SharedShadowNode node = descriptor->createShadowNode(
       ShadowNodeFragment{
           /* .props = */ props,
       },
@@ -61,7 +61,7 @@ TEST(ComponentDescriptorTest, cloneShadowNode) {
   PropsParserContext parserContext{-1, contextContainer};
 
   const auto &raw = RawProps(folly::dynamic::object("nativeID", "abc"));
-  Props::Shared props = descriptor->cloneProps(parserContext, nullptr, raw);
+  SharedProps props = descriptor->cloneProps(parserContext, nullptr, raw);
   auto family = descriptor->createFamily(
       ShadowNodeFamilyFragment{
           /* .tag = */ 9,
@@ -69,12 +69,12 @@ TEST(ComponentDescriptorTest, cloneShadowNode) {
           /* .eventEmitter = */ nullptr,
       },
       nullptr);
-  ShadowNode::Shared node = descriptor->createShadowNode(
+  SharedShadowNode node = descriptor->createShadowNode(
       ShadowNodeFragment{
           /* .props = */ props,
       },
       family);
-  ShadowNode::Shared cloned = descriptor->cloneShadowNode(*node, {});
+  SharedShadowNode cloned = descriptor->cloneShadowNode(*node, {});
 
   EXPECT_STREQ(cloned->getComponentName(), "Test");
   EXPECT_EQ(cloned->getTag(), 9);
@@ -96,7 +96,7 @@ TEST(ComponentDescriptorTest, appendChild) {
   PropsParserContext parserContext{-1, contextContainer};
 
   const auto &raw = RawProps(folly::dynamic::object("nativeID", "abc"));
-  Props::Shared props = descriptor->cloneProps(parserContext, nullptr, raw);
+  SharedProps props = descriptor->cloneProps(parserContext, nullptr, raw);
   auto family1 = descriptor->createFamily(
       ShadowNodeFamilyFragment{
           /* .tag = */ 1,
@@ -104,7 +104,7 @@ TEST(ComponentDescriptorTest, appendChild) {
           /* .eventEmitter = */ nullptr,
       },
       nullptr);
-  ShadowNode::Shared node1 = descriptor->createShadowNode(
+  SharedShadowNode node1 = descriptor->createShadowNode(
       ShadowNodeFragment{
           /* .props = */ props,
       },
@@ -116,7 +116,7 @@ TEST(ComponentDescriptorTest, appendChild) {
           /* .eventEmitter = */ nullptr,
       },
       nullptr);
-  ShadowNode::Shared node2 = descriptor->createShadowNode(
+  SharedShadowNode node2 = descriptor->createShadowNode(
       ShadowNodeFragment{
           /* .props = */ props,
       },
@@ -128,7 +128,7 @@ TEST(ComponentDescriptorTest, appendChild) {
           /* .eventEmitter = */ nullptr,
       },
       nullptr);
-  ShadowNode::Shared node3 = descriptor->createShadowNode(
+  SharedShadowNode node3 = descriptor->createShadowNode(
       ShadowNodeFragment{
           /* .props = */ props,
       },

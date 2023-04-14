@@ -75,7 +75,7 @@ module.exports = {
               return null;
             }
 
-            const componentTemplates = Object.keys(components)
+            return Object.keys(components)
               .filter(componentName => {
                 const component = components[componentName];
                 return !(
@@ -91,8 +91,6 @@ module.exports = {
 
                 return replacedTemplate;
               });
-
-            return componentTemplates.length > 0 ? componentTemplates : null;
           })
           .filter(Boolean);
       })

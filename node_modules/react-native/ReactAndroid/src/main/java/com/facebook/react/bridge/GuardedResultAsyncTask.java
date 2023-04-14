@@ -11,18 +11,19 @@ import android.os.AsyncTask;
 
 /**
  * Abstract base for a AsyncTask with result support that should have any RuntimeExceptions it
- * throws handled by the {@link JSExceptionHandler} registered if the app is in dev mode.
+ * throws handled by the {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler}
+ * registered if the app is in dev mode.
  */
 public abstract class GuardedResultAsyncTask<Result> extends AsyncTask<Void, Void, Result> {
 
-  private final JSExceptionHandler mExceptionHandler;
+  private final NativeModuleCallExceptionHandler mExceptionHandler;
 
   @Deprecated
   protected GuardedResultAsyncTask(ReactContext reactContext) {
     this(reactContext.getExceptionHandler());
   }
 
-  protected GuardedResultAsyncTask(JSExceptionHandler exceptionHandler) {
+  protected GuardedResultAsyncTask(NativeModuleCallExceptionHandler exceptionHandler) {
     mExceptionHandler = exceptionHandler;
   }
 

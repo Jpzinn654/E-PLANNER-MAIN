@@ -6,7 +6,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 
 @protocol RCTDisplayRefreshable
 

@@ -18,12 +18,6 @@ namespace react {
 
 class JSCallInvoker;
 
-enum class TurboModuleBindingMode : uint8_t {
-  HostObject = 0,
-  Prototype = 1,
-  Eager = 2,
-};
-
 /**
  * Represents the JavaScript binding for the TurboModule system.
  */
@@ -35,22 +29,29 @@ class TurboModuleBinding {
    */
   static void install(
       jsi::Runtime &runtime,
+      const TurboModuleProviderFunctionType &&moduleProvider);
+  static void install(
+      jsi::Runtime &runtime,
       const TurboModuleProviderFunctionType &&moduleProvider,
-      TurboModuleBindingMode bindingMode,
       std::shared_ptr<LongLivedObjectCollection> longLivedObjectCollection);
 
- private:
+  TurboModuleBinding(const TurboModuleProviderFunctionType &&moduleProvider);
   TurboModuleBinding(
       const TurboModuleProviderFunctionType &&moduleProvider,
-      TurboModuleBindingMode bindingMode,
       std::shared_ptr<LongLivedObjectCollection> longLivedObjectCollection);
   virtual ~TurboModuleBinding();
 
   /**
+   * Get an TurboModule instance for the given module name.
+   */
+  std::shared_ptr<TurboModule> getModule(const std::string &name);
+
+ private:
+  /**
    * A lookup function exposed to JS to get an instance of a TurboModule
    * for the given name.
    */
-  jsi::Value getModule(
+  jsi::Value jsProxy(
       jsi::Runtime &runtime,
       const jsi::Value &thisVal,
       const jsi::Value *args,
@@ -58,7 +59,7 @@ class TurboModuleBinding {
 
   TurboModuleProviderFunctionType moduleProvider_;
   std::shared_ptr<LongLivedObjectCollection> longLivedObjectCollection_;
-  TurboModuleBindingMode bindingMode_;
+  bool disableGlobalLongLivedObjectCollection_;
 };
 
 } // namespace react

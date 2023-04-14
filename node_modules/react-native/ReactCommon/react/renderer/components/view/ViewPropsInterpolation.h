@@ -20,9 +20,9 @@ namespace react {
  */
 static inline void interpolateViewProps(
     Float animationProgress,
-    const Props::Shared &oldPropsShared,
-    const Props::Shared &newPropsShared,
-    Props::Shared &interpolatedPropsShared) {
+    const SharedProps &oldPropsShared,
+    const SharedProps &newPropsShared,
+    SharedProps &interpolatedPropsShared) {
   ViewProps const *oldViewProps =
       static_cast<ViewProps const *>(oldPropsShared.get());
   ViewProps const *newViewProps =

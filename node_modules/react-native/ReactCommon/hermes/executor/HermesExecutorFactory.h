@@ -28,10 +28,6 @@ class HermesExecutorFactory : public JSExecutorFactory {
     assert(timeoutInvoker_ && "Should not have empty timeoutInvoker");
   }
 
-  void setEnableDebugger(bool enableDebugger);
-
-  void setDebuggerName(const std::string &debuggerName);
-
   std::unique_ptr<JSExecutor> createJSExecutor(
       std::shared_ptr<ExecutorDelegate> delegate,
       std::shared_ptr<MessageQueueThread> jsQueue) override;
@@ -42,8 +38,6 @@ class HermesExecutorFactory : public JSExecutorFactory {
   JSIExecutor::RuntimeInstaller runtimeInstaller_;
   JSIScopedTimeoutInvoker timeoutInvoker_;
   ::hermes::vm::RuntimeConfig runtimeConfig_;
-  bool enableDebugger_ = true;
-  std::string debuggerName_ = "Hermes React Native";
 };
 
 class HermesExecutor : public JSIExecutor {

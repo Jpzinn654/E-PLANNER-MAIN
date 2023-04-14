@@ -1,8 +1,5 @@
 /**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * (c) Meta Platforms, Inc. and affiliates. Confidential and proprietary.
  *
  * @flow strict
  * @format
@@ -10,72 +7,119 @@
 
 import EventEmitter from '../EventEmitter';
 
-const emitter = new EventEmitter<{
-  void: [],
-  string: [string],
-  strings: [string, string],
-  error: [Error],
-}>();
+type MyEvents = {
+  noArgsEvent: [],
+  stringEvent: [string],
+  numberEvent: [number],
+  anotherNumberEvent: [number],
+  objectAndBooleanEvent: [{prop: string}, boolean],
+};
 
-const subscription = emitter.addListener('void', unknown => {
-  (unknown: void);
-});
-subscription.remove();
+export function testBaseEventEmitterInstance() {
+  const emitter = new EventEmitter<MyEvents>();
 
-emitter.addListener('string', foo => {
-  (foo: string);
-});
-emitter.addListener('strings', (foo, bar) => {
-  (foo: string);
-  (bar: string);
-});
-emitter.addListener('error', error => {
-  (error: Error);
-});
+  emitter.addListener('noArgsEvent', expectedUndefined => {
+    (expectedUndefined: void);
+  });
 
-emitter.emit('void');
-emitter.emit('string', 'foo');
-emitter.emit('strings', 'foo', 'bar');
-emitter.emit('error', new Error());
+  emitter.addListener('stringEvent', expectedString => {
+    (expectedString: string);
+  });
 
-emitter.removeAllListeners('void');
-emitter.removeAllListeners('string');
-emitter.removeAllListeners('strings');
-emitter.removeAllListeners('error');
-emitter.removeAllListeners();
+  emitter.addListener('numberEvent', expectedNumber => {
+    (expectedNumber: number);
+  });
 
-emitter.listenerCount('void');
-emitter.listenerCount('string');
-emitter.listenerCount('strings');
-emitter.listenerCount('error');
+  emitter.addListener('anotherNumberEvent', expectedNumber => {
+    (expectedNumber: number);
+  });
 
-// $FlowExpectedError[prop-missing]
-emitter.addListener('does-not-exist', () => {
-  // ...
-});
+  emitter.addListener(
+    'objectAndBooleanEvent',
+    (expectedObject, expectedBoolean, unexpectedArg) => {
+      (expectedObject: {prop: string});
+      (expectedBoolean: boolean);
+      (unexpectedArg: void);
+    },
+  );
 
-// $FlowExpectedError[prop-missing]
-subscription.context;
-// $FlowExpectedError[prop-missing]
-subscription.listener;
-// $FlowExpectedError[prop-missing]
-subscription.once;
+  // $FlowExpectedError[prop-missing]
+  emitter.addListener('unexpectedEvent', () => {});
 
-// $FlowExpectedError[invalid-tuple-arity]
-emitter.emit('void', undefined);
-// $FlowExpectedError[incompatible-call]
-emitter.emit('string', 123);
-// $FlowExpectedError[invalid-tuple-arity]
-emitter.emit('strings', 'foo');
-// $FlowExpectedError[invalid-tuple-arity]
-emitter.emit('strings', 'foo', 'bar', 'baz');
-// $FlowExpectedError[invalid-tuple-arity]
-emitter.emit('error');
-// $FlowExpectedError[prop-missing]
-emitter.emit('does-not-exist');
+  // $FlowExpectedError[incompatible-call]
+  emitter.addListener('noArgsEvent', (value: number) => {});
 
-// $FlowExpectedError[prop-missing]
-emitter.removeAllListeners('does-not-exist');
+  // $FlowExpectedError[incompatible-call]
+  emitter.addListener('numberEvent', (value: string) => {});
 
-// $FlowExpectedError[prop-missing]
-emitter.listenerCount('does-not-exist');
+  emitter.emit('noArgsEvent');
+  emitter.emit('stringEvent', 'value');
+  emitter.emit('numberEvent', 4);
+  emitter.emit('anotherNumberEvent', 4);
+  emitter.emit('objectAndBooleanEvent', {prop: 'value'}, true);
+}
+
+export function testSubclass() {
+  // $FlowExpectedError[incompatible-type-arg]
+  class EmitterWithUndefinedDefinition extends EventEmitter<void> {}
+
+  // $FlowExpectedError[incompatible-type-arg]
+  class EmitterWithNumberDefinition extends EventEmitter<number> {}
+
+  class EmitterWithInvalidDefinitions extends EventEmitter<{
+    foo: number,
+  }> {}
+
+  const emitter = new EmitterWithInvalidDefinitions();
+  // $FlowExpectedError[not-an-array]
+  // $FlowExpectedError[incompatible-call]
+  emitter.emit('foo');
+
+  class EmitterWithValidDefinitions extends EventEmitter<MyEvents> {}
+}
+
+export function testSubclassInstance() {
+  class MyEmitter extends EventEmitter<MyEvents> {}
+
+  const emitter = new MyEmitter();
+
+  emitter.addListener('noArgsEvent', expectedUndefined => {
+    (expectedUndefined: void);
+  });
+
+  emitter.addListener('stringEvent', expectedString => {
+    (expectedString: string);
+  });
+
+  emitter.addListener('numberEvent', expectedNumber => {
+    (expectedNumber: number);
+  });
+
+  emitter.addListener('anotherNumberEvent', expectedNumber => {
+    (expectedNumber: number);
+  });
+
+  emitter.addListener(
+    'objectAndBooleanEvent',
+    (expectedObject, expectedBoolean, unexpectedArg) => {
+      (expectedObject: {prop: string});
+      (expectedBoolean: boolean);
+      (unexpectedArg: void);
+    },
+  );
+
+  // $FlowExpectedError[prop-missing]
+  emitter.addListener('unexpectedEvent', () => {});
+
+  // $FlowExpectedError[incompatible-call]
+  emitter.addListener('noArgsEvent', (value: number) => {});
+
+  // $FlowExpectedError[incompatible-call]
+  emitter.addListener('numberEvent', (value: string) => {});
+
+  emitter.emit('noArgsEvent');
+  emitter.emit('stringEvent', 'value');
+  emitter.emit('numberEvent', 4);
+  emitter.emit('anotherNumberEvent', 4);
+  emitter.emit('objectAndBooleanEvent', {prop: 'value'}, true);
+}

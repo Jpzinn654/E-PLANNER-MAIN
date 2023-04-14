@@ -74,7 +74,7 @@ function generatePropsString(componentName: string, component: ComponentShape) {
     .join(',\n' + '    ');
 }
 
-function getClassExtendString(component: ComponentShape): string {
+function getClassExtendString(component): string {
   const extendString =
     ' ' +
     component.extendsProps

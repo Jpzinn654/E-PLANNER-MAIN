@@ -33,11 +33,8 @@ public class HermesExecutor extends JavaScriptExecutor {
     }
   }
 
-  HermesExecutor(@Nullable RuntimeConfig config, boolean enableDebugger, String debuggerName) {
-    super(
-        config == null
-            ? initHybridDefaultConfig(enableDebugger, debuggerName)
-            : initHybrid(enableDebugger, debuggerName, config.heapSizeMB));
+  HermesExecutor(@Nullable RuntimeConfig config) {
+    super(config == null ? initHybridDefaultConfig() : initHybrid(config.heapSizeMB));
   }
 
   @Override
@@ -54,9 +51,7 @@ public class HermesExecutor extends JavaScriptExecutor {
    */
   public static native boolean canLoadFile(String path);
 
-  private static native HybridData initHybridDefaultConfig(
-      boolean enableDebugger, String debuggerName);
+  private static native HybridData initHybridDefaultConfig();
 
-  private static native HybridData initHybrid(
-      boolean enableDebugger, String debuggerName, long heapSizeMB);
+  private static native HybridData initHybrid(long heapSizeMB);
 }

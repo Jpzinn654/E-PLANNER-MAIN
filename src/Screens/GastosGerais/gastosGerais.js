@@ -23,42 +23,24 @@ export default function GastosGerais({ navigation }) {
             <View
                 style={gastosGeraisStyles.finalContainer}>
 
+
                 {/* <View
-                    style={gastosGeraisStyles.buttonContainer}>
-                    <TouchableOpacity
-                        style={gastosGeraisStyles.button1}
-                        onPress={() => navigation.navigate('GastosGerais')}
-                        ><Text style={gastosGeraisStyles.buttonText1}>Gastos</Text></TouchableOpacity>
-                    <TouchableOpacity
-                        style={gastosGeraisStyles.button2}
-                        onPress={() => navigation.navigate('GastosCategoriasTab')}
-                        ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
-                    <TouchableOpacity
-                        style={gastosGeraisStyles.button3}><Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
+                    style={gastosGeraisStyles.monthContainer}>
+                    <Text style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
                 </View> */}
 
                 <View
-                    style={gastosGeraisStyles.monthContainer}>
-                    <Text style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
+                    style={gastosGeraisStyles.cardsConatiner}>
+                    <ScrollView>
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                        <CardGasto />
+                    </ScrollView>
                 </View>
-
-                <View
-                   style={gastosGeraisStyles.cardsConatiner}>
-
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-
-                </View>
-
             </View>
-
         </View>
     )
 }

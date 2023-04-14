@@ -102,7 +102,7 @@ export default function Register({ navigation }) {
                     </Text>
                 </View>
                 
-                <View>
+                <View style={registerStyle.inputsView}>
                     <View
                         style={registerStyle.inputArea1}>
                         <Image

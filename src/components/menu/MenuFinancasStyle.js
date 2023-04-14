@@ -35,7 +35,7 @@ const menuFinancasStyle = StyleSheet.create({
     midText1:{
         color: '#fff',
         fontSize: 18,
-        textAlign: 'justify',
+        textAlign: 'center',
     },
     midText:{
         color: '#fff',
@@ -52,23 +52,7 @@ const menuFinancasStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    button1:{
-        borderWidth: 1,
-        width: 100,
-        height: 20,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    button2:{
-        backgroundColor: '#000',
-        width: 100,
-        height: 20,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    button3:{
+    buttons:{
         borderWidth: 1,
         width: 100,
         height: 20,
@@ -99,6 +83,7 @@ const menuFinancasStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 30,
+        backgroundColor: 'red',
     },
     fundo: {
         top: 0,

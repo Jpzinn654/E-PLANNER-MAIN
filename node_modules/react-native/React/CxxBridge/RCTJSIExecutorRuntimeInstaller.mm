@@ -23,7 +23,9 @@ JSIExecutor::RuntimeInstaller RCTJSIExecutorRuntimeInstaller(JSIExecutor::Runtim
 
     PerformanceNow iosPerformanceNowBinder = []() {
       auto time = std::chrono::steady_clock::now();
-      auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(time.time_since_epoch()).count();
+      auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                          time.time_since_epoch())
+                          .count();
 
       constexpr double NANOSECONDS_IN_MILLISECOND = 1000000.0;
 

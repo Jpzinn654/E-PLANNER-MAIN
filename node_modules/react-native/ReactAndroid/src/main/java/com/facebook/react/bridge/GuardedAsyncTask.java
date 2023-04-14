@@ -11,21 +11,22 @@ import android.os.AsyncTask;
 
 /**
  * Abstract base for a AsyncTask that should have any RuntimeExceptions it throws handled by the
- * {@link JSExceptionHandler} registered if the app is in dev mode.
+ * {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler} registered if the app is in
+ * dev mode.
  *
  * <p>This class doesn't allow doInBackground to return a results. If you need this use
  * GuardedResultAsyncTask instead.
  */
 public abstract class GuardedAsyncTask<Params, Progress> extends AsyncTask<Params, Progress, Void> {
 
-  private final JSExceptionHandler mExceptionHandler;
+  private final NativeModuleCallExceptionHandler mExceptionHandler;
 
   @Deprecated
   protected GuardedAsyncTask(ReactContext reactContext) {
     this(reactContext.getExceptionHandler());
   }
 
-  protected GuardedAsyncTask(JSExceptionHandler exceptionHandler) {
+  protected GuardedAsyncTask(NativeModuleCallExceptionHandler exceptionHandler) {
     mExceptionHandler = exceptionHandler;
   }
 

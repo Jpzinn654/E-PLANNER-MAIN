@@ -16,11 +16,11 @@
 @implementation RCTWrapperViewController {
   UIView *_wrapperView;
   UIView *_contentView;
-  CGFloat _previousTopInset;
-  CGFloat _previousBottomInset;
+  CGFloat _previousTopLayoutLength;
+  CGFloat _previousBottomLayoutLength;
 
-  CGFloat _currentTopInset;
-  CGFloat _currentBottomInset;
+  id<UILayoutSupport> _currentTopLayoutGuide;
+  id<UILayoutSupport> _currentBottomLayoutGuide;
 }
 
 - (instancetype)initWithContentView:(UIView *)contentView
@@ -41,8 +41,8 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : (NSCoder *)aDecoder)
 {
   [super viewWillLayoutSubviews];
 
-  _currentTopInset = self.view.safeAreaInsets.top;
-  _currentBottomInset = self.view.safeAreaInsets.bottom;
+  _currentTopLayoutGuide = self.topLayoutGuide;
+  _currentBottomLayoutGuide = self.bottomLayoutGuide;
 }
 
 static BOOL RCTFindScrollViewAndRefreshContentInsetInView(UIView *view)
@@ -63,10 +63,11 @@ static BOOL RCTFindScrollViewAndRefreshContentInsetInView(UIView *view)
 {
   [super viewDidLayoutSubviews];
 
-  if (_previousTopInset != _currentTopInset || _previousBottomInset != _currentBottomInset) {
+  if (_previousTopLayoutLength != _currentTopLayoutGuide.length ||
+      _previousBottomLayoutLength != _currentBottomLayoutGuide.length) {
     RCTFindScrollViewAndRefreshContentInsetInView(_contentView);
-    _previousTopInset = _currentTopInset;
-    _previousBottomInset = _currentBottomInset;
+    _previousTopLayoutLength = _currentTopLayoutGuide.length;
+    _previousBottomLayoutLength = _currentBottomLayoutGuide.length;
   }
 }
 

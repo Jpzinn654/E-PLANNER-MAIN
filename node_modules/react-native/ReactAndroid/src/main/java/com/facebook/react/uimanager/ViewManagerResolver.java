@@ -7,7 +7,7 @@
 
 package com.facebook.react.uimanager;
 
-import java.util.Collection;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /** Enables lazy discovery of a specific {@link ViewManager} by its name. */
@@ -22,5 +22,5 @@ public interface ViewManagerResolver {
   /**
    * Provides a list of view manager names to register in JS as {@code UIManager.ViewManagerName}
    */
-  Collection<String> getViewManagerNames();
+  List<String> getViewManagerNames();
 }

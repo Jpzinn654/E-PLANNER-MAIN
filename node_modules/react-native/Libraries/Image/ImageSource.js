@@ -91,7 +91,9 @@ export type ImageSource =
   | ImageURISource
   | $ReadOnlyArray<ImageURISource>;
 
-type ImageSourceProperties = {
+export function getImageSourceProperties(
+  imageSource: ImageURISource,
+): $ReadOnly<{
   body?: ?string,
   bundle?: ?string,
   cache?: ?('default' | 'reload' | 'force-cache' | 'only-if-cached'),
@@ -102,12 +104,8 @@ type ImageSourceProperties = {
   uri?: ?string,
   width?: ?number,
   ...
-};
-
-export function getImageSourceProperties(
-  imageSource: ImageURISource,
-): $ReadOnly<ImageSourceProperties> {
-  const object: ImageSourceProperties = {};
+}> {
+  const object = {};
   if (imageSource.body != null) {
     object.body = imageSource.body;
   }

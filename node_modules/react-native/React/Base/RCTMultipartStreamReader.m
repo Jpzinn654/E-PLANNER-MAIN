@@ -6,7 +6,6 @@
  */
 
 #import "RCTMultipartStreamReader.h"
-#import <QuartzCore/QuartzCore.h>
 
 #define CRLF @"\r\n"
 

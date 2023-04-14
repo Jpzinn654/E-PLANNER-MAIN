@@ -9,18 +9,19 @@ package com.facebook.react.bridge;
 
 /**
  * Abstract base for a Runnable that should have any RuntimeExceptions it throws handled by the
- * {@link JSExceptionHandler} registered if the app is in dev mode.
+ * {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler} registered if the app is in
+ * dev mode.
  */
 public abstract class GuardedRunnable implements Runnable {
 
-  private final JSExceptionHandler mExceptionHandler;
+  private final NativeModuleCallExceptionHandler mExceptionHandler;
 
   @Deprecated
   public GuardedRunnable(ReactContext reactContext) {
     this(reactContext.getExceptionHandler());
   }
 
-  public GuardedRunnable(JSExceptionHandler exceptionHandler) {
+  public GuardedRunnable(NativeModuleCallExceptionHandler exceptionHandler) {
     mExceptionHandler = exceptionHandler;
   }
 

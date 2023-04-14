@@ -23,8 +23,6 @@ class LayoutAnimationStatusDelegate {
    * Called when the LayoutAnimation engine completes all pending animations.
    */
   virtual void onAllAnimationsComplete() = 0;
-
-  virtual ~LayoutAnimationStatusDelegate() = default;
 };
 
 } // namespace facebook::react

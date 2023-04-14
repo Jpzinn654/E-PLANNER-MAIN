@@ -234,18 +234,18 @@ RCTFatalExceptionHandler RCTGetFatalExceptionHandler(void)
 
 // MARK: - New Architecture Validation - Enable Reporting
 
-#if RCT_ONLY_NEW_ARCHITECTURE
-static RCTNotAllowedValidation minValidationLevel = RCTNotAllowedInBridgeless;
+#if RCT_NEW_ARCHITECTURE
+static RCTNotAllowedValidation validationReportingEnabled = RCTNotAllowedInBridgeless;
 #else
-static RCTNotAllowedValidation minValidationLevel = RCTNotAllowedValidationDisabled;
+static RCTNotAllowedValidation validationReportingEnabled = RCTNotAllowedValidationDisabled;
 #endif
 
-__attribute__((used)) RCT_EXTERN void RCTNewArchitectureSetMinValidationLevel(RCTNotAllowedValidation level)
+__attribute__((used)) RCT_EXTERN void RCTNewArchitectureValidationSetEnabled(RCTNotAllowedValidation type)
 {
-#if RCT_ONLY_NEW_ARCHITECTURE
+#if RCT_NEW_ARCHITECTURE
   // Cannot disable the reporting in this mode.
 #else
-  minValidationLevel = level;
+  validationReportingEnabled = type;
 #endif
 }
 
@@ -253,7 +253,16 @@ __attribute__((used)) RCT_EXTERN void RCTNewArchitectureSetMinValidationLevel(RC
 
 static BOOL shouldEnforceValidation(RCTNotAllowedValidation type)
 {
-  return type >= minValidationLevel;
+  switch (type) {
+    case RCTNotAllowedInAppWideFabric:
+      return validationReportingEnabled == RCTNotAllowedInBridgeless ||
+          validationReportingEnabled == RCTNotAllowedInAppWideFabric;
+    case RCTNotAllowedInBridgeless:
+      return validationReportingEnabled == RCTNotAllowedInBridgeless;
+    case RCTNotAllowedValidationDisabled:
+      return NO;
+  }
+  return NO;
 }
 
 static NSString *stringDescribingContext(id context)
@@ -275,8 +284,8 @@ static NSString *validationMessage(RCTNotAllowedValidation type, id context, NSS
   switch (type) {
     case RCTNotAllowedValidationDisabled:
       RCTAssert(0, @"RCTNotAllowedValidationDisabled not a validation type.");
-      return nil;
-    case RCTNotAllowedInFabricWithoutLegacy:
+      break;
+    case RCTNotAllowedInAppWideFabric:
       notAllowedType = @"Fabric";
       break;
     case RCTNotAllowedInBridgeless:
@@ -291,55 +300,31 @@ static NSString *validationMessage(RCTNotAllowedValidation type, id context, NSS
                                  extra ?: @""];
 }
 
-static void
-newArchitectureValidationInternal(RCTLogLevel level, RCTNotAllowedValidation type, id context, NSString *extra)
+// MARK: - New Architecture Validation - Public
+
+void RCTEnforceNewArchitectureValidation(RCTNotAllowedValidation type, id context, NSString *extra)
 {
   if (!shouldEnforceValidation(type)) {
     return;
   }
 
-  NSString *msg = validationMessage(type, context, extra);
-  if (msg) {
-    switch (level) {
-      case RCTLogLevelInfo:
-        RCTLogInfo(@"%@", msg);
-        break;
-      case RCTLogLevelError:
-        RCTLogError(@"%@", msg);
-        break;
-      case RCTLogLevelFatal:
-        RCTAssert(0, @"%@", msg);
-        break;
-      default:
-        RCTAssert(0, @"New architecture validation is only for info, error, and fatal levels.");
-    }
-  }
-}
-
-// MARK: - New Architecture Validation - Public
-
-void RCTEnforceNewArchitectureValidation(RCTNotAllowedValidation type, id context, NSString *extra)
-{
-  newArchitectureValidationInternal(RCTLogLevelFatal, type, context, extra);
+  RCTAssert(0, @"%@", validationMessage(type, context, extra));
 }
 
 void RCTErrorNewArchitectureValidation(RCTNotAllowedValidation type, id context, NSString *extra)
 {
-#if RCT_ONLY_NEW_ARCHITECTURE
-  newArchitectureValidationInternal(RCTLogLevelFatal, type, context, extra);
-#else
-  newArchitectureValidationInternal(RCTLogLevelError, type, context, extra);
-#endif
+  if (!shouldEnforceValidation(type)) {
+    return;
+  }
+
+  RCTLogError(@"%@", validationMessage(type, context, extra));
 }
 
 void RCTLogNewArchitectureValidation(RCTNotAllowedValidation type, id context, NSString *extra)
 {
-  newArchitectureValidationInternal(RCTLogLevelInfo, type, context, extra);
-}
+  if (!shouldEnforceValidation(type)) {
+    return;
+  }
 
-void RCTNewArchitectureValidationPlaceholder(RCTNotAllowedValidation type, id context, NSString *extra)
-{
-#if RCT_ONLY_NEW_ARCHITECTURE
-  newArchitectureValidationInternal(RCTLogLevelInfo, type, context, extra);
-#endif
+  RCTLogInfo(@"%@", validationMessage(type, context, extra));
 }

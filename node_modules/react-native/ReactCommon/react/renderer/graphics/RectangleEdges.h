@@ -39,12 +39,7 @@ struct RectangleEdges {
   bool isUniform() const noexcept {
     return left == top && left == right && left == bottom;
   }
-
-  static RectangleEdges<T> const ZERO;
 };
-
-template <typename T>
-constexpr RectangleEdges<T> const RectangleEdges<T>::ZERO = {};
 
 template <typename T>
 RectangleEdges<T> operator+(

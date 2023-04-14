@@ -21,7 +21,7 @@ import {
 
 export default function Categorias({ navigation }) {
 
-    const[display, setDisplay] = useState([])
+    const [display, setDisplay] = useState([])
     const [usuarioId, setUsuarioId] = useState()
     const [data, setData] = useState([]);
 
@@ -112,18 +112,24 @@ export default function Categorias({ navigation }) {
         <View style={adcCatStyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
+
+
             <Image
                 style={adcCatStyle.fundoImg}
                 source={require('../../assets/fundo.png')}
             />
-            <TouchableOpacity>
+
+
+            <TouchableOpacity
+                style={adcCatStyle.back}
+                onPress={() => navigation.navigate('Home')}>
                 <Image
-                    style={adcCatStyle.menu}
-                    source={require('../../assets/menu.png')}
+                    source={require('../../assets/back.png')}
                 />
             </TouchableOpacity>
 
             <Text style={adcCatStyle.texto1}>E-PLANNER</Text>
+
 
             <View style={adcCatStyle.Valor}>
                 <Text style={adcCatStyle.txtVal1}>Valor Disponível:</Text>
@@ -178,7 +184,7 @@ export default function Categorias({ navigation }) {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <TouchableOpacity style={adcCatStyle.btnContinuar}
-                    onPress={() => sendForm()}>
+                        onPress={() => sendForm()}>
                         <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>

@@ -4,7 +4,6 @@ load("//tools/build_defs/oss:rn_defs.bzl", "rn_android_library", "rn_prebuilt_ja
 rn_android_library(
     name = "powermock2",
     autoglob = False,
-    language = "JAVA",
     visibility = ["PUBLIC"],
     exported_deps = [
         ":javassist-prebuilt",
@@ -23,7 +22,6 @@ rn_android_library(
 rn_android_library(
     name = "powermock-reflect",
     autoglob = False,
-    language = "JAVA",
     visibility = ["PUBLIC"],
     exported_deps = [
         ":byte-buddy",

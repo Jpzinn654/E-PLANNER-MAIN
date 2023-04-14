@@ -1,6 +1,5 @@
 export declare const flat: {
     android: {
-        'build.gradle': any;
         src: {
             'AndroidManifest.xml': any;
             main: {
@@ -19,7 +18,6 @@ export declare const flat: {
 export declare const nested: {
     android: {
         app: {
-            'build.gradle': any;
             src: {
                 'AndroidManifest.xml': any;
                 main: {
@@ -39,7 +37,6 @@ export declare const nested: {
 export declare const withExamples: {
     Examples: {
         android: {
-            'build.gradle': any;
             src: {
                 'AndroidManifest.xml': any;
                 main: {
@@ -56,7 +53,6 @@ export declare const withExamples: {
         };
     };
     android: {
-        'build.gradle': any;
         src: {
             'AndroidManifest.xml': any;
             main: {

@@ -9,8 +9,8 @@ package com.facebook.react.bridge;
 
 /**
  * Like {@link AssertionError} but extends RuntimeException so that it may be caught by a {@link
- * JSExceptionHandler}. See that class for more details. Used in conjunction with {@link
- * SoftAssertions}.
+ * NativeModuleCallExceptionHandler}. See that class for more details. Used in conjunction with
+ * {@link SoftAssertions}.
  */
 public class AssertionException extends RuntimeException {
 

@@ -21,6 +21,7 @@
 {
   if (self = [super initWithFrame:CGRectZero]) {
     _bridge = bridge;
+    _emulateUnlessSupported = YES; // The default.
   }
 
   return self;
@@ -40,8 +41,46 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   return [NSString stringWithFormat:@"%@; safeAreaInsets = %@; appliedSafeAreaInsets = %@>",
                                     superDescription,
-                                    NSStringFromUIEdgeInsets(self.safeAreaInsets),
+                                    NSStringFromUIEdgeInsets([self safeAreaInsetsIfSupportedAndEnabled]),
                                     NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
+}
+
+- (BOOL)isSupportedByOS
+{
+  return [self respondsToSelector:@selector(safeAreaInsets)];
+}
+
+- (UIEdgeInsets)safeAreaInsetsIfSupportedAndEnabled
+{
+  if (self.isSupportedByOS) {
+    return self.safeAreaInsets;
+  }
+  return self.emulateUnlessSupported ? self.emulatedSafeAreaInsets : UIEdgeInsetsZero;
+}
+
+- (UIEdgeInsets)emulatedSafeAreaInsets
+{
+  UIViewController *vc = self.reactViewController;
+
+  if (!vc) {
+    return UIEdgeInsetsZero;
+  }
+
+  CGFloat topLayoutOffset = vc.topLayoutGuide.length;
+  CGFloat bottomLayoutOffset = vc.bottomLayoutGuide.length;
+  CGRect safeArea = vc.view.bounds;
+  safeArea.origin.y += topLayoutOffset;
+  safeArea.size.height -= topLayoutOffset + bottomLayoutOffset;
+  CGRect localSafeArea = [vc.view convertRect:safeArea toView:self];
+  UIEdgeInsets safeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+  if (CGRectGetMinY(localSafeArea) > CGRectGetMinY(self.bounds)) {
+    safeAreaInsets.top = CGRectGetMinY(localSafeArea) - CGRectGetMinY(self.bounds);
+  }
+  if (CGRectGetMaxY(localSafeArea) < CGRectGetMaxY(self.bounds)) {
+    safeAreaInsets.bottom = CGRectGetMaxY(self.bounds) - CGRectGetMaxY(localSafeArea);
+  }
+
+  return safeAreaInsets;
 }
 
 static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIEdgeInsets insets2, CGFloat threshold)
@@ -52,7 +91,21 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 
 - (void)safeAreaInsetsDidChange
 {
-  [self setSafeAreaInsets:self.safeAreaInsets];
+  [self invalidateSafeAreaInsets];
+}
+
+- (void)invalidateSafeAreaInsets
+{
+  [self setSafeAreaInsets:self.safeAreaInsetsIfSupportedAndEnabled];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  if (!self.isSupportedByOS && self.emulateUnlessSupported) {
+    [self invalidateSafeAreaInsets];
+  }
 }
 
 - (void)setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets
@@ -65,6 +118,21 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 
   RCTSafeAreaViewLocalData *localData = [[RCTSafeAreaViewLocalData alloc] initWithInsets:safeAreaInsets];
   [_bridge.uiManager setLocalData:localData forView:self];
+}
+
+- (void)setEmulateUnlessSupported:(BOOL)emulateUnlessSupported
+{
+  if (_emulateUnlessSupported == emulateUnlessSupported) {
+    return;
+  }
+
+  _emulateUnlessSupported = emulateUnlessSupported;
+
+  if ([self isSupportedByOS]) {
+    return;
+  }
+
+  [self invalidateSafeAreaInsets];
 }
 
 @end

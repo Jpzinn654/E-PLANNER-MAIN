@@ -70,8 +70,6 @@ function deepFreezeAndThrowOnMutationInDev<T: {...} | Array<mixed>>(
   return object;
 }
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
 function throwOnImmutableMutation(key: empty, value) {
   throw Error(
     'You attempted to set the key `' +

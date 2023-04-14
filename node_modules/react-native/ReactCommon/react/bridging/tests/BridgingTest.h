@@ -38,7 +38,7 @@ class BridgingTest : public ::testing::Test {
         runtime(hermes::makeHermesRuntime(
             ::hermes::vm::RuntimeConfig::Builder()
                 // Make promises work with Hermes microtasks.
-                .withMicrotaskQueue(true)
+                .withVMExperimentFlags(1 << 14 /* JobQueue */)
                 .build())),
         rt(*runtime) {}
 

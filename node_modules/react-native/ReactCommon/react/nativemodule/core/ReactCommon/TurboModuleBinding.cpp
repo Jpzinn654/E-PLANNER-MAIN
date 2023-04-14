@@ -23,17 +23,44 @@ namespace react {
  */
 
 TurboModuleBinding::TurboModuleBinding(
+    const TurboModuleProviderFunctionType &&moduleProvider)
+    : moduleProvider_(std::move(moduleProvider)),
+      longLivedObjectCollection_(nullptr),
+      disableGlobalLongLivedObjectCollection_(false) {}
+
+TurboModuleBinding::TurboModuleBinding(
     const TurboModuleProviderFunctionType &&moduleProvider,
-    TurboModuleBindingMode bindingMode,
     std::shared_ptr<LongLivedObjectCollection> longLivedObjectCollection)
     : moduleProvider_(std::move(moduleProvider)),
-      longLivedObjectCollection_(std::move(longLivedObjectCollection)),
-      bindingMode_(bindingMode) {}
+      longLivedObjectCollection_(longLivedObjectCollection),
+      disableGlobalLongLivedObjectCollection_(true) {}
+
+void TurboModuleBinding::install(
+    jsi::Runtime &runtime,
+    const TurboModuleProviderFunctionType &&moduleProvider) {
+  runtime.global().setProperty(
+      runtime,
+      "__turboModuleProxy",
+      jsi::Function::createFromHostFunction(
+          runtime,
+          jsi::PropNameID::forAscii(runtime, "__turboModuleProxy"),
+          1,
+
+          // Create a TurboModuleBinding that uses the global
+          // LongLivedObjectCollection
+          [binding =
+               std::make_shared<TurboModuleBinding>(std::move(moduleProvider))](
+              jsi::Runtime &rt,
+              const jsi::Value &thisVal,
+              const jsi::Value *args,
+              size_t count) {
+            return binding->jsProxy(rt, thisVal, args, count);
+          }));
+}
 
 void TurboModuleBinding::install(
     jsi::Runtime &runtime,
     const TurboModuleProviderFunctionType &&moduleProvider,
-    TurboModuleBindingMode bindingMode,
     std::shared_ptr<LongLivedObjectCollection> longLivedObjectCollection) {
   runtime.global().setProperty(
       runtime,
@@ -42,27 +69,42 @@ void TurboModuleBinding::install(
           runtime,
           jsi::PropNameID::forAscii(runtime, "__turboModuleProxy"),
           1,
-          [binding = TurboModuleBinding(
-               std::move(moduleProvider),
-               bindingMode,
-               std::move(longLivedObjectCollection))](
+          // Create a TurboModuleBinding that doesn't use the global
+          // LongLivedObjectCollection
+          [binding = std::make_shared<TurboModuleBinding>(
+               std::move(moduleProvider), longLivedObjectCollection)](
               jsi::Runtime &rt,
               const jsi::Value &thisVal,
               const jsi::Value *args,
-              size_t count) mutable {
-            return binding.getModule(rt, thisVal, args, count);
+              size_t count) {
+            return binding->jsProxy(rt, thisVal, args, count);
           }));
 }
 
 TurboModuleBinding::~TurboModuleBinding() {
-  if (longLivedObjectCollection_) {
+  if (longLivedObjectCollection_ != nullptr) {
     longLivedObjectCollection_->clear();
-  } else {
-    LongLivedObjectCollection::get().clear();
+    return;
   }
+
+  if (disableGlobalLongLivedObjectCollection_) {
+    return;
+  }
+
+  LongLivedObjectCollection::get().clear();
 }
 
-jsi::Value TurboModuleBinding::getModule(
+std::shared_ptr<TurboModule> TurboModuleBinding::getModule(
+    const std::string &name) {
+  std::shared_ptr<TurboModule> module = nullptr;
+  {
+    SystraceSection s("TurboModuleBinding::getModule", "module", name);
+    module = moduleProvider_(name);
+  }
+  return module;
+}
+
+jsi::Value TurboModuleBinding::jsProxy(
     jsi::Runtime &runtime,
     const jsi::Value &thisVal,
     const jsi::Value *args,
@@ -72,41 +114,14 @@ jsi::Value TurboModuleBinding::getModule(
         "__turboModuleProxy must be called with at least 1 argument");
   }
   std::string moduleName = args[0].getString(runtime).utf8(runtime);
+  jsi::Value nullSchema = jsi::Value::undefined();
 
-  std::shared_ptr<TurboModule> module;
-  {
-    SystraceSection s(
-        "TurboModuleBinding::moduleProvider", "module", moduleName);
-    module = moduleProvider_(moduleName);
-  }
-  if (module) {
-    // Default behaviour
-    if (bindingMode_ == TurboModuleBindingMode::HostObject) {
-      return jsi::Object::createFromHostObject(runtime, std::move(module));
-    }
-
-    auto &jsRepresentation = module->jsRepresentation_;
-    if (!jsRepresentation) {
-      jsRepresentation = std::make_unique<jsi::Object>(runtime);
-      if (bindingMode_ == TurboModuleBindingMode::Prototype) {
-        // Option 1: create plain object, with it's prototype mapped back to the
-        // hostobject. Any properties accessed are stored on the plain object
-        auto hostObject =
-            jsi::Object::createFromHostObject(runtime, std::move(module));
-        jsRepresentation->setProperty(
-            runtime, "__proto__", std::move(hostObject));
-      } else {
-        // Option 2: eagerly install all hostfunctions at this point, avoids
-        // prototype
-        for (auto &propName : module->getPropertyNames(runtime)) {
-          module->get(runtime, propName);
-        }
-      }
-    }
-    return jsi::Value(runtime, *jsRepresentation);
-  } else {
+  std::shared_ptr<TurboModule> module = getModule(moduleName);
+  if (module == nullptr) {
     return jsi::Value::null();
   }
+
+  return jsi::Object::createFromHostObject(runtime, std::move(module));
 }
 
 } // namespace react

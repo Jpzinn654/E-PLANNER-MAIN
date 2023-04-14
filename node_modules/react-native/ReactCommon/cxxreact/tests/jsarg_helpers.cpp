@@ -12,8 +12,9 @@
 #include <gtest/gtest.h>
 #include <algorithm>
 
+using namespace std;
+using namespace folly;
 using namespace facebook::xplat;
-using dynamic = folly::dynamic;
 
 #define EXPECT_JSAE(statement, exstr)                                         \
   do {                                                                        \
@@ -29,10 +30,10 @@ TEST(JsArgumentHelpersTest, args) {
   const bool aBool = true;
   const int64_t anInt = 17;
   const double aDouble = 3.14;
-  const std::string aString = "word";
+  const string aString = "word";
   const dynamic anArray = dynamic::array("a", "b", "c");
   const dynamic anObject = dynamic::object("k1", "v1")("k2", "v2");
-  const std::string aNumericString = folly::to<std::string>(anInt);
+  const string aNumericString = to<string>(anInt);
 
   folly::dynamic args = dynamic::array(
       aBool, anInt, aDouble, aString, anArray, anObject, aNumericString);

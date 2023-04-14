@@ -12,6 +12,7 @@
 
 const Promise = require('promise/setimmediate/es6-extensions');
 
+require('promise/setimmediate/done');
 require('promise/setimmediate/finally');
 
 if (__DEV__) {

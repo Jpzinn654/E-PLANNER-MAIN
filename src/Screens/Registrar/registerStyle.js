@@ -37,11 +37,13 @@ const registerStyle = StyleSheet.create({
     },
     smartContainer1: {
         flex: 2,
+        bottom: 100,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
     },
     register: {
+        
         fontWeight: "600",
         fontSize: 24,
         color: '#000',
@@ -55,6 +57,9 @@ const registerStyle = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         top: 2,
+    },
+    inputsView:{
+        bottom: 10,
     },
     inputs: {
         paddingLeft: 10,
@@ -107,10 +112,10 @@ const registerStyle = StyleSheet.create({
         top: 40,
     },
     touchArea: {
-        width: '100%',
+        width: 150,
     },
     btn: {
-        top: '5%',
+        top: 10,
         width: 180,
         height: 40,
         justifyContent: 'center',
@@ -123,9 +128,10 @@ const registerStyle = StyleSheet.create({
         fontSize: 18,
         color: '#fff',
     },
-    fundoImg: {
-        top: 0,
-        left: 80,
+    fundo: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
     registerMsg: {
         fontSize: 16,

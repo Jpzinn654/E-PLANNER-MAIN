@@ -21,6 +21,10 @@ export default function GastoCategorias({ navigation }) {
         <View style={gastoCategoriaStyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
+            <Card/>
+            <Card/>
+            <Card/>
+
             {/* <View style={gastoCategoriaStyle.upContainer}>
                 <Image
                     style={gastoCategoriaStyle.fundo}

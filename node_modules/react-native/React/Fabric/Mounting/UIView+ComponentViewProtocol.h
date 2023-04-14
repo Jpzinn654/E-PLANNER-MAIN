@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareForRecycle;
 
-- (facebook::react::Props::Shared)props;
+- (facebook::react::SharedProps)props;
 
 - (void)setIsJSResponder:(BOOL)isJSResponder;
 

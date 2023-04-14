@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-    StatusBar
+    StatusBar,
+    StyleSheet
 } from "react-native"
 
 import gastosGeraisStyles from "./MenuFinancasStyle";
@@ -31,10 +32,10 @@ export default function MenuFinancas({ navigation }) {
         if (clicou == true) {
             (telaAtual == 1) ? setTelaAtual(1) : setTelaAtual(2)
         }
-        if (clicou == true) {
-            
+        else if (clicou == true) {
+            (telaAtual == 2) ? setTelaAtual(2) : setTelaAtual(3)
         }
-        return () => {
+        else () => {
             setClicou(false)
         }
     }, [clicou])
@@ -65,7 +66,8 @@ export default function MenuFinancas({ navigation }) {
                 >
                     <Text
                         style={gastosGeraisStyles.midText1}>
-                        {(telaAtual == 1) ? <Text>TOTAL DE GASTO ECONOMIZADO</Text> : <Text>TOTAL GASTO</Text>}</Text>
+                        {(telaAtual == 1) ? <Text
+                        >TOTAL DE GASTO ECONOMIZADO</Text> : <Text>TOTAL GASTO</Text>}</Text>
                     <Text
                         style={gastosGeraisStyles.midText}>
                         R$ 0,00</Text>
@@ -79,30 +81,34 @@ export default function MenuFinancas({ navigation }) {
                 <View
                     style={gastosGeraisStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.button1}
+                        style={gastosGeraisStyles.buttons}
                         onPress={() => { setClicou(true); setTelaAtual(1); }}
-                    ><Text style={gastosGeraisStyles.buttonText1}>Gastos</Text></TouchableOpacity>
+                    ><Text style={gastosGeraisStyles.buttonTexts}>Gastos</Text></TouchableOpacity>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.button2}
+                        style={gastosGeraisStyles.buttons}
                         onPress={() => { setClicou(true); setTelaAtual(2); }}
                     ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.button3}
+                        style={gastosGeraisStyles.buttons}
                         onPress={() => { setClicou(true); setTelaAtual(3); }}>
                         <Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
                 </View>
 
                 <View
                     style={gastosGeraisStyles.monthContainer}>
-                    <Text style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
+                    {(telaAtual == 1) ? 
+                    <Text
+                    style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text> : 
+                    <Text
+                    style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS POR CATEGORIA</Text>}
+                    
                 </View>
 
-                <View
-                    style={gastosGeraisStyles.cardsConatiner}>
+                <View>
                     {
                         (telaAtual == 1)
                             ?
-                            <GastosGerais />
+                            <GastosGeraisAlt />
                             :
                             <GastoCategorias />
                     }
@@ -113,3 +119,25 @@ export default function MenuFinancas({ navigation }) {
         </View>
     )
 }
+
+function GastosGeraisAlt() {
+    return(
+        <View style={gastosGeraisAltStyle.testeContainer}>
+            <CardGasto/>
+            <CardGasto/>
+            <CardGasto/>
+        </View>
+    )
+}
+
+const gastosGeraisAltStyle = StyleSheet.create({
+    testeContainer:{
+        top: '10%',
+        width: '100%',
+        height: '85%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+}) 
+
+

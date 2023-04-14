@@ -37,9 +37,9 @@ export default function AdicionarGastos({ navigation }) {
                     style={adcGastoSyle.menuContainer}
                 >
                     <TouchableOpacity
+                        style={adcGastoSyle.back}
                         onPress={() => navigation.navigate('Home')}>
                         <Image
-                            style={adcGastoSyle.back}
                             source={require('../../assets/back.png')}
                         />
                     </TouchableOpacity>

@@ -64,7 +64,7 @@ const adcGastoSyle = StyleSheet.create({
         width: 320,
         height: 50,
         borderRadius: 20,
-        backgroundColor: '#d9d9d9',
+        backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
         top: '90%',
@@ -72,7 +72,7 @@ const adcGastoSyle = StyleSheet.create({
         position: "absolute",
     },
     btnContinuarTxt: {
-        color: '#000',
+        color: '#fff',
         fontSize: 18,
     },
     fundo:{

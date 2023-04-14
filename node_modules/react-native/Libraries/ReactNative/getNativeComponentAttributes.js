@@ -11,15 +11,16 @@
 'use strict';
 
 const ReactNativeStyleAttributes = require('../Components/View/ReactNativeStyleAttributes');
-const resolveAssetSource = require('../Image/resolveAssetSource');
-const processColor = require('../StyleSheet/processColor');
-const processColorArray = require('../StyleSheet/processColorArray');
+const UIManager = require('./UIManager');
+
 const insetsDiffer = require('../Utilities/differ/insetsDiffer');
+const invariant = require('invariant');
 const matricesDiffer = require('../Utilities/differ/matricesDiffer');
 const pointsDiffer = require('../Utilities/differ/pointsDiffer');
+const processColor = require('../StyleSheet/processColor');
+const processColorArray = require('../StyleSheet/processColorArray');
+const resolveAssetSource = require('../Image/resolveAssetSource');
 const sizesDiffer = require('../Utilities/differ/sizesDiffer');
-const UIManager = require('./UIManager');
-const invariant = require('invariant');
 
 function getNativeComponentAttributes(uiViewClassName: string): any {
   const viewConfig = UIManager.getViewManagerConfig(uiViewClassName);
@@ -59,7 +60,7 @@ function getNativeComponentAttributes(uiViewClassName: string): any {
     }
   }
 
-  const validAttributes: {[string]: mixed} = {};
+  const validAttributes = {};
 
   for (const key in nativeProps) {
     const typeName = nativeProps[key];

@@ -35,7 +35,7 @@
 
 - (instancetype)initWithWindow:(UIWindow *)window bridge:(RCTBridge *)bridge
 {
-  RCTErrorNewArchitectureValidation(RCTNotAllowedInFabricWithoutLegacy, @"RCTLogBoxView", nil);
+  RCTErrorNewArchitectureValidation(RCTNotAllowedInAppWideFabric, @"RCTLogBoxView", nil);
 
   if (@available(iOS 13.0, *)) {
     self = [super initWithWindowScene:window.windowScene];

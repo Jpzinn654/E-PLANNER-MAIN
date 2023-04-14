@@ -60,8 +60,8 @@ public class ReactContext extends ContextWrapper {
   private @Nullable MessageQueueThread mUiMessageQueueThread;
   private @Nullable MessageQueueThread mNativeModulesMessageQueueThread;
   private @Nullable MessageQueueThread mJSMessageQueueThread;
-  private @Nullable JSExceptionHandler mJSExceptionHandler;
-  private @Nullable JSExceptionHandler mExceptionHandlerWrapper;
+  private @Nullable NativeModuleCallExceptionHandler mNativeModuleCallExceptionHandler;
+  private @Nullable NativeModuleCallExceptionHandler mExceptionHandlerWrapper;
   private @Nullable WeakReference<Activity> mCurrentActivity;
   private boolean mIsInitialized = false;
 
@@ -123,8 +123,9 @@ public class ReactContext extends ContextWrapper {
     }
   }
 
-  public void setJSExceptionHandler(@Nullable JSExceptionHandler jSExceptionHandler) {
-    mJSExceptionHandler = jSExceptionHandler;
+  public void setNativeModuleCallExceptionHandler(
+      @Nullable NativeModuleCallExceptionHandler nativeModuleCallExceptionHandler) {
+    mNativeModuleCallExceptionHandler = nativeModuleCallExceptionHandler;
   }
 
   private void raiseCatalystInstanceMissingException() {
@@ -405,17 +406,18 @@ public class ReactContext extends ContextWrapper {
   }
 
   /**
-   * Passes the given exception to the current {@link JSExceptionHandler} if one exists, rethrowing
+   * Passes the given exception to the current {@link
+   * com.facebook.react.bridge.NativeModuleCallExceptionHandler} if one exists, rethrowing
    * otherwise.
    */
   public void handleException(Exception e) {
     boolean catalystInstanceVariableExists = mCatalystInstance != null;
     boolean isCatalystInstanceAlive =
         catalystInstanceVariableExists && !mCatalystInstance.isDestroyed();
-    boolean hasExceptionHandler = mJSExceptionHandler != null;
+    boolean hasExceptionHandler = mNativeModuleCallExceptionHandler != null;
 
     if (isCatalystInstanceAlive && hasExceptionHandler) {
-      mJSExceptionHandler.handleException(e);
+      mNativeModuleCallExceptionHandler.handleException(e);
     } else {
       FLog.e(
           ReactConstants.TAG,
@@ -430,14 +432,14 @@ public class ReactContext extends ContextWrapper {
     }
   }
 
-  public class ExceptionHandlerWrapper implements JSExceptionHandler {
+  public class ExceptionHandlerWrapper implements NativeModuleCallExceptionHandler {
     @Override
     public void handleException(Exception e) {
       ReactContext.this.handleException(e);
     }
   }
 
-  public JSExceptionHandler getExceptionHandler() {
+  public NativeModuleCallExceptionHandler getExceptionHandler() {
     if (mExceptionHandlerWrapper == null) {
       mExceptionHandlerWrapper = new ExceptionHandlerWrapper();
     }
@@ -455,11 +457,9 @@ public class ReactContext extends ContextWrapper {
    */
   public boolean startActivityForResult(Intent intent, int code, Bundle bundle) {
     Activity activity = getCurrentActivity();
-    if (activity != null) {
-      activity.startActivityForResult(intent, code, bundle);
-      return true;
-    }
-    return false;
+    Assertions.assertNotNull(activity);
+    activity.startActivityForResult(intent, code, bundle);
+    return true;
   }
 
   /**

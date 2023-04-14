@@ -27,7 +27,7 @@ struct EventHandlerWrapper : public EventHandler {
 };
 
 struct ShadowNodeWrapper : public jsi::HostObject {
-  ShadowNodeWrapper(ShadowNode::Shared shadowNode)
+  ShadowNodeWrapper(SharedShadowNode shadowNode)
       : shadowNode(std::move(shadowNode)) {}
 
   // The below method needs to be implemented out-of-line in order for the class
@@ -39,7 +39,7 @@ struct ShadowNodeWrapper : public jsi::HostObject {
 };
 
 struct ShadowNodeListWrapper : public jsi::HostObject {
-  ShadowNodeListWrapper(ShadowNode::UnsharedListOfShared shadowNodeList)
+  ShadowNodeListWrapper(SharedShadowNodeUnsharedList shadowNodeList)
       : shadowNodeList(shadowNodeList) {}
 
   // The below method needs to be implemented out-of-line in order for the class
@@ -47,7 +47,7 @@ struct ShadowNodeListWrapper : public jsi::HostObject {
   // https://itanium-cxx-abi.github.io/cxx-abi/abi.html#vague-vtable)
   ~ShadowNodeListWrapper() override;
 
-  ShadowNode::UnsharedListOfShared shadowNodeList;
+  SharedShadowNodeUnsharedList shadowNodeList;
 };
 
 inline static ShadowNode::Shared shadowNodeFromValue(
@@ -64,12 +64,12 @@ inline static ShadowNode::Shared shadowNodeFromValue(
 
 inline static jsi::Value valueFromShadowNode(
     jsi::Runtime &runtime,
-    ShadowNode::Shared shadowNode) {
+    const ShadowNode::Shared &shadowNode) {
   return jsi::Object::createFromHostObject(
-      runtime, std::make_shared<ShadowNodeWrapper>(std::move(shadowNode)));
+      runtime, std::make_shared<ShadowNodeWrapper>(shadowNode));
 }
 
-inline static ShadowNode::UnsharedListOfShared shadowNodeListFromValue(
+inline static SharedShadowNodeUnsharedList shadowNodeListFromValue(
     jsi::Runtime &runtime,
     jsi::Value const &value) {
   return value.getObject(runtime)
@@ -107,7 +107,7 @@ inline static ShadowNode::UnsharedListOfWeak weakShadowNodeListFromValue(
 
 inline static jsi::Value valueFromShadowNodeList(
     jsi::Runtime &runtime,
-    const ShadowNode::UnsharedListOfShared &shadowNodeList) {
+    const SharedShadowNodeUnsharedList &shadowNodeList) {
   return jsi::Object::createFromHostObject(
       runtime, std::make_unique<ShadowNodeListWrapper>(shadowNodeList));
 }

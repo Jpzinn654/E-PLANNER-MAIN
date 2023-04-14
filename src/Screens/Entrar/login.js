@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import loginStyle from "./loginStyle";
 
+import config from '../../../config/config.json'
+
 import {
     View,
     Text,
@@ -20,14 +22,14 @@ import {
 export default function Login({ navigation }) {
 
     //estados que armazenam os dados do formuário
-    const [display, setDisplay] = useState('none')
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [login, setLogin] = useState('')
+    const [display, setDisplay] = useState('')
+    const [email, setEmail] = useState(null)
+    const [senha, setSenha] = useState(null)
+    const [login, setLogin] = useState(null)
 
     //enviar dados do formulario para a api
     async function sendForm() {
-        let response = await fetch('http://localhost:3000/usuario/login', {
+        let response = await fetch(`${config.urlRoot}/usuario/login`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -43,9 +45,9 @@ export default function Login({ navigation }) {
 
         //em caso de login incorreto
         if (json === 'error') {
-            setDisplay('flex')
+            setDisplay('Email ou senha inválidos')
             setTimeout(() => {
-                setDisplay('none')
+                setDisplay('')
             }, 5000)
             await AsyncStorage.clear()
         }
@@ -89,8 +91,8 @@ export default function Login({ navigation }) {
                 {/* <Text>{email} - {senha}</Text> */}
 
                 <View>
-                    <Text style={loginStyle.loginMsg(display)}>
-                        Usuário ou senha inválidos
+                    <Text style={loginStyle.loginMsg}>
+                        {display}
                     </Text>
                 </View>
 
@@ -129,7 +131,7 @@ export default function Login({ navigation }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => sendForm()}
                     style={loginStyle.btn}>
                     <Text style={loginStyle.btnText}>Continuar</Text>
                 </TouchableOpacity>

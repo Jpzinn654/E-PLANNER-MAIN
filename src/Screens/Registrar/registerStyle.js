@@ -127,6 +127,12 @@ const registerStyle = StyleSheet.create({
         top: 0,
         left: 80,
     },
+    registerMsg: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
+    },
 })
 
 export default registerStyle

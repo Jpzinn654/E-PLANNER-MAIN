@@ -16,7 +16,7 @@ import CardGasto from "../../components/cardGasto/cardGsto";
 import Card from "../../components/card/card";
 
 
-export default function GastoCategorias({ navigation }) {
+export default function CompGastos({ navigation }) {
     return (
         <View style={gastoCategoriaStyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />

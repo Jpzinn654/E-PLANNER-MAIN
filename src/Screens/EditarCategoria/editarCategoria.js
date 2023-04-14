@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import adcCatStyle from "./adcCatStyle";
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
@@ -18,10 +16,11 @@ import {
 
 } from "react-native";
 
+import EditarcAtegoriaSyle from "./editarCategoriaStyle";
 
-export default function Categorias({ navigation }) {
+export default function EditarCategorias({ navigation }) {
 
-    const[display, setDisplay] = useState([])
+    const [display, setDisplay] = useState([])
     const [usuarioId, setUsuarioId] = useState()
     const [data, setData] = useState([]);
 
@@ -109,42 +108,42 @@ export default function Categorias({ navigation }) {
 
     return (
 
-        <View style={adcCatStyle.container}>
+        <View style={EditarcAtegoriaSyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
             <Image
-                style={adcCatStyle.fundoImg}
+                style={EditarcAtegoriaSyle.fundoImg}
                 source={require('../../assets/fundo.png')}
             />
             <TouchableOpacity>
                 <Image
-                    style={adcCatStyle.menu}
+                    style={EditarcAtegoriaSyle.menu}
                     source={require('../../assets/menu.png')}
                 />
             </TouchableOpacity>
 
-            <Text style={adcCatStyle.texto1}>E-PLANNER</Text>
+            <Text style={EditarcAtegoriaSyle.texto1}>E-PLANNER</Text>
 
-            <View style={adcCatStyle.Valor}>
-                <Text style={adcCatStyle.txtVal1}>Valor Disponível:</Text>
-                <Text style={adcCatStyle.txtVal2}>R$</Text>
-                <Text style={adcCatStyle.txtVal3}>{data}</Text>
+            <View style={EditarcAtegoriaSyle.Valor}>
+                <Text style={EditarcAtegoriaSyle.txtVal1}>Valor Disponível:</Text>
+                <Text style={EditarcAtegoriaSyle.txtVal2}>R$</Text>
+                <Text style={EditarcAtegoriaSyle.txtVal3}>{data}</Text>
             </View>
 
             <KeyboardAvoidingView
-                style={adcCatStyle.inputContainer}
+                style={EditarcAtegoriaSyle.inputContainer}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <Text style={adcCatStyle.inpTxt1}>Adicionar uma categoria</Text>
+                <Text style={EditarcAtegoriaSyle.inpTxt1}>Adicionar uma categoria</Text>
 
                 <View>
-                    <Text style={adcCatStyle.categoriaMsg}>
+                    <Text style={EditarcAtegoriaSyle.categoriaMsg}>
                         {display[0]}
                     </Text>
                 </View>
 
                 <TextInput
-                    style={adcCatStyle.inp1}
+                    style={EditarcAtegoriaSyle.inp1}
                     onChangeText={text => setNome(text)}
                     placeholder="Nome da categoria"
                     keyboardType="default"
@@ -152,7 +151,7 @@ export default function Categorias({ navigation }) {
 
                 <TextInput
                     onChangeText={text => setDescricao(text)}
-                    style={adcCatStyle.inp2}
+                    style={EditarcAtegoriaSyle.inp2}
                     placeholder="Descrição (opcional)"
                     maxLength={100}
                     keyboardType="default"
@@ -160,26 +159,26 @@ export default function Categorias({ navigation }) {
 
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style={adcCatStyle.subContainerInput}>
+                    style={EditarcAtegoriaSyle.subContainerInput}>
                     <TextInput
                         onChangeText={text => setValor(text)}
-                        style={adcCatStyle.inp3}
+                        style={EditarcAtegoriaSyle.inp3}
                         placeholder="Valor"
                         keyboardType="default"
                         underlineColorAndroid="transparent" />
 
-                    <View style={adcCatStyle.btn}>
-                        <Text style={adcCatStyle.btnText}>R$</Text>
+                    <View style={EditarcAtegoriaSyle.btn}>
+                        <Text style={EditarcAtegoriaSyle.btnText}>R$</Text>
                     </View>
                 </KeyboardAvoidingView>
 
                 <KeyboardAvoidingView
-                    style={adcCatStyle.btnContainer}
+                    style={EditarcAtegoriaSyle.btnContainer}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <TouchableOpacity style={adcCatStyle.btnContinuar}
-                    onPress={() => sendForm()}>
-                        <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
+                    <TouchableOpacity style={EditarcAtegoriaSyle.btnContinuar}
+                        onPress={() => sendForm()}>
+                        <Text style={EditarcAtegoriaSyle.btnContinuarTxt}>Continuar</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
 

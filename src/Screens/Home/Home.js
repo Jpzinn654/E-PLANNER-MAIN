@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import homeStyle from "./homeStyle";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import config from '../../../config/config.json'
 
 import Card from "../../components/card/card";
 import moment from 'moment';
@@ -18,6 +22,57 @@ import {
 } from "react-native";
 
 export default function Home({ navigation }) {
+
+    //estados que armazenam os dados
+    const [usuario, setUsuario] = useState([])
+    const [orcamento, setOrcamento] = useState('');
+    const [soma, setSoma] = useState('');
+
+    moment.locale('pt-br');
+
+    //função que requisita id do usuário
+    useEffect(() => {
+        getUsuario();
+    }, []);
+
+    async function getUsuario() {
+        let response = await AsyncStorage.getItem('usuarioData')
+        let json = JSON.parse(response)
+        setUsuario(json)
+    }
+
+
+
+    useEffect(() => {
+        fetchData();
+    }, [usuario]);
+
+    //função que requisita renda / orçamento do usuário
+
+
+    const fetchData = async () => {
+
+        let response = await fetch(`${config.urlRoot}/orcamento/listar`, {
+
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+                usuarioId: usuario.id,
+                mes: moment().format('M'),
+                ano: moment().format('YYYY')
+            }),
+        })
+        let json = await response.json()
+        setOrcamento(json.orcamento.valor)
+        setSoma(json.gastos)
+    }
+
+    const disponivel = orcamento - soma
+
 
     // Esses Consts trás o mes diacordo com as datas em tempo real
     // Já o moment.locale trás o mes traduzido para PT-BR
@@ -53,7 +108,7 @@ export default function Home({ navigation }) {
 
                 <Text
                     style={homeStyle.txt2}
-                >Olá, Juan</Text>
+                >Olá, {usuario.nome}</Text>
 
                 <Text
                     style={homeStyle.txt3}
@@ -69,14 +124,14 @@ export default function Home({ navigation }) {
 
                 <Text
                     style={homeStyle.rendaTxt2}
-                >2.000,00</Text>
+                >{orcamento}</Text>
                 <Text
                     style={homeStyle.rendaTxt3}
                 >R$</Text>
 
                 <Text
                     style={homeStyle.rendaTxt4}
-                >350,00</Text>
+                >{disponivel}</Text>
             </View>
 
             <View
@@ -149,11 +204,9 @@ export default function Home({ navigation }) {
 
                 <ScrollView
                     style={homeStyle.components}>
-                    <Card />
-                    <Card />
-                    <Card />
+                    <Card usuario={usuario.id} />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('GastoAgendados')}
+                        onPress={() => navigation.navigate('Categorias')}
                         style={homeStyle.btnCat}>
                         <Text
                             style={homeStyle.btnTxt}

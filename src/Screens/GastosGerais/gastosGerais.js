@@ -20,41 +20,10 @@ export default function GastosGerais({ navigation }) {
         <View style={gastosGeraisStyles.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
-            <View style={gastosGeraisStyles.upContainer}>
-                <Image
-                    style={gastosGeraisStyles.fundo}
-                    source={require('../../assets/fundo3.png')}
-                />
-                <View
-                    style={gastosGeraisStyles.menuContainer}>
-                    <TouchableOpacity>
-                        <Image
-                            style={gastosGeraisStyles.menu}
-                            source={require('../../assets/menu.png')}
-                        />
-                    </TouchableOpacity>
-
-                    <Text style={gastosGeraisStyles.texto1}>E-PLANNER</Text>
-                </View>
-
-                <View
-                    style={gastosGeraisStyles.midContainer}
-                >
-                    <Text
-                        style={gastosGeraisStyles.midText1}>
-                        TOTAL DE GASTO ECONOMIZADO</Text>
-                    <Text
-                        style={gastosGeraisStyles.midText}>
-                        R$ 0,00</Text>
-                </View>
-
-            </View>
-
-
             <View
                 style={gastosGeraisStyles.finalContainer}>
 
-                <View
+                {/* <View
                     style={gastosGeraisStyles.buttonContainer}>
                     <TouchableOpacity
                         style={gastosGeraisStyles.button1}
@@ -66,7 +35,7 @@ export default function GastosGerais({ navigation }) {
                         ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.button3}><Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View
                     style={gastosGeraisStyles.monthContainer}>
@@ -75,8 +44,7 @@ export default function GastosGerais({ navigation }) {
 
                 <View
                    style={gastosGeraisStyles.cardsConatiner}>
-                    <ScrollView>
-                        <CardGasto />
+
                         <CardGasto />
                         <CardGasto />
                         <CardGasto />
@@ -87,7 +55,6 @@ export default function GastosGerais({ navigation }) {
                         <CardGasto />
                         <CardGasto />
 
-                    </ScrollView>
                 </View>
 
             </View>

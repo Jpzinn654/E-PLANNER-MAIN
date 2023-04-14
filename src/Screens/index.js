@@ -10,6 +10,7 @@ import GastoAgendado from "./GastoAgendados/gastoAgendado";
 import GastosGerais from "./GastosGerais/gastosGerais";
 import EditarRenda from "./EditarRenda/editarRenda";
 import GastoCategorias from "./GastoPorCategoria/gastoCategoria";
+import EditarCategorias from "./EditarCategoria/editarCategoria";
 
 export {
     Home,
@@ -23,5 +24,6 @@ export {
     GastoAgendado,
     GastosGerais,
     EditarRenda,
-    GastoCategorias
+    GastoCategorias,
+    EditarCategorias
 }

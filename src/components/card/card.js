@@ -1,116 +1,264 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+import config from '../../../config/config.json'
+
+import { FlatList } from 'react-native-gesture-handler';
+
 import { Swipeable } from 'react-native-gesture-handler'
+
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
-export default function Card() {
-    const [isActive, setIsActive] = useState(false);
+export default function Card({ usuario }) {
 
-    const toggleCard = () => {
-        setIsActive(!isActive);
-    };
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const [carregando, setCarregando] = useState(true)
+
+    const [data, setData] = useState([]);
 
     const leftSwipe = () => {
+
         return (
+
             <View style={styles.leftView}>
+
                 <TouchableOpacity style={styles.left}>
+
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
+
                 </TouchableOpacity>
+
             </View>
+
         )
+
     }
 
     const rightSwipe = () => {
+
         return (
             <View style={styles.rightView}>
-                <TouchableOpacity style={styles.right}>
-                    <MaterialIcons name="edit" size={24} color="white" />
-                </TouchableOpacity>
 
+                <TouchableOpacity style={styles.right}>
+
+                    <MaterialIcons name="edit" size={24} color="white" />
+
+                </TouchableOpacity>
             </View>
-        )
+        )}
+
+
+    const usuarioId = usuario || ''
+        useEffect(() => {
+            fetchData();
+        }, [usuarioId]);
+
+
+        const fetchData = async () => {
+
+            let response = await fetch(`${config.urlRoot}/categoria/listar`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    usuarioId: usuarioId
+                }),
+
+            })
+
+            let json = await response.json()
+
+            if (json === '') {
+                setCarregando(false)
+            } else {
+                setData(json)
+                setCarregando(false)
+            }
+        }
+
+
+
+
+        const handleCardPress = (index) => {
+            if (activeIndex === index) {
+                setActiveIndex(null);
+            } else {
+                setActiveIndex(index);
+            }
+        };
+
+
+
+
+        const renderCard = ({ item, index }) => {
+            const isActive = activeIndex === index;
+
+            return (
+                <TouchableOpacity style={styles.card} onPress={() => handleCardPress(index)}>
+                    <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
+                        <View style={styles.upContainer}>
+                            <Text style={styles.title}>{item.nome}</Text>
+                            <Text style={styles.value}>{item.valor}</Text>
+                        </View>
+                    </Swipeable>
+                    {isActive && (
+                        <View style={styles.cardContent}>
+                            <Text style={styles.text}>
+                                {item.descricao}
+                            </Text>
+                        </View>
+                    )}
+                </TouchableOpacity>
+            );
+        };
+
+
+
+
+        return (
+            <View>
+                {carregando ? (
+                    <Text>
+                        Você ainda não possui nenhuma categoria!
+                    </Text>
+                ) : (
+                    <FlatList
+                        data={data}
+                        keyExtractor={({ id }, index) => id}
+                        renderItem={renderCard}
+                    />
+                )}
+            </View>
+
+        );
+
     }
 
 
-    return (
 
-        <TouchableOpacity style={styles.card} onPress={toggleCard}>
-            <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
-                <View style={styles.upContainer}>
-                    <Text style={styles.title}>Título do Card</Text>
-                    <Text style={styles.value}>R$ 0,00</Text>
-                </View>
-            </Swipeable>
-            {isActive && (
-                <View style={styles.cardContent}>
-                    <Text style={styles.text}>
-                        Texto do card que será exibido após o clique.
-                    </Text>
-                </View>
-            )}
-        </TouchableOpacity>
 
-    );
-}
 
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: '#d9d9d9',
-        borderRadius: 25,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
+    const styles = StyleSheet.create({
+
+        card: {
+
+            backgroundColor: '#d9d9d9',
+
+            borderRadius: 25,
+
+            shadowColor: '#000',
+
+            shadowOffset: {
+
+                width: 0,
+
+                height: 2,
+
+            },
+
+            shadowOpacity: 0.3,
+
+            shadowRadius: 5,
+
+            elevation: 5,
+
+            padding: 14,
+
+            textAlign: 'center',
+
+            width: 320,
+
+            marginTop: 10,
+
         },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
-        padding: 14,
-        textAlign: 'center',
-        width: 320,
-        marginTop: 10,
-    },
-    leftView: {
-        backgroundColor: 'red',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    left: {
-        padding: 5,
-    },
-    rightView: {
-        backgroundColor: 'blue',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    right: {
-        padding: 5,
-    },
-    upContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    value: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 10
-    },
-    cardContent: {
-        padding: 14,
-        justifyContent: 'center',
-        alignItems: 'center',
 
-    },
-    text: {
-        fontSize: 16,
-        textAlign: 'justify',
-    },
-});
+        leftView: {
+
+            backgroundColor: 'red',
+
+            justifyContent: 'center',
+
+            alignItems: 'center',
+
+            borderRadius: 10,
+
+        },
+
+        left: {
+
+            padding: 5,
+
+        },
+
+        rightView: {
+
+            backgroundColor: 'blue',
+
+            justifyContent: 'center',
+
+            alignItems: 'center',
+
+            borderRadius: 10,
+
+        },
+
+        right: {
+
+            padding: 5,
+
+        },
+
+        upContainer: {
+
+            flexDirection: 'row',
+
+            justifyContent: 'space-around',
+
+        },
+
+        title: {
+
+            fontSize: 16,
+
+            fontWeight: 'bold',
+
+            marginBottom: 10,
+
+        },
+
+        value: {
+
+            fontSize: 16,
+
+            fontWeight: 'bold',
+
+            marginLeft: 10
+
+        },
+
+        cardContent: {
+
+            padding: 14,
+
+            justifyContent: 'center',
+
+            alignItems: 'center',
+
+
+
+
+        },
+
+        text: {
+
+            fontSize: 16,
+
+            textAlign: 'justify',
+
+        },
+
+    });

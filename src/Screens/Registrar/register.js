@@ -2,6 +2,10 @@ import React from "react";
 
 import registerStyle from "./registerStyle";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import config from '../../../config/config.json'
+
 import {
     View,
     Text,
@@ -19,10 +23,49 @@ import { useState } from "react";
 
 export default function Register({ navigation }) {
 
-    const [name, setName] = useState(null)
+    const [display, setDisplay] = useState('')
+    const [nome, setNome] = useState(null)
     const [email, setEmail] = useState(null)
     const [senha, setSenha] = useState(null)
     const [confirmeSenha, setConfirmeSenha] = useState(null)
+
+
+    //enviar dados do formulario para a api
+    async function sendForm() {
+        if (senha != confirmeSenha) {
+            setDisplay('Senha e confirmação de senha não conferem')
+            setTimeout(() => {
+                setDisplay('')
+            }, 5000)
+            await AsyncStorage.clear()
+        } 
+        else if (senha === null || nome === null ||email === null ) {
+            setDisplay('Preeencha todos os campos')
+            setTimeout(() => {
+                setDisplay('')
+            }, 5000)
+            await AsyncStorage.clear()
+        }
+        else {
+            let response = await fetch(`${config.urlRoot}/usuario/adicionar`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    email: email,
+                    senha: senha,
+                }),
+            })
+            //recebendo dados da api
+            let json = await response.json()
+
+            await AsyncStorage.setItem('usuarioData', JSON.stringify(json))
+            navigation.navigate('DefinirRenda')
+        }
+    }
 
     return (
 
@@ -53,6 +96,11 @@ export default function Register({ navigation }) {
 
                 <Text style={registerStyle.register}>Registre-se</Text>
 
+                <View>
+                    <Text style={registerStyle.registerMsg}>
+                        {display}
+                    </Text>
+                </View>
                 
                 <View>
                     <View
@@ -67,7 +115,7 @@ export default function Register({ navigation }) {
                             autoCapitalize="words"
                             keyboardType="default"
                             underlineColorAndroid="transparent"
-                            onChangeText={value => setName(value)}
+                            onChangeText={value => setNome(value)}
                             returnKeyType="next"
                         />
                     </View>
@@ -132,7 +180,7 @@ export default function Register({ navigation }) {
                 <View style={registerStyle.areaBtn}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => sendForm()}
                         style={registerStyle.btn}
                     >
                         <Text style={registerStyle.btnText}>Continuar</Text>

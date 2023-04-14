@@ -156,8 +156,8 @@ const homeStyle = StyleSheet.create({
     },
     btnCat: {
         backgroundColor: '#D9D9D9',
-        width: '100%',
-        height: '25%',
+        width: 320,
+        height: 50,
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',

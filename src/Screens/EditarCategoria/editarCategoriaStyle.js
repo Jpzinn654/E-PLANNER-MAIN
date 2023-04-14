@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 
-const adcCatStyle = StyleSheet.create({
+const EditarcAtegoriaSyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2C3C51',
@@ -137,4 +137,4 @@ const adcCatStyle = StyleSheet.create({
     
 })
 
-export default adcCatStyle
+export default EditarcAtegoriaSyle

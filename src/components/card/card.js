@@ -9,13 +9,14 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Swipeable } from 'react-native-gesture-handler'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import adcCatStyle from '../../Screens/AdicionarCategorias/adcCatStyle';
 
 export default function Card({ usuario }) {
 
     const [activeIndex, setActiveIndex] = useState(null);
 
     const [carregando, setCarregando] = useState(true)
-
+    const [display, setDisplay] = useState(false)
     const [data, setData] = useState([]);
 
     const leftSwipe = () => {
@@ -47,17 +48,18 @@ export default function Card({ usuario }) {
 
                 </TouchableOpacity>
             </View>
-        )}
+        )
+    }
 
 
     const usuarioId = usuario || ''
-        useEffect(() => {
-            fetchData();
-        }, [usuarioId]);
+    useEffect(() => {
+        fetchData();
+    }, [usuarioId]);
 
 
-        const fetchData = async () => {
-
+    const fetchData = async () => {
+        if (usuarioId !== null) {
             let response = await fetch(`${config.urlRoot}/categoria/listar`, {
                 method: 'POST',
                 headers: {
@@ -72,193 +74,202 @@ export default function Card({ usuario }) {
 
             let json = await response.json()
 
-            if (json === '') {
+            if (json == '') {
+                setDisplay('Você não possui nenhuma categoria!')
                 setCarregando(false)
             } else {
                 setData(json)
+                setDisplay(false)
                 setCarregando(false)
             }
         }
-
-
-
-
-        const handleCardPress = (index) => {
-            if (activeIndex === index) {
-                setActiveIndex(null);
-            } else {
-                setActiveIndex(index);
-            }
-        };
-
-
-
-
-        const renderCard = ({ item, index }) => {
-            const isActive = activeIndex === index;
-
-            return (
-                <TouchableOpacity style={styles.card} onPress={() => handleCardPress(index)}>
-                    <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
-                        <View style={styles.upContainer}>
-                            <Text style={styles.title}>{item.nome}</Text>
-                            <Text style={styles.value}>{item.valor}</Text>
-                        </View>
-                    </Swipeable>
-                    {isActive && (
-                        <View style={styles.cardContent}>
-                            <Text style={styles.text}>
-                                {item.descricao}
-                            </Text>
-                        </View>
-                    )}
-                </TouchableOpacity>
-            );
-        };
-
-
-
-
-        return (
-            <View>
-                {carregando ? (
-                    <Text>
-                        Você ainda não possui nenhuma categoria!
-                    </Text>
-                ) : (
-                    <FlatList
-                        data={data}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={renderCard}
-                    />
-                )}
-            </View>
-
-        );
-
     }
 
 
 
 
+    const handleCardPress = (index) => {
+        if (activeIndex === index) {
+            setActiveIndex(null);
+        } else {
+            setActiveIndex(index);
+        }
+    };
 
-    const styles = StyleSheet.create({
 
-        card: {
 
-            backgroundColor: '#d9d9d9',
 
-            borderRadius: 25,
+    const renderCard = ({ item, index }) => {
+        const isActive = activeIndex === index;
 
-            shadowColor: '#000',
+        return (
+            <TouchableOpacity style={styles.card} onPress={() => handleCardPress(index)}>
+                <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
+                    <View style={styles.upContainer}>
+                        <Text style={styles.title}>{item.nome}</Text>
+                        <Text style={styles.value}>{item.valor}</Text>
+                    </View>
+                </Swipeable>
+                {isActive && (
+                    <View style={styles.cardContent}>
+                        <Text style={styles.text}>
+                            {item.descricao}
+                        </Text>
+                    </View>
+                )}
+            </TouchableOpacity>
+        );
+    };
 
-            shadowOffset: {
 
-                width: 0,
 
-                height: 2,
 
-            },
+    return (
+        <View>
 
-            shadowOpacity: 0.3,
+            {/* <Text style={adcCatStyle.catMsg}>
+                {display}
+            </Text> */}
 
-            shadowRadius: 5,
+            {carregando ? (
+                <Text>
+                    Carregando...
+                </Text>
+            ) : (
+                <FlatList
+                    data={data}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={renderCard}
+                />
+                
+            )}
+        </View>
 
-            elevation: 5,
+    );
 
-            padding: 14,
+}
 
-            textAlign: 'center',
 
-            width: 320,
 
-            marginTop: 10,
 
-        },
 
-        leftView: {
+const styles = StyleSheet.create({
 
-            backgroundColor: 'red',
+    card: {
 
-            justifyContent: 'center',
+        backgroundColor: '#d9d9d9',
 
-            alignItems: 'center',
+        borderRadius: 25,
 
-            borderRadius: 10,
+        shadowColor: '#000',
 
-        },
+        shadowOffset: {
 
-        left: {
+            width: 0,
 
-            padding: 5,
-
-        },
-
-        rightView: {
-
-            backgroundColor: 'blue',
-
-            justifyContent: 'center',
-
-            alignItems: 'center',
-
-            borderRadius: 10,
-
-        },
-
-        right: {
-
-            padding: 5,
-
-        },
-
-        upContainer: {
-
-            flexDirection: 'row',
-
-            justifyContent: 'space-around',
-
-        },
-
-        title: {
-
-            fontSize: 16,
-
-            fontWeight: 'bold',
-
-            marginBottom: 10,
+            height: 2,
 
         },
 
-        value: {
+        shadowOpacity: 0.3,
 
-            fontSize: 16,
+        shadowRadius: 5,
 
-            fontWeight: 'bold',
+        elevation: 5,
 
-            marginLeft: 10
+        padding: 14,
 
-        },
+        textAlign: 'center',
 
-        cardContent: {
+        width: 320,
 
-            padding: 14,
+        marginTop: 10,
 
-            justifyContent: 'center',
+    },
 
-            alignItems: 'center',
+    leftView: {
+
+        backgroundColor: 'red',
+
+        justifyContent: 'center',
+
+        alignItems: 'center',
+
+        borderRadius: 10,
+
+    },
+
+    left: {
+
+        padding: 5,
+
+    },
+
+    rightView: {
+
+        backgroundColor: 'blue',
+
+        justifyContent: 'center',
+
+        alignItems: 'center',
+
+        borderRadius: 10,
+
+    },
+
+    right: {
+
+        padding: 5,
+
+    },
+
+    upContainer: {
+
+        flexDirection: 'row',
+
+        justifyContent: 'space-around',
+
+    },
+
+    title: {
+
+        fontSize: 16,
+
+        fontWeight: 'bold',
+
+        marginBottom: 10,
+
+    },
+
+    value: {
+
+        fontSize: 16,
+
+        fontWeight: 'bold',
+
+        marginLeft: 10
+
+    },
+
+    cardContent: {
+
+        padding: 14,
+
+        justifyContent: 'center',
+
+        alignItems: 'center',
 
 
 
 
-        },
+    },
 
-        text: {
+    text: {
 
-            fontSize: 16,
+        fontSize: 16,
 
-            textAlign: 'justify',
+        textAlign: 'justify',
 
-        },
+    },
 
-    });
+});

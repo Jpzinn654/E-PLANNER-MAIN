@@ -23,8 +23,8 @@ import {
 
 export default function Home({ navigation }) {
 
-    //estados que armazenam os dados
     const [usuario, setUsuario] = useState([])
+    const [usuarioId, setUsuarioId] = useState(null)
     const [orcamento, setOrcamento] = useState('');
     const [soma, setSoma] = useState('');
 
@@ -39,36 +39,38 @@ export default function Home({ navigation }) {
         let response = await AsyncStorage.getItem('usuarioData')
         let json = JSON.parse(response)
         setUsuario(json)
+        setUsuarioId(json.id)
     }
 
 
 
     useEffect(() => {
         fetchData();
-    }, [usuario]);
+    }, [usuarioId]);
 
     //função que requisita renda / orçamento do usuário
 
 
     const fetchData = async () => {
+        if (usuarioId !== null) {
+            let response = await fetch(`${config.urlRoot}/orcamento/listar`, {
 
-        let response = await fetch(`${config.urlRoot}/orcamento/listar`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
 
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-
-            body: JSON.stringify({
-                usuarioId: usuario.id,
-                mes: moment().format('M'),
-                ano: moment().format('YYYY')
-            }),
-        })
-        let json = await response.json()
-        setOrcamento(json.orcamento.valor)
-        setSoma(json.gastos)
+                body: JSON.stringify({
+                    usuarioId: usuarioId,
+                    mes: moment().format('M'),
+                    ano: moment().format('YYYY')
+                }),
+            })
+            let json = await response.json()
+            setOrcamento(json.orcamento.valor)
+            setSoma(json.gastos)
+        }
     }
 
     const disponivel = orcamento - soma

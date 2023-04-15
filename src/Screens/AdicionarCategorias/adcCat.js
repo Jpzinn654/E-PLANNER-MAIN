@@ -152,12 +152,14 @@ export default function Categorias({ navigation }) {
                 <TextInput
                     style={adcCatStyle.inp1}
                     onChangeText={text => setNome(text)}
+                    value={nome}
                     placeholder="Nome da categoria"
                     keyboardType="default"
                     underlineColorAndroid="transparent" />
 
                 <TextInput
                     onChangeText={text => setDescricao(text)}
+                    value={descricao}
                     style={adcCatStyle.inp2}
                     placeholder="Descrição (opcional)"
                     maxLength={100}
@@ -169,9 +171,10 @@ export default function Categorias({ navigation }) {
                     style={adcCatStyle.subContainerInput}>
                     <TextInput
                         onChangeText={text => setValor(text)}
+                        value={valor}
                         style={adcCatStyle.inp3}
                         placeholder="Valor"
-                        keyboardType="default"
+                        keyboardType="numeric"
                         underlineColorAndroid="transparent" />
 
                     <View style={adcCatStyle.btn}>

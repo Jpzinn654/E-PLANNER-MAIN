@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import config from '../../../config/config.json'
+
+import { Picker } from '@react-native-picker/picker';
 
 import { TextInputMask } from 'react-native-masked-text'
 import adcGastoSyle from "./adcGastoStyle";
@@ -12,7 +18,6 @@ import {
     TextInput,
     KeyboardAvoidingView
 } from "react-native";
-import { useState } from "react";
 
 
 export default function AdicionarGastos({ navigation }) {
@@ -20,7 +25,86 @@ export default function AdicionarGastos({ navigation }) {
     const [valor, setValor] = useState(null);
     const [descrição, setDescrição] = useState(null);
 
+    const [usuarioId, setUsuarioId] = useState(null)
+    const [categorias, setCategorias] = useState([]);
+    const [categoriaId, setCategoriaId] = useState(null);
+
+
+    //função que requisita id do usuário
+    useEffect(() => {
+        getUsuario();
+    }, []);
+
+    async function getUsuario() {
+        let response = await AsyncStorage.getItem('usuarioData')
+        let json = JSON.parse(response)
+        setUsuarioId(json.id)
+    }
+
+
+
+    useEffect(() => {
+        getCategorias();
+    }, [usuarioId]);
+
+    const getCategorias = async () => {
+        if (usuarioId !== null) {
+            let response = await fetch(`${config.urlRoot}/categoria/listar`, {
+
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify({
+                    usuarioId: usuarioId,
+                }),
+            })
+            let json = await response.json()
+            setCategorias(json)
+
+            if (json.length > 0) {
+                setCategoriaId(json[0].id);
+            }
+        }
+    }
+
+
+
+    const List = () => {
+
+        if (categorias.length > 0) {
+
+
+            return (
+                <View>
+                    <Picker
+                        style={adcGastoSyle.picker}
+                        selectedValue={categoriaId}
+                        onValueChange={(value) => setCategoriaId(value)}
+                    >
+                        <Picker.Item label="Selecione uma categoria" value={null} />
+                        {categorias.map((categoria) => (
+                            <Picker.Item
+                                key={categoria.id}
+                                style={adcGastoSyle.pickerItem}
+                                label={categoria.nome}
+                                value={categoria.id}
+                            />
+                        ))}
+                    </Picker>
+                </View>
+            );
+        } else {
+            return null;
+        }
+    };
+
+
     return (
+
+
 
         <View style={adcGastoSyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
@@ -54,16 +138,47 @@ export default function AdicionarGastos({ navigation }) {
                     ADICIONAR GASTOS
                 </Text>
 
-                <Text
-                    style={adcGastoSyle.texto3}>
-                    Categoria
-                </Text>
+                {/* <View>
+                    {categorias.length > 0 ? (
+                        <View >
+                            <Text style={adcGastoSyle.texto3}>
+                                Categoria:
+                            </Text>
+                            <List />
+                        </View>
+                    ) : (
+                        <Text>
+                            Nenhuma categoria adicionada
+                        </Text>
+
+                    )}
+                </View> */}
+
 
             </View>
 
+
+
             <KeyboardAvoidingView
+
+
+
                 behavior="padding"
                 style={adcGastoSyle.card}>
+
+                {categorias.length > 0 ? (
+                    <View >
+                        <Text style={adcGastoSyle.texto4}>
+                            Categoria:
+                        </Text>
+                        <List />
+                    </View>
+                ) : (
+                    <Text>
+                        Nenhuma categoria adicionada
+                    </Text>
+
+                )}
 
                 <Text
                     style={adcGastoSyle.texto4}>
@@ -95,7 +210,7 @@ export default function AdicionarGastos({ navigation }) {
                     keyboardType="default"
                     returnKeyType="done"
                     multiline={true}
-                    placeholder={'DESCRIÇÃO (OPCIONAL)'}
+                    placeholder={'DESCRIÇÃO'}
                     maxLength={50}
                     onChangeText={value => setDescrição(value)}
                 />

@@ -6,7 +6,7 @@ const adcGastoSyle = StyleSheet.create({
         backgroundColor: '#2C3C51',
         color: '#2C3C51',
     },
-    menuContainer:{
+    menuContainer: {
         flexDirection: 'row',
         top: -55,
     },
@@ -18,40 +18,40 @@ const adcGastoSyle = StyleSheet.create({
     back: {
         marginRight: 200,
     },
-    upContainer:{
+    upContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    texto2:{
+    texto2: {
         fontSize: 20,
         color: '#fff',
         fontWeight: 'bold',
     },
-    texto3:{
+    texto3: {
         fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
         right: 110,
         marginTop: 20,
     },
-    card:{
+    card: {
         flex: 2,
         backgroundColor: '#EEEEEF',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems:'center'
+        alignItems: 'center'
     },
-    texto4:{
+    texto4: {
         fontSize: 22,
         fontWeight: '600',
         marginTop: '10%'
     },
-    texto5:{
+    texto5: {
         fontSize: 22,
         fontWeight: '600',
     },
-    input:{
+    input: {
         borderWidth: 1,
         borderBottomColor: '#000',
         borderRadius: 2,
@@ -60,7 +60,7 @@ const adcGastoSyle = StyleSheet.create({
         height: 40,
         paddingLeft: 10,
     },
-    btnContinuar:{
+    btnContinuar: {
         width: 320,
         height: 50,
         borderRadius: 20,
@@ -75,10 +75,17 @@ const adcGastoSyle = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
     },
-    fundo:{
+    fundo: {
         position: 'absolute',
     },
-   
+    picker: {
+        backgroundColor: '#F5FCFF',
+        width: 200,
+    },
+    pickerItem: {
+        color: '#333333',
+    },
+
 })
 
 export default adcGastoSyle

@@ -16,14 +16,16 @@ import {
     StatusBar,
     Image,
     TextInput,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Alert
 } from "react-native";
 
 
 export default function AdicionarGastos({ navigation }) {
 
+    const [valortext, setValorText] = useState(null);
     const [valor, setValor] = useState(null);
-    const [descrição, setDescrição] = useState(null);
+    const [descricao, setDescricao] = useState(null);
 
     const [usuarioId, setUsuarioId] = useState(null)
     const [categorias, setCategorias] = useState([]);
@@ -71,6 +73,41 @@ export default function AdicionarGastos({ navigation }) {
     }
 
 
+    async function sendForm() {
+        let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                categoriaId: categoriaId,
+                valor: valor,
+                descricao: descricao
+            }),
+        })
+        let json = await response.json()
+        if (json === 'success') {
+            Alert.alert(
+                '',
+                'Gasto adicionado com sucesso!',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.navigate('AdicionarGastos'),
+                    },
+                ]
+            );
+            setValorText('')
+            setDescricao('')
+        }
+    }
+
+    const handleValorChange = (value) => {
+        const valorDecimal = parseFloat(value.replace(',', '.').replace('R$', '').trim());
+        setValor(valorDecimal);
+        setValorText(value)
+      }
 
     const List = () => {
 
@@ -195,9 +232,9 @@ export default function AdicionarGastos({ navigation }) {
                         unit: 'R$',
                         suffixUnit: ''
                     }}
-                    value={valor}
+                    value={valortext}
                     placeholder={'R$ 0,00'}
-                    onChangeText={value => setValor(value)}
+                    onChangeText={handleValorChange}
                 />
 
                 <Text
@@ -212,11 +249,13 @@ export default function AdicionarGastos({ navigation }) {
                     multiline={true}
                     placeholder={'DESCRIÇÃO'}
                     maxLength={50}
-                    onChangeText={value => setDescrição(value)}
+                    onChangeText={value => setDescricao(value)}
+                    value={descricao}
                 />
             </KeyboardAvoidingView>
             <TouchableOpacity
-                style={adcGastoSyle.btnContinuar}>
+                style={adcGastoSyle.btnContinuar}
+                onPress={() => sendForm()}>
                 <Text
                     style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
             </TouchableOpacity>

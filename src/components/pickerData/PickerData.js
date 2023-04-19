@@ -3,18 +3,18 @@ import React from "react";
 import {
     View,
     Text,
-    ScrollView,
+    StyleSheet,
     StatusBar,
 } from "react-native"
 
-import gastosGeraisStyles from "./gastosGeraisStyles";
-import CardGasto from "../../components/cardGasto/cardGsto";
-import { useState, useEffect } from "react";
-import { Picker } from '@react-native-picker/picker'
-import PickerMes from "../../components/pickerData/PickerData";
+
+import { useState } from "react";
+import { Picker } from '@react-native-picker/picker';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 
-export default function GastosGerais({ navigation }) {
+export default function PickerMes({ navigation }) {
 
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
 
@@ -22,6 +22,8 @@ export default function GastosGerais({ navigation }) {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
+
+    moment.locale('pt-br');
 
     // cria as opções da lista suspensa, filtrando apenas os meses e anos que já passaram ou são iguais ao atual
     const items = [];
@@ -51,25 +53,44 @@ export default function GastosGerais({ navigation }) {
     const selectedYear = selectedDate.split('/')[1];
 
     return (
-        <View style={gastosGeraisStyles.container}>
-            <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
-            <View
-                style={gastosGeraisStyles.finalContainer}>
+        <View style={styles.container}>
 
-                <PickerMes/>
+            <Text style={styles.label}>Selecione a data:</Text>
 
-                <View
-                    style={gastosGeraisStyles.cardsConatiner}>
-                    <ScrollView>
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                    </ScrollView>
-                </View>
+            <View style={styles.pickerContainer}>
+                <Picker
+                    style={styles.picker}
+                    selectedValue={selectedDate}
+                    onValueChange={handleChange}
+                >
+                    {items}
+                </Picker>
+
+
             </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+
+    container: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 10,
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    pickerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    picker: {
+        width: 180,
+        height: 30,
+    }
+}); 

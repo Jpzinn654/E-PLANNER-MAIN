@@ -28,8 +28,6 @@ export default function Home({ navigation }) {
     const [orcamento, setOrcamento] = useState('');
     const [soma, setSoma] = useState('');
 
-    moment.locale('pt-br');
-
     //função que requisita id do usuário
     useEffect(() => {
         getUsuario();

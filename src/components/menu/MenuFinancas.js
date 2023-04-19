@@ -17,7 +17,7 @@ import CardGasto from "../../components/cardGasto/cardGsto";
 import { GastoCategorias, GastosGerais } from "../../Screens";
 
 
-export default function MenuFinancas({ navigation }) {
+function MenuFinancas({ navigation }) {
 
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
@@ -66,8 +66,12 @@ export default function MenuFinancas({ navigation }) {
                 >
                     <Text
                         style={gastosGeraisStyles.midText1}>
-                        {(telaAtual == 1) ? <Text
-                        >TOTAL DE GASTO ECONOMIZADO</Text> : <Text>TOTAL GASTO</Text>}</Text>
+                        {(telaAtual === 1) ?
+                            <Text>TOTAL DE GASTO ECONOMIZADO</Text> :
+                            (telaAtual === 2) ?
+                                <Text>TOTAL GASTO</Text> :
+                                <Text>COMPARAÇÃO DE GASTOS</Text>
+                        }</Text>
                     <Text
                         style={gastosGeraisStyles.midText}>
                         R$ 0,00</Text>
@@ -96,48 +100,44 @@ export default function MenuFinancas({ navigation }) {
 
                 <View
                     style={gastosGeraisStyles.monthContainer}>
-                    {(telaAtual == 1) ? 
-                    <Text
-                    style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text> : 
-                    <Text
-                    style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS POR CATEGORIA</Text>}
-                    
+                    {(telaAtual === 1) ? (
+                        <Text
+                            style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>) :
+                        (telaAtual === 2) ? (
+                            <Text
+                                style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS POR CATEGORIA</Text>) :
+                            <Text
+                                style={gastosGeraisStyles.title}>Teste</Text>
+                    }
+
                 </View>
 
                 <View>
                     {
-                        (telaAtual == 1)
-                            ?
-                            <GastosGeraisAlt />
-                            :
-                            <GastoCategorias />
+                        (telaAtual === 1)
+                            ? (<GastosGerais />) :
+                            (telaAtual === 2) ?
+                                <GastoCategorias /> :
+                                <Text>aaaa</Text>
                     }
                 </View>
-
             </View>
-
         </View>
     )
 }
 
-function GastosGeraisAlt() {
-    return(
-        <View style={gastosGeraisAltStyle.testeContainer}>
-            <CardGasto/>
-            <CardGasto/>
-            <CardGasto/>
-        </View>
-    )
-}
+
+export default MenuFinancas
+
 
 const gastosGeraisAltStyle = StyleSheet.create({
-    testeContainer:{
+    testeContainer: {
         top: '10%',
         width: '100%',
         height: '85%',
         justifyContent: 'center',
         alignItems: 'center',
     }
-}) 
+})
 
 

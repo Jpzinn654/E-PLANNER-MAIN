@@ -79,11 +79,19 @@ const adcGastoSyle = StyleSheet.create({
         position: 'absolute',
     },
     picker: {
-        backgroundColor: '#F5FCFF',
-        width: 200,
+        backgroundColor: '#d9d9d9',
+        width: 280,
+        borderBottomStartRadius: 30,
     },
     pickerItem: {
-        color: '#333333',
+        color: '#red',
+    },
+    item:{
+        fontSize: 18,
+        color: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'Roboto',  
     },
 
 })

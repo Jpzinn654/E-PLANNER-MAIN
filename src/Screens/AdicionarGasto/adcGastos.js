@@ -115,9 +115,10 @@ export default function AdicionarGastos({ navigation }) {
 
 
             return (
-                <View>
+                <View> 
                     <Picker
                         style={adcGastoSyle.picker}
+                        itemStyle={adcGastoSyle.item}
                         selectedValue={categoriaId}
                         onValueChange={(value) => setCategoriaId(value)}
                     >
@@ -125,7 +126,7 @@ export default function AdicionarGastos({ navigation }) {
                         {categorias.map((categoria) => (
                             <Picker.Item
                                 key={categoria.id}
-                                style={adcGastoSyle.pickerItem}
+                                style={adcGastoSyle.item}
                                 label={categoria.nome}
                                 value={categoria.id}
                             />
@@ -175,31 +176,11 @@ export default function AdicionarGastos({ navigation }) {
                     ADICIONAR GASTOS
                 </Text>
 
-                {/* <View>
-                    {categorias.length > 0 ? (
-                        <View >
-                            <Text style={adcGastoSyle.texto3}>
-                                Categoria:
-                            </Text>
-                            <List />
-                        </View>
-                    ) : (
-                        <Text>
-                            Nenhuma categoria adicionada
-                        </Text>
-
-                    )}
-                </View> */}
-
-
             </View>
 
 
 
             <KeyboardAvoidingView
-
-
-
                 behavior="padding"
                 style={adcGastoSyle.card}>
 

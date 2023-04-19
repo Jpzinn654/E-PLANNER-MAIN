@@ -29,7 +29,7 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
-      initialRouteName='Login'
+      initialRouteName='Registrar'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
@@ -42,7 +42,7 @@ function Navigation() {
       <Stack.Screen name="GastoAgendados" component={HomeStack} />
       <Stack.Screen name="MenuFinancas" component={HomeStack} />
       <Stack.Screen name="GastosGerais" component={HomeStack} />
-      <Stack.Screen name="GastosCategoriasTab" component={HomeStack} />
+      <Stack.Screen name="GastosCategorias" component={GastoCategorias} />
       <Stack.Screen name="EditarCategorias" component={EditarCategorias} />
     </Stack.Navigator>
   );
@@ -91,19 +91,6 @@ function HomeStack() {
               return <MaterialIcons name='attach-money' size={size} color={color} />
             }
           }} />
-
-        {/* <Tab.Screen
-          name="GastosGeraisTab"
-          component={GastosGerais}
-          options={{
-            tabBarIcon: ({ color, size }) => {
-              return <MaterialIcons name='attach-money' size={size} color={color} />
-            }
-          }} /> */}
-        {/* <Tab.Screen
-          options={{headerShown: false}}
-          name="GastosCategoriasTab"
-          component={GastoCategorias} /> */}
 
     </Tab.Navigator>
   );

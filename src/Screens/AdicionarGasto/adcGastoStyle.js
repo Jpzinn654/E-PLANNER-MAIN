@@ -93,6 +93,12 @@ const adcGastoSyle = StyleSheet.create({
         alignItems: 'center',
         fontFamily: 'Roboto',  
     },
+    gastoMsg: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
+    },
 
 })
 

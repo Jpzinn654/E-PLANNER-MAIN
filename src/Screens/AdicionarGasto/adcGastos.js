@@ -9,6 +9,8 @@ import { Picker } from '@react-native-picker/picker';
 import { TextInputMask } from 'react-native-masked-text'
 import adcGastoSyle from "./adcGastoStyle";
 
+import moment from 'moment';
+
 import {
     View,
     Text,
@@ -23,14 +25,18 @@ import {
 
 export default function AdicionarGastos({ navigation }) {
 
-    const [valortext, setValorText] = useState(null);
+    //enviados para a api
+    const [categoriaId, setCategoriaId] = useState(null);
     const [valor, setValor] = useState(null);
     const [descricao, setDescricao] = useState(null);
-
     const [usuarioId, setUsuarioId] = useState(null)
-    const [categorias, setCategorias] = useState([]);
-    const [categoriaId, setCategoriaId] = useState(null);
 
+    //operações adicionais
+    const [display, setDisplay] = useState([])
+    const [categorias, setCategorias] = useState([]);
+    const [valortext, setValorText] = useState(null);
+
+    moment.locale('pt-br');
 
     //função que requisita id do usuário
     useEffect(() => {
@@ -43,15 +49,14 @@ export default function AdicionarGastos({ navigation }) {
         setUsuarioId(json.id)
     }
 
-
-
+    //função que requisita categorias
     useEffect(() => {
         getCategorias();
     }, [usuarioId]);
 
     const getCategorias = async () => {
         if (usuarioId !== null) {
-            let response = await fetch(`${config.urlRoot}/categoria/listar`, {
+            let response = await fetch(`${config.urlRoot}/gastoRealizado/listar/categotias`, {
 
                 method: 'POST',
                 headers: {
@@ -73,6 +78,7 @@ export default function AdicionarGastos({ navigation }) {
     }
 
 
+    //função que envia dados do formuário para a api
     async function sendForm() {
         let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
             method: 'POST',
@@ -81,6 +87,8 @@ export default function AdicionarGastos({ navigation }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                mes: moment().format('M'),
+                ano: moment().format('YYYY'),
                 categoriaId: categoriaId,
                 valor: valor,
                 descricao: descricao
@@ -99,7 +107,13 @@ export default function AdicionarGastos({ navigation }) {
                 ]
             );
             setValorText('')
+            setValor('')
             setDescricao('')
+        } else {
+            setDisplay(json.erros)
+            setTimeout(() => {
+                setDisplay('')
+            }, 5000)
         }
     }
 
@@ -107,18 +121,16 @@ export default function AdicionarGastos({ navigation }) {
         const valorDecimal = parseFloat(value.replace(',', '.').replace('R$', '').trim());
         setValor(valorDecimal);
         setValorText(value)
-      }
+    }
 
     const List = () => {
 
         if (categorias.length > 0) {
 
-
             return (
-                <View> 
+                <View>
                     <Picker
                         style={adcGastoSyle.picker}
-                        itemStyle={adcGastoSyle.item}
                         selectedValue={categoriaId}
                         onValueChange={(value) => setCategoriaId(value)}
                     >
@@ -126,7 +138,7 @@ export default function AdicionarGastos({ navigation }) {
                         {categorias.map((categoria) => (
                             <Picker.Item
                                 key={categoria.id}
-                                style={adcGastoSyle.item}
+                                style={adcGastoSyle.pickerItem}
                                 label={categoria.nome}
                                 value={categoria.id}
                             />
@@ -176,13 +188,38 @@ export default function AdicionarGastos({ navigation }) {
                     ADICIONAR GASTOS
                 </Text>
 
+                {/* <View>
+                    {categorias.length > 0 ? (
+                        <View >
+                            <Text style={adcGastoSyle.texto3}>
+                                Categoria:
+                            </Text>
+                            <List />
+                        </View>
+                    ) : (
+                        <Text>
+                            Nenhuma categoria adicionada
+                        </Text>
+                    )}
+                </View> */}
+
+
             </View>
 
 
 
             <KeyboardAvoidingView
+
+
+
                 behavior="padding"
                 style={adcGastoSyle.card}>
+
+                <View>
+                    <Text style={adcGastoSyle.gastoMsg}>
+                        {display[0]}
+                    </Text>
+                </View>
 
                 {categorias.length > 0 ? (
                     <View >

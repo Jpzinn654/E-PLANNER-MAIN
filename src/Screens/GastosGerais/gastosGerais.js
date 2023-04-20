@@ -5,18 +5,24 @@ import {
     Text,
     ScrollView,
     StatusBar,
+    StyleSheet
 } from "react-native"
 
 import gastosGeraisStyles from "./gastosGeraisStyles";
 import CardGasto from "../../components/cardGasto/cardGsto";
 import { useState, useEffect } from "react";
 import { Picker } from '@react-native-picker/picker'
-import PickerMes from "../../components/pickerData/PickerData";
 
 
 export default function GastosGerais({ navigation }) {
 
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+
+    const mes = selectedDate.split('/')[0];
+    const ano = selectedDate.split('/')[1];
+
+    console.log(mes, ano)
+
 
     // obtém o ano e mês atual
     const currentDate = new Date();
@@ -47,8 +53,6 @@ export default function GastosGerais({ navigation }) {
         setSelectedDate(value);
     }
 
-    const selectedMonth = selectedDate.split('/')[0];
-    const selectedYear = selectedDate.split('/')[1];
 
     return (
         <View style={gastosGeraisStyles.container}>
@@ -56,7 +60,22 @@ export default function GastosGerais({ navigation }) {
             <View
                 style={gastosGeraisStyles.finalContainer}>
 
-                <PickerMes/>
+                <View style={styles.container}>
+
+                    <Text style={styles.label}>Selecione a data:</Text>
+
+                    <View style={styles.pickerContainer}>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={selectedDate}
+                            onValueChange={handleChange}
+                        >
+                            {items}
+                        </Picker>
+
+
+                    </View>
+                </View>
 
                 <View
                     style={gastosGeraisStyles.cardsConatiner}>
@@ -73,3 +92,26 @@ export default function GastosGerais({ navigation }) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+
+    container: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 10,
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    pickerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    picker: {
+        width: 180,
+        height: 30,
+    }
+}); 

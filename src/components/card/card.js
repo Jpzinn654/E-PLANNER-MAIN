@@ -9,7 +9,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Swipeable } from 'react-native-gesture-handler'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import adcCatStyle from '../../Screens/AdicionarCategorias/adcCatStyle';
+import moment from 'moment';
+
 
 export default function Card({ usuario }) {
 
@@ -18,6 +19,8 @@ export default function Card({ usuario }) {
     const [carregando, setCarregando] = useState(true)
     const [display, setDisplay] = useState(false)
     const [data, setData] = useState([]);
+
+    moment.locale('pt-br');
 
     const leftSwipe = () => {
 
@@ -67,7 +70,9 @@ export default function Card({ usuario }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    usuarioId: usuarioId
+                    usuarioId: usuarioId,
+                    mes: moment().format('M'),
+                    ano: moment().format('YYYY')
                 }),
 
             })
@@ -107,11 +112,14 @@ export default function Card({ usuario }) {
                 <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
                     <View style={styles.upContainer}>
                         <Text style={styles.title}>{item.nome}</Text>
-                        <Text style={styles.value}>{item.valor}</Text>
+                        <Text style={styles.value}>{item.valor - item.valorTotalGastos}</Text>
                     </View>
                 </Swipeable>
                 {isActive && (
                     <View style={styles.cardContent}>
+                        <Text style={styles.text}>
+                            Valor total: {item.valor}
+                        </Text>
                         <Text style={styles.text}>
                             {item.descricao}
                         </Text>

@@ -59,7 +59,7 @@ export default function CardAgendado() {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#d9d9d9',
-        borderRadius: 25,
+        borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
         padding: 14,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     text: {
         fontSize: 16,

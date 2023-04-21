@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { 
+    StyleSheet, 
+    Text, 
+    View, 
+    TouchableOpacity } from 'react-native';
 
 import config from '../../../config/config.json'
 
 import { FlatList } from 'react-native-gesture-handler';
-
 import { Swipeable } from 'react-native-gesture-handler'
-
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import moment from 'moment';
 
+import moment from 'moment';
 
 export default function Card({ usuario }) {
 
@@ -91,8 +93,6 @@ export default function Card({ usuario }) {
     }
 
 
-
-
     const handleCardPress = (index) => {
         if (activeIndex === index) {
             setActiveIndex(null);
@@ -100,8 +100,6 @@ export default function Card({ usuario }) {
             setActiveIndex(index);
         }
     };
-
-
 
 
     const renderCard = ({ item, index }) => {
@@ -118,7 +116,7 @@ export default function Card({ usuario }) {
                 {isActive && (
                     <View style={styles.cardContent}>
                         <Text style={styles.text}>
-                            Valor total: {item.valor}
+                            Valor Total: R$ {item.valor}
                         </Text>
                         <Text style={styles.text}>
                             {item.descricao}
@@ -135,12 +133,8 @@ export default function Card({ usuario }) {
     return (
         <View>
 
-            {/* <Text style={adcCatStyle.catMsg}>
-                {display}
-            </Text> */}
-
             {carregando ? (
-                <Text>
+                <Text style={styles.loading}>
                     Carregando...
                 </Text>
             ) : (
@@ -149,7 +143,7 @@ export default function Card({ usuario }) {
                     keyExtractor={({ id }, index) => id}
                     renderItem={renderCard}
                 />
-                
+
             )}
         </View>
 
@@ -164,120 +158,64 @@ export default function Card({ usuario }) {
 const styles = StyleSheet.create({
 
     card: {
-
         backgroundColor: '#d9d9d9',
-
         borderRadius: 25,
-
         shadowColor: '#000',
-
         shadowOffset: {
-
             width: 0,
-
             height: 2,
-
         },
-
         shadowOpacity: 0.3,
-
         shadowRadius: 5,
-
         elevation: 5,
-
         padding: 14,
-
         textAlign: 'center',
-
         width: 320,
-
         marginTop: 10,
-
     },
-
     leftView: {
-
         backgroundColor: 'red',
-
         justifyContent: 'center',
-
         alignItems: 'center',
-
         borderRadius: 10,
-
     },
-
     left: {
-
         padding: 5,
-
     },
-
     rightView: {
-
         backgroundColor: 'blue',
-
         justifyContent: 'center',
-
         alignItems: 'center',
-
         borderRadius: 10,
-
     },
-
     right: {
-
         padding: 5,
-
     },
-
-    upContainer: {
-
+    upContainer: { 
         flexDirection: 'row',
-
         justifyContent: 'space-around',
-
     },
-
     title: {
-
         fontSize: 16,
-
         fontWeight: 'bold',
-
         marginBottom: 10,
-
     },
-
     value: {
-
         fontSize: 16,
-
         fontWeight: 'bold',
-
         marginLeft: 10
-
     },
-
     cardContent: {
-
         padding: 14,
-
         justifyContent: 'center',
-
         alignItems: 'center',
-
-
-
-
     },
-
     text: {
-
         fontSize: 16,
-
         textAlign: 'justify',
-
     },
-
+    loading:{
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

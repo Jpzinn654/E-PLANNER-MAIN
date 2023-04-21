@@ -21,7 +21,7 @@ export default function GastosGerais({ navigation }) {
     const mes = selectedDate.split('/')[0];
     const ano = selectedDate.split('/')[1];
 
-    console.log(mes, ano)
+    // console.log(mes, ano)
 
 
     // obtém o ano e mês atual

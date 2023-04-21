@@ -11,6 +11,7 @@ import GastosGerais from "./GastosGerais/gastosGerais";
 import EditarRenda from "./EditarRenda/editarRenda";
 import GastoCategorias from "./GastoPorCategoria/gastoCategoria";
 import EditarCategorias from "./EditarCategoria/editarCategoria";
+import CompGastos from "./CompGastos/CompGastos";
 
 export {
     Home,
@@ -25,5 +26,7 @@ export {
     GastosGerais,
     EditarRenda,
     GastoCategorias,
-    EditarCategorias
+    EditarCategorias,
+    CompGastos
+    
 }

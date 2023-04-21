@@ -5,16 +5,12 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    ScrollView,
     StatusBar,
     StyleSheet
 } from "react-native"
 
 import gastosGeraisStyles from "./MenuFinancasStyle";
-import { TextInput } from "react-native-gesture-handler";
-import { TextInputMask } from "react-native-masked-text";
-import CardGasto from "../../components/cardGasto/cardGsto";
-import { GastoCategorias, GastosGerais } from "../../Screens";
+import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
 
 function MenuFinancas({ navigation }) {
@@ -107,7 +103,7 @@ function MenuFinancas({ navigation }) {
                             <Text
                                 style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS POR CATEGORIA</Text>) :
                             <Text
-                                style={gastosGeraisStyles.title}>Teste</Text>
+                                style={gastosGeraisStyles.title}>COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
                     }
 
                 </View>
@@ -118,7 +114,7 @@ function MenuFinancas({ navigation }) {
                             ? (<GastosGerais />) :
                             (telaAtual === 2) ?
                                 <GastoCategorias /> :
-                                <Text>aaaa</Text>
+                                    <CompGastos/>
                     }
                 </View>
             </View>

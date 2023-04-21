@@ -72,7 +72,7 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
 
                 <Text
                     style={definifirRendaStyle.texto2}
-                >Defina sua renda</Text>
+                >Editar renda</Text>
 
             </View>
 

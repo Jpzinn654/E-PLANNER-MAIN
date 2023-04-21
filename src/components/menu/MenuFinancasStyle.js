@@ -49,6 +49,7 @@ const menuFinancasStyle = StyleSheet.create({
         top: 60,
     },
     buttonContainer:{
+        top: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },

@@ -31,7 +31,7 @@ const adcCatStyle = StyleSheet.create({
     },
     txtVal1: {
         color: '#fff',
-        paddingRight: '10%',
+        paddingRight: '5%',
         fontSize: 22,
     },
     txtVal2: {
@@ -111,7 +111,7 @@ const adcCatStyle = StyleSheet.create({
         color: '#fff'
     },
     btnContainer:{
-        top: '15%'
+        top: '12%'
     },
     btnContinuar:{
         width: 280,
@@ -120,7 +120,7 @@ const adcCatStyle = StyleSheet.create({
         backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
-        top: '10%'
+        top: '5%'
     },
     btnContinuarTxt: {
         color: '#fff',

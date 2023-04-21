@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
-
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Picker } from '@react-native-picker/picker';
 
 import { TextInputMask } from 'react-native-masked-text'
@@ -24,6 +24,16 @@ import {
 
 
 export default function AdicionarGastos({ navigation }) {
+
+    const showToast = () => {
+        Toast.show({
+            type: "success",
+            text1: "Gasto adicionado com sucesso",
+            autoHide: true,
+            visibilityTime: 2000,
+            topOffset: 0,
+        })
+    }
 
     //enviados para a api
     const [categoriaId, setCategoriaId] = useState(null);
@@ -96,16 +106,7 @@ export default function AdicionarGastos({ navigation }) {
         })
         let json = await response.json()
         if (json === 'success') {
-            Alert.alert(
-                '',
-                'Gasto adicionado com sucesso!',
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => navigation.navigate('AdicionarGastos'),
-                    },
-                ]
-            );
+            showToast()
             setValorText('')
             setValor('')
             setDescricao('')
@@ -164,6 +165,8 @@ export default function AdicionarGastos({ navigation }) {
                 source={require('../../assets/fundo.png')}
             />
 
+            <Toast/>
+
             <View
                 style={adcGastoSyle.upContainer}>
 
@@ -188,30 +191,12 @@ export default function AdicionarGastos({ navigation }) {
                     ADICIONAR GASTOS
                 </Text>
 
-                {/* <View>
-                    {categorias.length > 0 ? (
-                        <View >
-                            <Text style={adcGastoSyle.texto3}>
-                                Categoria:
-                            </Text>
-                            <List />
-                        </View>
-                    ) : (
-                        <Text>
-                            Nenhuma categoria adicionada
-                        </Text>
-                    )}
-                </View> */}
-
 
             </View>
 
 
 
             <KeyboardAvoidingView
-
-
-
                 behavior="padding"
                 style={adcGastoSyle.card}>
 

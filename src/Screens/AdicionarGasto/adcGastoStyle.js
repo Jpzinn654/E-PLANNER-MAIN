@@ -45,7 +45,7 @@ const adcGastoSyle = StyleSheet.create({
     texto4: {
         fontSize: 22,
         fontWeight: '600',
-        marginTop: '10%'
+        marginTop: '5%'
     },
     texto5: {
         fontSize: 22,

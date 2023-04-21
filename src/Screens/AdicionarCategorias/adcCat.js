@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-
 import adcCatStyle from "./adcCatStyle";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import config from '../../../config/config.json'
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import {
     View,
@@ -20,6 +19,16 @@ import {
 
 
 export default function Categorias({ navigation }) {
+
+    const showToast = () => {
+        Toast.show({
+            type: "success",
+            text1: "Categoria criada com sucesso",
+            autoHide: true,
+            visibilityTime: 2000,
+            topOffset: 0,
+        })
+    }
 
     const [display, setDisplay] = useState([])
     const [usuarioId, setUsuarioId] = useState()
@@ -83,16 +92,7 @@ export default function Categorias({ navigation }) {
         })
         let json = await response.json()
         if (json === 'success') {
-            Alert.alert(
-                '',
-                'Categoria criada com sucesso!',
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => navigation.navigate('Categorias'),
-                    },
-                ]
-            );
+            showToast()
             setNome('')
             setDescricao('')
             setValor('')
@@ -119,6 +119,7 @@ export default function Categorias({ navigation }) {
                 source={require('../../assets/fundo.png')}
             />
 
+            <Toast />
 
             <TouchableOpacity
                 style={adcCatStyle.back}
@@ -127,6 +128,8 @@ export default function Categorias({ navigation }) {
                     source={require('../../assets/back.png')}
                 />
             </TouchableOpacity>
+
+
 
             <Text style={adcCatStyle.texto1}>E-PLANNER</Text>
 
@@ -187,7 +190,11 @@ export default function Categorias({ navigation }) {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <TouchableOpacity style={adcCatStyle.btnContinuar}
-                        onPress={() => sendForm()}>
+                        onPress={() => sendForm()}
+                        // onPress={showToast}
+                        // onPress={showToastError}
+                        >
+
                         <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>

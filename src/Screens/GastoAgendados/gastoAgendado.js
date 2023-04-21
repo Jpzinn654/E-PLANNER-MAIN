@@ -24,7 +24,7 @@ export default function GastoAgendado() {
 
     return (
         <View style={gastoAgendadoStyle.container}>
-            <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
+            <StatusBar backgroundColor={'#eeeeef'} barStyle="dark-content" />
 
             <View style={gastoAgendadoStyle.upContainer}>
                 <View

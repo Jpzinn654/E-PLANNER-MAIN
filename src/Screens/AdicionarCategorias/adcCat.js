@@ -20,6 +20,14 @@ import {
 
 export default function Categorias({ navigation }) {
 
+    const [display, setDisplay] = useState([])
+    const [usuarioId, setUsuarioId] = useState()
+    const [data, setData] = useState([]);
+
+    const [nome, setNome] = useState(null)
+    const [descricao, setDescricao] = useState(null)
+    const [valor, setValor] = useState(null)
+
     const showToast = () => {
         Toast.show({
             type: "success",
@@ -29,14 +37,6 @@ export default function Categorias({ navigation }) {
             topOffset: 0,
         })
     }
-
-    const [display, setDisplay] = useState([])
-    const [usuarioId, setUsuarioId] = useState()
-    const [data, setData] = useState([]);
-
-    const [nome, setNome] = useState(null)
-    const [descricao, setDescricao] = useState(null)
-    const [valor, setValor] = useState(null)
 
 
     //função que requisita id do usuário

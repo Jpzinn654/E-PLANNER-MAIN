@@ -21,7 +21,33 @@ import {
     ScrollView,
 } from "react-native";
 
+// import { useRoute } from '@react-navigation/native';
+// import { Toast } from "react-native-toast-message/lib/src/Toast";
+
 export default function Home({ navigation }) {
+
+    // const route = useRoute();
+    // console.log(route.params)
+
+    // if (route.params){
+
+        
+    //     // useEffect(() => {
+    //     //     showToast();
+    //     // }, [route.params.edit]);
+
+    //     // const showToast = () => {
+    //     //     Toast.show({
+    //     //         type: "success",
+    //     //         text1: "Categoria editada com sucesso",
+    //     //         autoHide: true,
+    //     //         visibilityTime: 2000,
+    //     //         topOffset: 0,
+    //     //     })
+    //     // }
+    // }
+
+    
 
     const [usuario, setUsuario] = useState([])
     const [usuarioId, setUsuarioId] = useState(null)
@@ -206,7 +232,8 @@ export default function Home({ navigation }) {
 
                 <ScrollView
                     style={homeStyle.components}>
-                    <Card usuario={usuario.id} />
+                    <Card usuario={usuario.id} 
+                    navigation={navigation}/>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Categorias')}
                         style={homeStyle.btnCat}>

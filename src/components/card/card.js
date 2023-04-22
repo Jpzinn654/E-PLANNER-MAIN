@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { 
-    StyleSheet, 
-    Text, 
-    View, 
-    TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+
+} from 'react-native';
 
 import config from '../../../config/config.json'
 
@@ -14,7 +16,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 import moment from 'moment';
 
-export default function Card({ usuario }) {
+export default function Card({ usuario, navigation }) {
 
     const [activeIndex, setActiveIndex] = useState(null);
 
@@ -24,13 +26,32 @@ export default function Card({ usuario }) {
 
     moment.locale('pt-br');
 
-    const leftSwipe = () => {
+    const leftSwipe = (item) => {
+
+        const excluir = async () => {
+            let response = await fetch(`${config.urlRoot}/categoria/deletar/${item.id}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            let json = await response.json()
+
+            if (json === 'success') {
+                console.log('categoria deletada')
+            } else {
+                console.log('error')
+            }
+        }
 
         return (
 
             <View style={styles.leftView}>
 
-                <TouchableOpacity style={styles.left}>
+                <TouchableOpacity style={styles.left}
+                    onPress={() => excluir()}>
 
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
 
@@ -42,12 +63,17 @@ export default function Card({ usuario }) {
 
     }
 
-    const rightSwipe = () => {
+    const rightSwipe = (item) => {
+
+        const editar = async () => {
+            navigation.navigate('EditarCategorias', { id: item.id })
+        }
 
         return (
             <View style={styles.rightView}>
 
-                <TouchableOpacity style={styles.right}>
+                <TouchableOpacity style={styles.right}
+                    onPress={() => editar()}>
 
                     <MaterialIcons name="edit" size={24} color="white" />
 
@@ -107,7 +133,7 @@ export default function Card({ usuario }) {
 
         return (
             <TouchableOpacity style={styles.card} onPress={() => handleCardPress(index)}>
-                <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
+                <Swipeable renderLeftActions={() => leftSwipe(item)} renderRightActions={() => rightSwipe(item)}>
                     <View style={styles.upContainer}>
                         <Text style={styles.title}>{item.nome}</Text>
                         <Text style={styles.value}>{item.valor - item.valorTotalGastos}</Text>
@@ -191,7 +217,7 @@ const styles = StyleSheet.create({
     right: {
         padding: 5,
     },
-    upContainer: { 
+    upContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
@@ -214,7 +240,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'justify',
     },
-    loading:{
+    loading: {
         justifyContent: 'center',
         alignItems: 'center'
     }

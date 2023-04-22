@@ -133,12 +133,6 @@ const adcCatStyle = StyleSheet.create({
         marginBottom: 5,
         textAlign: 'center'
     },
-    catMsg: {
-        fontSize: 16,
-        color: 'red',
-        marginTop: 5,
-        marginBottom: 5,
-    },
     
 })
 

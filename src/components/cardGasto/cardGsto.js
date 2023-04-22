@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
-export default function CardGasto() {
-    const [isActive, setIsActive] = useState(false);
 
-    const toggleCard = () => {
-        setIsActive(!isActive);
+export default function CardGasto({ data, navigation }) {
+    const [cardStates, setCardStates] = useState(data.map(() => false));
+
+    const toggleCard = (index) => {
+        const newCardStates = [...cardStates];
+        newCardStates[index] = !newCardStates[index];
+        setCardStates(newCardStates);
     };
 
     const rightSwipe = () => {
@@ -23,22 +26,27 @@ export default function CardGasto() {
 
 
     return (
-        <TouchableOpacity style={styles.card} onPress={toggleCard}>
-            <Swipeable renderRightActions={rightSwipe}>
-                <View style={styles.upContainer}>
-                    <Text style={styles.title}>SEU GASTO</Text>
-                    <Text style={styles.value}>R$ 0,00</Text>
-                </View>
-            </Swipeable>
-            {isActive && (
-                <View style={styles.cardContent}>
-                    <Text style={styles.text}>
-                        Texto do card que será exibido após o clique.
-                    </Text>
-                </View>
-            )}
-        </TouchableOpacity>
+        <View>
+            {data.map((item, index) => (
+                <TouchableOpacity style={styles.card} onPress={() => toggleCard(index)}>
+                    <Swipeable renderRightActions={rightSwipe}>
+                        <View style={styles.upContainer} key={index}>
+                            <Text style={styles.title}>{item.categoria.nome}</Text>
+                            <Text style={styles.value}>{item.valor}</Text>
+                        </View>
+                    </Swipeable>
+                    {cardStates[index] && (
+                        <View style={styles.cardContent}>
+                            <Text style={styles.text}>
+                                {item.descricao}
+                            </Text>
+                        </View>
+                    )}
+                </TouchableOpacity>
+            ))}
+        </View>
     );
+
 }
 
 const styles = StyleSheet.create({
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        
+
     },
     right: {
         backgroundColor: 'blue',

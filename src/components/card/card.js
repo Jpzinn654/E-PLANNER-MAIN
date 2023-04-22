@@ -5,6 +5,7 @@ import {
     Text,
     View,
     TouchableOpacity,
+    Alert
 
 } from 'react-native';
 
@@ -28,7 +29,7 @@ export default function Card({ usuario, navigation }) {
 
     const leftSwipe = (item) => {
 
-        const excluir = async () => {
+        const handleExcluir   = async () => {
             let response = await fetch(`${config.urlRoot}/categoria/deletar/${item.id}`, {
                 method: 'GET',
                 headers: {
@@ -46,12 +47,29 @@ export default function Card({ usuario, navigation }) {
             }
         }
 
+        const showAlert  = async () => {
+            Alert.alert(
+                '',
+                'Deseja excluir a categoria?',
+                [
+                    {
+                        text: 'Cancelar',
+                    },
+                    {
+                        text: 'Sim',
+                        onPress: () => handleExcluir(),
+                    },
+                ]
+            );
+            
+        }
+
         return (
 
             <View style={styles.leftView}>
 
                 <TouchableOpacity style={styles.left}
-                    onPress={() => excluir()}>
+                    onPress={() => showAlert ()}>
 
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
 

@@ -13,15 +13,61 @@ import CardGasto from "../../components/cardGasto/cardGsto";
 import { useState, useEffect } from "react";
 import { Picker } from '@react-native-picker/picker'
 
+import config from '../../../config/config.json'
+
+import { FlatList } from 'react-native-gesture-handler';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function GastosGerais({ navigation }) {
 
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+    const [usuarioId, setUsuarioId] = useState(null)
+    const [data, setData] = useState([]);
 
     const mes = selectedDate.split('/')[0];
     const ano = selectedDate.split('/')[1];
 
-    // console.log(mes, ano)
+
+    useEffect(() => {
+        getUsuario();
+    }, []);
+
+    async function getUsuario() {
+        let response = await AsyncStorage.getItem('usuarioData')
+        let json = JSON.parse(response)
+        setUsuarioId(json.id)
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [selectedDate, usuarioId]);
+
+    //função que requisita renda / orçamento do usuário
+
+
+    const fetchData = async () => {
+        if (usuarioId !== null) {
+            let response = await fetch(`${config.urlRoot}/gastoRealizado/listar`, {
+
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify({
+                    usuarioId: usuarioId,
+                    mes: mes,
+                    ano: ano
+                }),
+            })
+            let json = await response.json()
+            setData(json)
+            // console.log(json)
+        }
+    }
 
 
     // obtém o ano e mês atual
@@ -51,6 +97,7 @@ export default function GastosGerais({ navigation }) {
 
     function handleChange(value) {
         setSelectedDate(value);
+        fetchData()
     }
 
 
@@ -80,12 +127,9 @@ export default function GastosGerais({ navigation }) {
                 <View
                     style={gastosGeraisStyles.cardsConatiner}>
                     <ScrollView>
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
-                        <CardGasto />
+                        <CardGasto data={data}/>
+
+                        
                     </ScrollView>
                 </View>
             </View>

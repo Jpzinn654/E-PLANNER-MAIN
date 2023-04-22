@@ -106,7 +106,7 @@ export default function EditarCategorias({ navigation }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                rendaDisponivel: data + valorInicial,
+                rendaDisponivel: Number(data) + Number(valorInicial),
                 categoriaId: id,
                 nome: nome,
                 descricao: descricao,
@@ -117,7 +117,10 @@ export default function EditarCategorias({ navigation }) {
         if (json === 'success') {
             navigation.navigate('Home', {edit: true})
         } else {
-            console.log('error')
+            setDisplay(json.erros)
+            setTimeout(() => {
+                setDisplay('')
+            }, 5000)
         }
 
     }

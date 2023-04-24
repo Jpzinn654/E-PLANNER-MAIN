@@ -51,6 +51,13 @@ const definifirRendaStyle = StyleSheet.create({
         height: 280,
         width: '100%'
     },
+    orcamentoMsg: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
+        textAlign: 'center'
+    },
 })
 
 export default definifirRendaStyle;

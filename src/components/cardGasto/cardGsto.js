@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
+import config from '../../../config/config.json'
 
 export default function CardGasto({ data, navigation }) {
     const [cardStates, setCardStates] = useState(data.map(() => false));
@@ -14,10 +15,48 @@ export default function CardGasto({ data, navigation }) {
         setCardStates(newCardStates);
     };
 
-    const rightSwipe = () => {
+    const rightSwipe = (item) => {
+
+        const handleExcluir   = async () => {
+            let response = await fetch(`${config.urlRoot}/gastoRealizado/deletar/${item.id}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            let json = await response.json()
+
+            if (json === 'success') {
+                console.log('categoria deletada')
+            } else {
+                console.log('error')
+            }
+            // console.log(item.id)
+        }
+
+        const showAlert  = async () => {
+            Alert.alert(
+                '',
+                'Deseja excluir o gasto?',
+                [
+                    {
+                        text: 'Cancelar',
+                    },
+                    {
+                        text: 'Sim',
+                        onPress: () => handleExcluir(),
+                    },
+                ]
+            );
+            
+        }
+
         return (
             <View style={styles.rightView}>
-                <TouchableOpacity style={styles.right}>
+                <TouchableOpacity style={styles.right}
+                onPress={() => showAlert ()}>
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
                 </TouchableOpacity>
             </View>
@@ -29,7 +68,7 @@ export default function CardGasto({ data, navigation }) {
         <View>
             {data.map((item, index) => (
                 <TouchableOpacity style={styles.card} onPress={() => toggleCard(index)}>
-                    <Swipeable renderRightActions={rightSwipe}>
+                    <Swipeable renderLeftActions={() => rightSwipe(item)}>
                         <View style={styles.upContainer} key={index}>
                             <Text style={styles.title}>{item.categoria.nome}</Text>
                             <Text style={styles.value}>{item.valor}</Text>

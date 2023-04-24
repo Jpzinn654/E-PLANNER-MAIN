@@ -24,7 +24,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function DefinirRenda({ navigation, min, max, steps }) {
 
     //estados que armazenam os dados
-    const [usuarioId, setUsuario] = useState(null)
+    const [display, setDisplay] = useState([])
+    const [usuarioId, setUsuarioId] = useState(null)
     const [sliderValue, setSliderValue] = useState(500);
 
     //função que requisita id do usuário
@@ -32,14 +33,14 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
         async function getUsuario() {
             let response = await AsyncStorage.getItem('usuarioData')
             let json = JSON.parse(response)
-            setUsuario(json.id)
+            setUsuarioId(json.id)
         }
         getUsuario()
     }, [])
 
     //função que encaminha os dados para a api
     async function sendForm() {
-        let response = await fetch(`${config.urlRoot}/orcamento/adicionar`, {
+        let response = await fetch(`${config.urlRoot}/orcamento/editar`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -51,11 +52,19 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
             }),
         })
         let json = await response.json()
+        // console.log(json)
 
-        if (json === 'success'){
-            navigation.navigate('Home')
+        if (json === 'success') {
+            navigation.navigate('HomeDrawer', { editRenda: true })
+        } else {
+            setDisplay(json.erros)
+            setTimeout(() => {
+                setDisplay('')
+            }, 5000)
         }
+
     }
+    
     return (
 
         <SafeAreaView style={definifirRendaStyle.fundo}>
@@ -80,7 +89,13 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
             <View
                 style={definifirRendaStyle.areaRenda}
             >
-                
+
+                <View>
+                    <Text style={definifirRendaStyle.orcamentoMsg}>
+                        {display[0]}
+                    </Text>
+                </View>
+
                 <View style={styles.container}>
                     <Text
                         style={styles.texto}
@@ -100,7 +115,7 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
                         minimumTrackTintColor="#02CB7F"
                         maximumTrackTintColor="#000" />
                 </View>
-                
+
 
                 <TouchableOpacity
                     style={definifirRendaStyle.btn}

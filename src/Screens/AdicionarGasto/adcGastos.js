@@ -25,6 +25,7 @@ import {
 
 export default function AdicionarGastos({ navigation }) {
 
+    //msg ao adicionar gasto
     const showToast = () => {
         Toast.show({
             type: "success",
@@ -37,11 +38,13 @@ export default function AdicionarGastos({ navigation }) {
 
     //enviados para a api
     const [categoriaId, setCategoriaId] = useState(null);
+    const [categoriaNome, setCategoriaNome] = useState(null);
+
     const [valor, setValor] = useState(null);
     const [descricao, setDescricao] = useState(null);
-    const [usuarioId, setUsuarioId] = useState(null)
 
     //operações adicionais
+    const [usuarioId, setUsuarioId] = useState(null)
     const [display, setDisplay] = useState([])
     const [categorias, setCategorias] = useState([]);
     const [valortext, setValorText] = useState(null);
@@ -83,6 +86,7 @@ export default function AdicionarGastos({ navigation }) {
 
             if (json.length > 0) {
                 setCategoriaId(json[0].id);
+                setCategoriaNome(json[0].nome)
             }
         }
     }
@@ -101,7 +105,8 @@ export default function AdicionarGastos({ navigation }) {
                 ano: moment().format('YYYY'),
                 categoriaId: categoriaId,
                 valor: valor,
-                descricao: descricao
+                descricao: descricao,
+                categoriaNome: categoriaNome
             }),
         })
         let json = await response.json()
@@ -116,8 +121,10 @@ export default function AdicionarGastos({ navigation }) {
                 setDisplay('')
             }, 5000)
         }
+        
     }
 
+    //função que trata valor da mascara 
     const handleValorChange = (value) => {
         const valorDecimal = parseFloat(value.replace(',', '.').replace('R$', '').trim());
         setValor(valorDecimal);
@@ -125,32 +132,36 @@ export default function AdicionarGastos({ navigation }) {
     }
 
     const List = () => {
-
+        const handleCategoriaChange = (value) => {
+          setCategoriaId(value);
+          const categoriaSelecionada = categorias.find((categoria) => categoria.id === value);
+          setCategoriaNome(categoriaSelecionada.nome);
+        };
+      
         if (categorias.length > 0) {
-
-            return (
-                <View>
-                    <Picker
-                        style={adcGastoSyle.picker}
-                        selectedValue={categoriaId}
-                        onValueChange={(value) => setCategoriaId(value)}
-                    >
-                        <Picker.Item label="Selecione uma categoria" value={null} />
-                        {categorias.map((categoria) => (
-                            <Picker.Item
-                                key={categoria.id}
-                                style={adcGastoSyle.pickerItem}
-                                label={categoria.nome}
-                                value={categoria.id}
-                            />
-                        ))}
-                    </Picker>
-                </View>
-            );
+          return (
+            <View>
+              <Picker
+                style={adcGastoSyle.picker}
+                selectedValue={categoriaId}
+                onValueChange={handleCategoriaChange}
+              >
+                <Picker.Item label="Selecione uma categoria" value={null} />
+                {categorias.map((categoria) => (
+                  <Picker.Item
+                    key={categoria.id}
+                    style={adcGastoSyle.pickerItem}
+                    label={categoria.nome}
+                    value={categoria.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+          );
         } else {
-            return null;
+          return null;
         }
-    };
+      };
 
 
     return (
@@ -165,7 +176,7 @@ export default function AdicionarGastos({ navigation }) {
                 source={require('../../assets/fundo.png')}
             />
 
-            <Toast/>
+            <Toast />
 
             <View
                 style={adcGastoSyle.upContainer}>

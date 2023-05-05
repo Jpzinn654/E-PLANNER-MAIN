@@ -1,7 +1,14 @@
 import React from 'react';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import drawerStyle from './drawerStyles'
+
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+
+import { View, Text, TouchableOpacity } from 'react-native'
 
 import {
   Home,
@@ -21,6 +28,7 @@ import {
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import MenuFinancas from '../components/menu/MenuFinancas';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,7 +39,7 @@ function Navigation() {
     <Stack.Navigator
       initialRouteName='Registrar'
       screenOptions={{ headerShown: false }} >
-      <Stack.Screen name="Home" component={HomeStack} />
+      <Stack.Screen name="Home" component={HomeStack}/>
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
       <Stack.Screen name="AgendarGasto" component={AgendarGasto} />
       <Stack.Screen name="Login" component={Login} />
@@ -59,6 +67,7 @@ function HomeStack() {
           backgroundColor: '#EEEEEF',
         },
       }}
+
     >
       <Tab.Screen
         name="HomeTab"
@@ -70,7 +79,8 @@ function HomeStack() {
             }
             return <Ionicons name='home-outline' size={size} color={color} />
           }
-        }} />
+        }} 
+        />
       <Tab.Screen
         name="GastosAgendadosTab"
         component={GastoAgendado}
@@ -82,32 +92,129 @@ function HomeStack() {
             return <Ionicons name='calendar-outline' size={size} color={color} />
           }
         }} />
-        
-        <Tab.Screen
-          name="MenuFinancasTab"
-          component={MenuFinancas}
-          options={{
-            tabBarIcon: ({ color, size }) => {
-              return <MaterialIcons name='attach-money' size={size} color={color} />
-            }
-          }} />
+
+      <Tab.Screen
+        name="MenuFinancasTab"
+        component={MenuFinancas}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <MaterialIcons name='attach-money' size={size} color={color} />
+          }
+        }} />
 
     </Tab.Navigator>
+
+  );
+}
+
+function LoginScreen({ navigation }) {
+  React.useEffect(() => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  }, []);
+}
+
+function CustomDrawerContent(props) {
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    async function loadUser() {
+      const user = await AsyncStorage.getItem('usuarioData');
+      setUser(JSON.parse(user));
+    }
+    console.log(user)
+
+    loadUser();
+  }, []);
+
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={drawerStyle.image}>
+        <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
+          <Ionicons name='ios-close-circle-outline' size={24} color='#FFF' />
+        </TouchableOpacity>
+      </View>
+      <View style={drawerStyle.header}>
+        <View style={drawerStyle.avatarContainer}>
+          <View style={drawerStyle.userInfo}>
+            <Text style={drawerStyle.username}>{user?.nome}</Text>
+            <Text style={drawerStyle.email}>{user?.email}</Text>
+          </View>
+        </View>
+      </View>
+      <DrawerItemList
+        {...props}
+        activeBackgroundColor={'#D8D8D8'}
+        activeTintColor={'#000'}
+        inactiveTintColor={'#666'}
+        labelStyle={drawerStyle.label}
+        style={drawerStyle.drawerItems}
+      />
+    </View>
   );
 }
 
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      screenOptions={{ headerShown: false }}>
-      <Drawer.Screen name="HomeDrawer" component={Home} />
-      <Drawer.Screen name="EditarRendaDrawer" component={EditarRenda} />
+      drawerContent={props => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          backgroundColor: '#2B3B50',
+          width: 240,
+        },
+        drawerActiveBackgroundColor: '#2B3B50',
+        drawerActiveTintColor: '#FFF',
+        drawerInactiveTintColor: '#FFF',
+        contentContainerStyle: {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name='home-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
+            ),
+            drawerLabel: ({ focused }) => (
+              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Home</Text>
+            ),
+        }}
+        />
+      <Drawer.Screen
+        name="Editar Renda"
+        component={EditarRenda}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name='cash-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
+            ),
+            drawerLabel: ({ focused }) => (
+              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Editar Renda</Text>
+            ),
+        }}
+      />
+      <Drawer.Screen
+        name="Sair"
+        component={LoginScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name='exit-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
+            ),
+            drawerLabel: ({ focused }) => (
+              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -20, }}>Sair</Text>
+            ),
+        }}
+      />
     </Drawer.Navigator>
   )
 }
-
-
-
 
 export default Navigation;
 

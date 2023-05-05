@@ -7,16 +7,20 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 import config from '../../../config/config.json'
 
 export default function CardGasto({ data, navigation }) {
+
+    //responsável por gerenciar eventos do card
     const [cardStates, setCardStates] = useState(data.map(() => false));
 
-    const toggleCard = (index) => {
+    const toggleCard = (item) => {
         const newCardStates = [...cardStates];
-        newCardStates[index] = !newCardStates[index];
+        newCardStates[item] = !newCardStates[item];
         setCardStates(newCardStates);
     };
 
+    //função que gerencia exclusão do registro
     const rightSwipe = (item) => {
 
+        //função que deleta registro e trata resposta
         const handleExcluir   = async () => {
             let response = await fetch(`${config.urlRoot}/gastoRealizado/deletar/${item.id}`, {
                 method: 'GET',
@@ -36,6 +40,7 @@ export default function CardGasto({ data, navigation }) {
             // console.log(item.id)
         }
 
+        //alerta de exclusão
         const showAlert  = async () => {
             Alert.alert(
                 '',
@@ -53,6 +58,7 @@ export default function CardGasto({ data, navigation }) {
             
         }
 
+        //parte visual da exclusão
         return (
             <View style={styles.rightView}>
                 <TouchableOpacity style={styles.right}
@@ -66,15 +72,15 @@ export default function CardGasto({ data, navigation }) {
 
     return (
         <View>
-            {data.map((item, index) => (
-                <TouchableOpacity style={styles.card} onPress={() => toggleCard(index)}>
+            {data.map(item => (
+                <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)} key={item.id}>
                     <Swipeable renderLeftActions={() => rightSwipe(item)}>
-                        <View style={styles.upContainer} key={index}>
-                            <Text style={styles.title}>{item.categoria.nome}</Text>
+                        <View style={styles.upContainer} key={item.id}>
+                            <Text style={styles.title}>{item.categoriaNome}</Text>
                             <Text style={styles.value}>{item.valor}</Text>
                         </View>
                     </Swipeable>
-                    {cardStates[index] && (
+                    {cardStates[item.id] && (
                         <View style={styles.cardContent}>
                             <Text style={styles.text}>
                                 {item.descricao}

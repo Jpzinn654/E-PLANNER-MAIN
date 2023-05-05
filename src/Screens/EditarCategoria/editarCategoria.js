@@ -18,20 +18,24 @@ import {
 import EditarcAtegoriaSyle from "./editarCategoriaStyle";
 
 import { useRoute } from '@react-navigation/native';
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export default function EditarCategorias({ navigation }) {
 
+    //tratamento de id da categoria que vem do parâmentro
     const route = useRoute();
     const id = route.params.id;
 
     // console.log(id)
 
+    //estado que gerencia eventos
     const [display, setDisplay] = useState([])
+
+    //responsáveis pelas listagens de valores
     const [usuarioId, setUsuarioId] = useState()
     const [data, setData] = useState([]);
     const [valorInicial, setValorInicial] = useState(null)
 
+    //estados que capturam valores e os encaminha para a api
     const [nome, setNome] = useState(null)
     const [descricao, setDescricao] = useState(null)
     const [valor, setValor] = useState(null)
@@ -49,11 +53,12 @@ export default function EditarCategorias({ navigation }) {
     }
 
 
+    //função que requisita renda / orçamento do usuário
     useEffect(() => {
         fetchData();
     }, [usuarioId]);
 
-    //função que requisita renda / orçamento do usuário
+    
     const fetchData = async () => {
         let response = await fetch(`${config.urlRoot}/categoria/disponivelCat`, {
             method: 'POST',
@@ -97,7 +102,7 @@ export default function EditarCategorias({ navigation }) {
 
     }
 
-
+    //função responsável por encamiinhar as atualizações para a api
     async function sendForm() {
         let response = await fetch(`${config.urlRoot}/categoria/editar`, {
             method: 'POST',
@@ -115,7 +120,13 @@ export default function EditarCategorias({ navigation }) {
         })
         let json = await response.json()
         if (json === 'success') {
-            navigation.navigate('Home', {edit: true})
+            navigation.reset({
+                routes: [{
+                    name: 'Home', params: {
+                        etiqueta: 'Categoria editada com sucesso!'
+                    }
+                }],
+            });
         } else {
             setDisplay(json.erros)
             setTimeout(() => {

@@ -22,14 +22,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function GastosGerais({ navigation }) {
 
+    //gerencia os valores de data na lista suspensa
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
-    const [usuarioId, setUsuarioId] = useState(null)
-    const [data, setData] = useState([]);
 
+    //estados que gerenciam dados a serem enviados para retorno de gastos
+    const [usuarioId, setUsuarioId] = useState(null)
     const mes = selectedDate.split('/')[0];
     const ano = selectedDate.split('/')[1];
 
+    //armazena valores que chegam da api
+    const [data, setData] = useState([]);
 
+
+    //requisita id do usuário
     useEffect(() => {
         getUsuario();
     }, []);
@@ -40,11 +45,11 @@ export default function GastosGerais({ navigation }) {
         setUsuarioId(json.id)
     }
 
+
+    //função responsável por trazer os dados da api
     useEffect(() => {
         fetchData();
     }, [selectedDate, usuarioId]);
-
-    //função que requisita renda / orçamento do usuário
 
 
     const fetchData = async () => {
@@ -75,7 +80,8 @@ export default function GastosGerais({ navigation }) {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
 
-    // cria as opções da lista suspensa, filtrando apenas os meses e anos que já passaram ou são iguais ao atual
+    // cria as opções da lista suspensa das datas, 
+    //filtrando apenas os meses e anos que já passaram ou são iguais ao atual
     const items = [];
     for (let year = 2023; year <= currentYear; year++) {
         for (let month = 1; month <= 12; month++) {

@@ -23,7 +23,10 @@ import { useState } from "react";
 
 export default function Register({ navigation }) {
 
+    //estado que gerencia msg de aviso
     const [display, setDisplay] = useState('')
+
+    //dados a serem tratados e enviados para o formulário
     const [nome, setNome] = useState(null)
     const [email, setEmail] = useState(null)
     const [senha, setSenha] = useState(null)

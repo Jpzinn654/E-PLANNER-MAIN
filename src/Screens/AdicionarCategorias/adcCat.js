@@ -14,20 +14,45 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Alert,
+    BackHandler,
+    Platform
 
 } from "react-native";
 
 
 export default function Categorias({ navigation }) {
 
+    //estado que gerencia eventos
     const [display, setDisplay] = useState([])
+
+    //responsáveis pelas listagens de valores
     const [usuarioId, setUsuarioId] = useState()
     const [data, setData] = useState([]);
 
+    //estados que capturam valores e os encaminha para a api
     const [nome, setNome] = useState(null)
     const [descricao, setDescricao] = useState(null)
     const [valor, setValor] = useState(null)
 
+    //função responsável por atualizar a tela home ao pressionar o botão de voltar do dispositivo
+    useEffect(() => {
+        const backAction = () => {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+            });
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
+
+    //msg ao criar categoria
     const showToast = () => {
         Toast.show({
             type: "success",
@@ -50,12 +75,11 @@ export default function Categorias({ navigation }) {
         setUsuarioId(json.id)
     }
 
-
+    //função que requisita renda / orçamento do usuário
     useEffect(() => {
         fetchData();
     }, [usuarioId]);
 
-    //função que requisita renda / orçamento do usuário
     const fetchData = async () => {
         let response = await fetch(`${config.urlRoot}/categoria/disponivelCat`, {
             method: 'POST',
@@ -74,7 +98,7 @@ export default function Categorias({ navigation }) {
 
     // const dispinivel = Number(data).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
-
+    //função responsável por encaminhar os dados para a api
     async function sendForm() {
         let response = await fetch(`${config.urlRoot}/categoria/adicionar`, {
             method: 'POST',
@@ -191,9 +215,9 @@ export default function Categorias({ navigation }) {
                 >
                     <TouchableOpacity style={adcCatStyle.btnContinuar}
                         onPress={() => sendForm()}
-                        // onPress={showToast}
-                        // onPress={showToastError}
-                        >
+                    // onPress={showToast}
+                    // onPress={showToastError}
+                    >
 
                         <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
                     </TouchableOpacity>

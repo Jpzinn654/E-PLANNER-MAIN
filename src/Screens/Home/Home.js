@@ -10,6 +10,8 @@ import Card from "../../components/card/card";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+
 import {
     View,
     Text,
@@ -21,34 +23,32 @@ import {
     ScrollView,
 } from "react-native";
 
-// import { useRoute } from '@react-navigation/native';
-// import { Toast } from "react-native-toast-message/lib/src/Toast";
+//função que gerencia a tela, juntamente com seus parâmetros
+export default function Home({ navigation, route }) {
+    
 
-export default function Home({ navigation }) {
+    //parâmetros de aviso, para eventuais alertas na tela principal
+    const etiqueta = route.params?.etiqueta ?? ''
 
-    // const route = useRoute();
-    // console.log(route.params)
+
+    if (etiqueta != '') {
+        Toast.show({
+            type: "success",
+            text1: etiqueta,
+            autoHide: true,
+            visibilityTime: 2000,
+            topOffset: 0,
+        })
+
+        console.log(etiqueta)
+    }
 
     // if (route.params){
 
-        
-    //     // useEffect(() => {
-    //     //     showToast();
-    //     // }, [route.params.edit]);
 
-    //     // const showToast = () => {
-    //     //     Toast.show({
-    //     //         type: "success",
-    //     //         text1: "Categoria editada com sucesso",
-    //     //         autoHide: true,
-    //     //         visibilityTime: 2000,
-    //     //         topOffset: 0,
-    //     //     })
-    //     // }
-    // }
 
-    
 
+    //estados de listagem e armazenamento
     const [usuario, setUsuario] = useState([])
     const [usuarioId, setUsuarioId] = useState(null)
     const [orcamento, setOrcamento] = useState('');
@@ -69,12 +69,10 @@ export default function Home({ navigation }) {
     }
 
 
-
+    //função que requisita renda / orçamento do usuário
     useEffect(() => {
         fetchData();
     }, [usuarioId]);
-
-    //função que requisita renda / orçamento do usuário
 
 
     const fetchData = async () => {
@@ -117,6 +115,7 @@ export default function Home({ navigation }) {
                 style={homeStyle.fundoImg}
                 source={require('../../assets/fundo.png')}
             />
+            <Toast/>
             <TouchableOpacity>
                 <Image
                     style={homeStyle.menu}
@@ -230,19 +229,12 @@ export default function Home({ navigation }) {
                     homeStyle.txtCat
                 }>Categorias</Text>
 
-                <ScrollView
+                <SafeAreaView
                     style={homeStyle.components}>
-                    <Card usuario={usuario.id} 
-                    navigation={navigation}/>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Categorias')}
-                        style={homeStyle.btnCat}>
-                        <Text
-                            style={homeStyle.btnTxt}
-                        >Adicionar Categoria</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-
+                    <Card usuario={usuario.id}
+                        navigation={navigation} />
+                </SafeAreaView>
+                
 
             </View>
 

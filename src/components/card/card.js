@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import homeStyle from "../../Screens/Home/homeStyle";
+
 import {
     StyleSheet,
     Text,
@@ -19,17 +21,23 @@ import moment from 'moment';
 
 export default function Card({ usuario, navigation }) {
 
+    //estado de gerenciamento de card
     const [activeIndex, setActiveIndex] = useState(null);
 
+    //estados de gerenciamento de status
     const [carregando, setCarregando] = useState(true)
     const [display, setDisplay] = useState(false)
+
+    //estado que armazena os dados a serem listados
     const [data, setData] = useState([]);
 
     moment.locale('pt-br');
 
+    //função de gerenciamento de exclusão de registro
     const leftSwipe = (item) => {
 
-        const handleExcluir   = async () => {
+        //função que deleta registro e trata resposta
+        const handleExcluir = async () => {
             let response = await fetch(`${config.urlRoot}/categoria/deletar/${item.id}`, {
                 method: 'GET',
                 headers: {
@@ -41,13 +49,22 @@ export default function Card({ usuario, navigation }) {
             let json = await response.json()
 
             if (json === 'success') {
-                console.log('categoria deletada')
+                navigation.reset({
+                    routes: [{
+                         name: 'Home', params: {
+                            etiqueta: 'Categoria excluída com sucesso!'
+                        },
+
+                    }],
+                });
+  
             } else {
                 console.log('error')
             }
         }
 
-        const showAlert  = async () => {
+        //alerta de exclusão
+        const showAlert = async () => {
             Alert.alert(
                 '',
                 'Deseja excluir a categoria?',
@@ -61,15 +78,16 @@ export default function Card({ usuario, navigation }) {
                     },
                 ]
             );
-            
+
         }
 
+        //parte visual da exclusão
         return (
 
             <View style={styles.leftView}>
 
                 <TouchableOpacity style={styles.left}
-                    onPress={() => showAlert ()}>
+                    onPress={() => showAlert()}>
 
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
 
@@ -81,12 +99,15 @@ export default function Card({ usuario, navigation }) {
 
     }
 
+    //função que gerencia a edição de registro
     const rightSwipe = (item) => {
 
+        //encaminha para a tela de edição
         const editar = async () => {
             navigation.navigate('EditarCategorias', { id: item.id })
         }
 
+        //parte visual da edição
         return (
             <View style={styles.rightView}>
 
@@ -101,6 +122,7 @@ export default function Card({ usuario, navigation }) {
     }
 
 
+    //função responsável pela requisição de registros
     const usuarioId = usuario || ''
     useEffect(() => {
         fetchData();
@@ -137,6 +159,7 @@ export default function Card({ usuario, navigation }) {
     }
 
 
+    //gerencia eventos no card de listagem
     const handleCardPress = (index) => {
         if (activeIndex === index) {
             setActiveIndex(null);
@@ -154,7 +177,7 @@ export default function Card({ usuario, navigation }) {
                 <Swipeable renderLeftActions={() => leftSwipe(item)} renderRightActions={() => rightSwipe(item)}>
                     <View style={styles.upContainer}>
                         <Text style={styles.title}>{item.nome}</Text>
-                        <Text style={styles.value}>{item.valor - item.valorTotalGastos}</Text>
+                        <Text style={styles.value}>{item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados))}</Text>
                     </View>
                 </Swipeable>
                 {isActive && (
@@ -188,7 +211,18 @@ export default function Card({ usuario, navigation }) {
                     renderItem={renderCard}
                 />
 
+
+
             )}
+
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Categorias')}
+                style={homeStyle.btnCat}>
+                <Text
+                    style={homeStyle.btnTxt}
+                >Adicionar Categoria</Text>
+            </TouchableOpacity>
+
         </View>
 
     );

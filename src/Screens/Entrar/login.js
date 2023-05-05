@@ -21,11 +21,10 @@ import {
 
 export default function Login({ navigation }) {
 
-    //estados que armazenam os dados do formuário
+    //estados de aviso e armazenamento
     const [display, setDisplay] = useState('')
     const [email, setEmail] = useState(null)
     const [senha, setSenha] = useState(null)
-    const [login, setLogin] = useState(null)
 
     //enviar dados do formulario para a api
     async function sendForm() {

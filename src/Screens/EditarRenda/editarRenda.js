@@ -38,7 +38,7 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
         getUsuario()
     }, [])
 
-    //função que encaminha os dados para a api
+    //função que encaminha os dados para a api e trata resposta
     async function sendForm() {
         let response = await fetch(`${config.urlRoot}/orcamento/editar`, {
             method: 'POST',
@@ -55,7 +55,11 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
         // console.log(json)
 
         if (json === 'success') {
-            navigation.navigate('HomeDrawer', { editRenda: true })
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+              });
+            console.log(json)
         } else {
             setDisplay(json.erros)
             setTimeout(() => {

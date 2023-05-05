@@ -74,6 +74,20 @@ const agdGastoStyle = StyleSheet.create({
         paddingLeft: 5,
         backgroundColor: '#d9d9d9'
     },
+    inputAno:{
+        width: 120,
+        margin: 10,
+        height: 40,
+        paddingLeft: 5,
+        backgroundColor: '#d9d9d9'
+    },
+    inputMes:{
+        width: 120,
+        margin: 10,
+        height: 40,
+        paddingLeft: 5,
+        backgroundColor: '#d9d9d9'
+    },
     btnContinuar:{
         width: 320,
         height: 50,
@@ -91,6 +105,27 @@ const agdGastoStyle = StyleSheet.create({
     },
     fundo:{
         position: 'absolute',
+    },
+    picker: {
+        backgroundColor: '#d9d9d9',
+        width: 280,
+        borderBottomStartRadius: 30,
+    },
+    pickerItem: {
+        color: '#red',
+    },
+    item:{
+        fontSize: 18,
+        color: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'Roboto',  
+    },
+    gastoMsg: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
     },
    
 })

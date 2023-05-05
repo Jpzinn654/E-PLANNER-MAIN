@@ -12,6 +12,8 @@ import 'moment/locale/pt-br';
 
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
+import { AntDesign } from '@expo/vector-icons'
+
 import {
     View,
     Text,
@@ -25,7 +27,7 @@ import {
 
 //função que gerencia a tela, juntamente com seus parâmetros
 export default function Home({ navigation, route }) {
-    
+
 
     //parâmetros de aviso, para eventuais alertas na tela principal
     const etiqueta = route.params?.etiqueta ?? ''
@@ -115,7 +117,7 @@ export default function Home({ navigation, route }) {
                 style={homeStyle.fundoImg}
                 source={require('../../assets/fundo.png')}
             />
-            <Toast/>
+            <Toast />
             <TouchableOpacity>
                 <Image
                     style={homeStyle.menu}
@@ -229,12 +231,20 @@ export default function Home({ navigation, route }) {
                     homeStyle.txtCat
                 }>Categorias</Text>
 
-                <SafeAreaView
+                {/* <SafeAreaView
                     style={homeStyle.components}>
                     <Card usuario={usuario.id}
                         navigation={navigation} />
-                </SafeAreaView>
-                
+                </SafeAreaView> */}
+
+                <View style={homeStyle.buttonCategoria}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Categorias')}
+                    >
+                        <AntDesign name="plus" size={30} />
+                    </TouchableOpacity>
+                </View>
+
 
             </View>
 

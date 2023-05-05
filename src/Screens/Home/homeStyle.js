@@ -167,6 +167,17 @@ const homeStyle = StyleSheet.create({
     btnTxt: {
         fontSize: 18,
     },
+    buttonCategoria:{
+        position: 'absolute',
+        backgroundColor: '#02CB7F',
+        width: 55,
+        height: 55,
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        right: 10,
+        top: 180,
+    },
     fundoImg: {
         position: 'absolute',
     },

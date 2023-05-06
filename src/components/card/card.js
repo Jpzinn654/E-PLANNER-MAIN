@@ -215,14 +215,6 @@ export default function Card({ usuario, navigation }) {
 
             )}
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Categorias')}
-                style={homeStyle.btnCat}>
-                <Text
-                    style={homeStyle.btnTxt}
-                >Adicionar Categoria</Text>
-            </TouchableOpacity>
-
         </View>
 
     );

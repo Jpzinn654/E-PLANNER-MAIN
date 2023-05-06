@@ -15,16 +15,17 @@ export default function Graph() {
         <View>
             <BarChart
                 data={{
-                    labels: ["January", "February", "March", "April", "May", "June"],
+                    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"],
                     datasets: [
                         {
                             data: [
+                                34,
                                 Math.random() * 100,
                                 Math.random() * 100,
                                 Math.random() * 100,
                                 Math.random() * 100,
                                 Math.random() * 100,
-                                Math.random() * 100
+                                Math.random() * 100,
                             ]
                         }
                     ]
@@ -32,22 +33,22 @@ export default function Graph() {
                 width={Dimensions.get("window").width} // from react-native
                 height={220}
                 yAxisLabel="R$"
-                yAxisSuffix=""
+                yAxisSuffix="k"
                 yAxisInterval={1} // optional, defaults to 1
                 chartConfig={{
-                    backgroundColor: "#090979",
-                    backgroundGradientFrom: "#090979",
-                    backgroundGradientTo: "#020024",
+                    backgroundColor: "#eeeeef",
+                    backgroundGradientFrom: "#eeeeef",
+                    backgroundGradientTo: "#eeeeef",
                     decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    color: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
                     style: {
                         borderRadius: 16
                     },
                     propsForDots: {
-                        r: "6",
-                        strokeWidth: "2",
-                        stroke: "#ffa726"
+                        r: "10",
+                        strokeWidth: "5",
+                        stroke: "#2C3C51"
                     }
                 }}
                 bezier

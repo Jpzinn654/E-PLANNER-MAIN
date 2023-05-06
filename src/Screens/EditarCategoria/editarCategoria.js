@@ -15,7 +15,7 @@ import {
     Alert,
 
 } from "react-native";
-import EditarcAtegoriaSyle from "./editarCategoriaStyle";
+import EditarcAtegoriaStyle from "./editarCategoriaStyle";
 
 import { useRoute } from '@react-navigation/native';
 
@@ -139,42 +139,42 @@ export default function EditarCategorias({ navigation }) {
 
     return (
 
-        <View style={EditarcAtegoriaSyle.container}>
+        <View style={EditarcAtegoriaStyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
             <Image
-                style={EditarcAtegoriaSyle.fundoImg}
+                style={EditarcAtegoriaStyle.fundoImg}
                 source={require('../../assets/fundo.png')}
             />
             <TouchableOpacity>
                 <Image
-                    style={EditarcAtegoriaSyle.menu}
+                    style={EditarcAtegoriaStyle.menu}
                     source={require('../../assets/menu.png')}
                 />
             </TouchableOpacity>
 
-            <Text style={EditarcAtegoriaSyle.texto1}>E-PLANNER</Text>
+            <Text style={EditarcAtegoriaStyle.texto1}>E-PLANNER</Text>
 
-            <View style={EditarcAtegoriaSyle.Valor}>
-                <Text style={EditarcAtegoriaSyle.txtVal1}>Valor Disponível:</Text>
-                <Text style={EditarcAtegoriaSyle.txtVal2}>R$</Text>
-                <Text style={EditarcAtegoriaSyle.txtVal3}>{Number(data) + Number(valorInicial)}</Text>
+            <View style={EditarcAtegoriaStyle.Valor}>
+                <Text style={EditarcAtegoriaStyle.txtVal1}>Valor Disponível:</Text>
+                <Text style={EditarcAtegoriaStyle.txtVal2}>R$</Text>
+                <Text style={EditarcAtegoriaStyle.txtVal3}>{Number(data) + Number(valorInicial)}</Text>
             </View>
 
             <KeyboardAvoidingView
-                style={EditarcAtegoriaSyle.inputContainer}
+                style={EditarcAtegoriaStyle.inputContainer}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <Text style={EditarcAtegoriaSyle.inpTxt1}>Edite sua categoria:</Text>
+                <Text style={EditarcAtegoriaStyle.inpTxt1}>Edite sua categoria:</Text>
 
                 <View>
-                    <Text style={EditarcAtegoriaSyle.categoriaMsg}>
+                    <Text style={EditarcAtegoriaStyle.categoriaMsg}>
                         {display[0]}
                     </Text>
                 </View>
 
                 <TextInput
-                    style={EditarcAtegoriaSyle.inp1}
+                    style={EditarcAtegoriaStyle.inp1}
                     onChangeText={text => setNome(text)}
                     value={nome}
                     placeholder="Nome da categoria"
@@ -184,7 +184,7 @@ export default function EditarCategorias({ navigation }) {
                 <TextInput
                     onChangeText={text => setDescricao(text)}
                     value={descricao}
-                    style={EditarcAtegoriaSyle.inp2}
+                    style={EditarcAtegoriaStyle.inp2}
                     placeholder="Descrição (opcional)"
                     maxLength={100}
                     keyboardType="default"
@@ -192,27 +192,27 @@ export default function EditarCategorias({ navigation }) {
 
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style={EditarcAtegoriaSyle.subContainerInput}>
+                    style={EditarcAtegoriaStyle.subContainerInput}>
                     <TextInput
                         onChangeText={text => setValor(text)}
                         value={valor}
-                        style={EditarcAtegoriaSyle.inp3}
+                        style={EditarcAtegoriaStyle.inp3}
                         placeholder="Valor"
                         keyboardType="default"
                         underlineColorAndroid="transparent" />
 
-                    <View style={EditarcAtegoriaSyle.btn}>
-                        <Text style={EditarcAtegoriaSyle.btnText}>R$</Text>
+                    <View style={EditarcAtegoriaStyle.btn}>
+                        <Text style={EditarcAtegoriaStyle.btnText}>R$</Text>
                     </View>
                 </KeyboardAvoidingView>
 
                 <KeyboardAvoidingView
-                    style={EditarcAtegoriaSyle.btnContainer}
+                    style={EditarcAtegoriaStyle.btnContainer}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <TouchableOpacity style={EditarcAtegoriaSyle.btnContinuar}
+                    <TouchableOpacity style={EditarcAtegoriaStyle.btnContinuar}
                         onPress={() => sendForm()}>
-                        <Text style={EditarcAtegoriaSyle.btnContinuarTxt}>Continuar</Text>
+                        <Text style={EditarcAtegoriaStyle.btnContinuarTxt}>Continuar</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
 

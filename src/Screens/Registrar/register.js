@@ -14,9 +14,6 @@ import {
     StatusBar,
     Image,
     TextInput,
-    KeyboardAvoidingView,
-    ScrollView,
-    Platform
 } from "react-native";
 
 import { useState } from "react";

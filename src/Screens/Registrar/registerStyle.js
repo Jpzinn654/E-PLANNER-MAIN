@@ -13,7 +13,7 @@ const registerStyle = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        top: 0,
+        top: -40,
         right: 80,
     },
     texto1: {
@@ -104,6 +104,7 @@ const registerStyle = StyleSheet.create({
         top: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
     touchText: {
         fontWeight: "500",

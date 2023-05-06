@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 
-const EditarcAtegoriaSyle = StyleSheet.create({
+const EditarcAtegoriaStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2C3C51',
@@ -112,7 +112,7 @@ const EditarcAtegoriaSyle = StyleSheet.create({
         color: '#fff'
     },
     btnContainer:{
-        top: '15%'
+        top: '15%',
     },
     btnContinuar:{
         width: 280,
@@ -123,7 +123,7 @@ const EditarcAtegoriaSyle = StyleSheet.create({
         alignItems: 'center',
         top: '10%'
     },
-    btnConinuarTxt: {
+    btnContinuarTxt: {
         color: '#000',
         fontSize: 189,
     },
@@ -137,4 +137,4 @@ const EditarcAtegoriaSyle = StyleSheet.create({
     
 })
 
-export default EditarcAtegoriaSyle
+export default EditarcAtegoriaStyle

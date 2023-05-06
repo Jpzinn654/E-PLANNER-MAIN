@@ -231,11 +231,11 @@ export default function Home({ navigation, route }) {
                     homeStyle.txtCat
                 }>Categorias</Text>
 
-                {/* <SafeAreaView
+                <SafeAreaView
                     style={homeStyle.components}>
                     <Card usuario={usuario.id}
                         navigation={navigation} />
-                </SafeAreaView> */}
+                </SafeAreaView>
 
                 <View style={homeStyle.buttonCategoria}>
                     <TouchableOpacity

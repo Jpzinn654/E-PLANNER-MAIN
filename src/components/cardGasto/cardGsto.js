@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, FlatList } from 'react-native';
 
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
@@ -21,7 +21,7 @@ export default function CardGasto({ data, navigation }) {
     const rightSwipe = (item) => {
 
         //função que deleta registro e trata resposta
-        const handleExcluir   = async () => {
+        const handleExcluir = async () => {
             let response = await fetch(`${config.urlRoot}/gastoRealizado/deletar/${item.id}`, {
                 method: 'GET',
                 headers: {
@@ -41,7 +41,7 @@ export default function CardGasto({ data, navigation }) {
         }
 
         //alerta de exclusão
-        const showAlert  = async () => {
+        const showAlert = async () => {
             Alert.alert(
                 '',
                 'Deseja excluir o gasto?',
@@ -55,14 +55,14 @@ export default function CardGasto({ data, navigation }) {
                     },
                 ]
             );
-            
+
         }
 
         //parte visual da exclusão
         return (
             <View style={styles.rightView}>
                 <TouchableOpacity style={styles.right}
-                onPress={() => showAlert ()}>
+                    onPress={() => showAlert()}>
                     <Ionicons name="ios-trash-outline" size={24} color="white" />
                 </TouchableOpacity>
             </View>
@@ -71,11 +71,13 @@ export default function CardGasto({ data, navigation }) {
 
 
     return (
-        <View>
-            {data.map(item => (
-                <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)} key={item.id}>
+        <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)}>
                     <Swipeable renderLeftActions={() => rightSwipe(item)}>
-                        <View style={styles.upContainer} key={item.id}>
+                        <View style={styles.upContainer}>
                             <Text style={styles.title}>{item.categoriaNome}</Text>
                             <Text style={styles.value}>{item.valor}</Text>
                         </View>
@@ -88,8 +90,9 @@ export default function CardGasto({ data, navigation }) {
                         </View>
                     )}
                 </TouchableOpacity>
-            ))}
-        </View>
+            )}
+        />
+
     );
 
 }

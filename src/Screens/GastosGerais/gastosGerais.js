@@ -5,7 +5,8 @@ import {
     Text,
     ScrollView,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    SafeAreaView
 } from "react-native"
 
 import gastosGeraisStyles from "./gastosGeraisStyles";
@@ -129,15 +130,16 @@ export default function GastosGerais({ navigation }) {
 
                     </View>
                 </View>
-
-                <View
+                
+                <SafeAreaView
                     style={gastosGeraisStyles.cardsConatiner}>
-                    <ScrollView>
+                    
                         <CardGasto data={data}/>
 
                         
-                    </ScrollView>
-                </View>
+                    
+                </SafeAreaView>
+                
             </View>
         </View>
     )

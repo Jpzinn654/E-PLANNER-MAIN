@@ -1,120 +1,212 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 
-import { Swipeable } from 'react-native-gesture-handler'
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
+import { Swipeable } from "react-native-gesture-handler";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
-export default function CardAgendado() {
-    const [isActive, setIsActive] = useState(false);
 
-    const toggleCard = () => {
-        setIsActive(!isActive);
-    };
+import config from '../../../config/config.json'
 
-    const rightSwipe = () => {
-        return (
-            <View style={styles.rightView}>
-                <TouchableOpacity style={styles.right}>
-                    <Ionicons name="ios-trash-outline" size={24} color="white" />
-                </TouchableOpacity>
-            </View>
-        )
+export default function CardAgendado({ data, navigation }) {
+  //responsável por gerenciar eventos do card
+  const [cardStates, setCardStates] = useState(data.map(() => false));
+
+
+
+  const toggleCard = (item) => {
+    const newCardStates = [...cardStates];
+    newCardStates[item] = !newCardStates[item];
+    setCardStates(newCardStates);
+  };
+
+  const rightSwipe = () => {
+    return (
+      <View style={styles.rightView}>
+        <TouchableOpacity style={styles.right}>
+          <Ionicons name="ios-trash-outline" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const leftSwipe = (item) => {
+
+
+    //função que deleta registro e trata resposta
+    const handleConfirmar = async () => {
+      let response = await fetch(`${config.urlRoot}/gastoAgendado/confirmarGasto/${item.id}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
+
+      let json = await response.json()
+
+      if (json === 'success') {
+        // navigation.reset({
+        //   routes: [{
+        //     name: 'Home', params: {
+        //       etiqueta: 'Categoria excluída com sucesso!'
+        //     },
+
+        //   }],
+        // });
+
+        console.log("gasto efetuado")
+
+      } else {
+        console.log('error')
+      }
+
     }
 
-    const leftSwipe = () => {
-        return (
-            <View style={styles.leftView}>
-                <TouchableOpacity style={styles.check}>
-                    <FontAwesome5 name="check" size={24} color="white" />
-                </TouchableOpacity>
-            </View>
-        )
-    }
+    //alerta de confirmação
+    const showAlert = async () => {
+      Alert.alert(
+        '',
+        'Confirma a realização do gasto?',
+        [
+          {
+            text: 'Cancelar',
+          },
+          {
+            text: 'Sim',
+            onPress: () => handleConfirmar(),
+          },
+        ]
+      );
 
+    }
 
     return (
-
-        <TouchableOpacity style={styles.card} onPress={toggleCard}>
-            <Swipeable renderRightActions={rightSwipe} renderLeftActions={leftSwipe}>
-                <View style={styles.upContainer}>
-                    <View style={styles.task}>
-                        <FontAwesome5 name="tasks" size={24} color="white" />
-                    </View>
-                    <Text style={styles.title}>SEU GASTO AGENDADO</Text>
-                    <Text style={styles.value}>R$ 0,00</Text>
-                </View>
-            </Swipeable>
-            {isActive && (
-                <View style={styles.cardContent}>
-                    <Text style={styles.text}>
-                        Texto do card que será exibido após o clique.
-                    </Text>
-                </View>
-            )}
+      <View style={styles.leftView}>
+        <TouchableOpacity style={styles.check}
+          onPress={() => showAlert()}>
+          <FontAwesome5 name="check" size={24} color="white" />
         </TouchableOpacity>
-
+      </View>
     );
+  };
+
+  return (
+
+    <View>
+      {data.map((item) => (
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => toggleCard(item.id)}
+          key={item.id}
+        >
+          <Swipeable
+            renderRightActions={() => rightSwipe(item)}
+            renderLeftActions={() => leftSwipe(item)}
+          >
+            <View style={styles.upContainer} key={item.id}>
+              {new Date(item.dataGasto) <= new Date() ? (
+                <View style={styles.taskDander}>
+                  <FontAwesome5 name="tasks" size={24} color="white" />
+                </View>
+              ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
+                <View style={styles.taskCritical}>
+                  <FontAwesome5 name="tasks" size={24} color="white" />
+                </View>
+              ) : (
+                <View style={styles.taskOk}>
+                  <FontAwesome5 name="tasks" size={24} color="white" />
+                </View>
+              )}
+              <Text style={styles.title}>{item.categoriaNome}</Text>
+              <Text style={styles.value}>
+                {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+              </Text>
+              <Text style={styles.value}>{item.valor}</Text>
+            </View>
+          </Swipeable>
+          {cardStates[item.id] && (
+            <View style={styles.cardContent}>
+              <Text style={styles.text}>{item.descricao}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    card: {
-        backgroundColor: '#d9d9d9',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
-        padding: 14,
-        textAlign: 'center',
-        width: 320,
-        marginTop: 10,
+  card: {
+    backgroundColor: "#d9d9d9",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    task: {
-        width: 30,
-        backgroundColor: 'red',
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    rightView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        
-    },
-    right: {
-        backgroundColor: 'blue',
-        padding: 4,
-    },
-    check: {
-        backgroundColor: 'green',
-        padding: 4,
-    },
-    upContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    value: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 10
-    },
-    cardContent: {
-        padding: 14,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 16,
-        textAlign: 'justify',
-    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+    padding: 14,
+    textAlign: "center",
+    width: 320,
+    marginTop: 10,
+  },
+  taskDander: {
+    width: 30,
+    backgroundColor: "red",
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  taskCritical: {
+    width: 30,
+    backgroundColor: "#cd8d00",
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  taskOk: {
+    width: 30,
+    backgroundColor: "green",
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rightView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  right: {
+    backgroundColor: "blue",
+    padding: 4,
+  },
+  check: {
+    backgroundColor: "green",
+    padding: 4,
+  },
+  upContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  value: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+  cardContent: {
+    padding: 14,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 16,
+    textAlign: "justify",
+  },
 });

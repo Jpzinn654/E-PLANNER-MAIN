@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
 import {
     View,
@@ -16,7 +17,54 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import CardAgendado from "../../components/cardAgendado/cardAgendado";
 
-export default function GastoAgendado() {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import config from '../../../config/config.json'
+
+export default function GastoAgendado({navigation}) {
+
+    const [usuarioId, setUsuarioId] = useState(null)
+
+    //armazena valores que chegam da api
+    const [data, setData] = useState([]);
+
+    //requisita id do usuário
+    useEffect(() => {
+        getUsuario();
+    }, []);
+
+    async function getUsuario() {
+        let response = await AsyncStorage.getItem('usuarioData')
+        let json = JSON.parse(response)
+        setUsuarioId(json.id)
+    }
+
+
+    //função responsável por trazer os dados da api
+    useEffect(() => {
+        fetchData();
+    }, [usuarioId]);
+
+
+    const fetchData = async () => {
+        if (usuarioId !== null) {
+            let response = await fetch(`${config.urlRoot}/gastoAgendado/listar`, {
+
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify({
+                    usuarioId: usuarioId,
+                }),
+            })
+            let json = await response.json()
+            setData(json)
+        }
+    }
+
 
     moment.locale('pt-br');
     const currentMonth = moment().format('MMMM');
@@ -58,12 +106,8 @@ export default function GastoAgendado() {
                 <View
                     style={gastoAgendadoStyle.cards}>
                     <ScrollView>
-                        <CardAgendado />
-                        <CardAgendado />
-                        <CardAgendado />
-                        <CardAgendado />
-                        <CardAgendado />
-                        <CardAgendado />
+                        <CardAgendado data={data}
+                        navigation={navigation}/>
                     </ScrollView>
                 </View>
             </View>

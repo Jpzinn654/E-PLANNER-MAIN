@@ -6,6 +6,8 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
 import config from '../../../config/config.json'
 
+
+
 export default function CardGasto({ data, navigation }) {
 
     //responsável por gerenciar eventos do card
@@ -78,7 +80,7 @@ export default function CardGasto({ data, navigation }) {
                 <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)}>
                     <Swipeable renderLeftActions={() => rightSwipe(item)}>
                         <View style={styles.upContainer}>
-                            <Text style={styles.title}>{item.categoriaNome}</Text>
+                            <Text style={styles.title}>{item.categoria.nome}</Text>
                             <Text style={styles.value}>{item.valor}</Text>
                         </View>
                     </Swipeable>

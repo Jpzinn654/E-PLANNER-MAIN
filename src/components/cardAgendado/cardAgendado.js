@@ -5,13 +5,12 @@ import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
 
+
 import config from '../../../config/config.json'
 
 export default function CardAgendado({ data, navigation }) {
   //responsável por gerenciar eventos do card
   const [cardStates, setCardStates] = useState(data.map(() => false));
-
-
 
   const toggleCard = (item) => {
     const newCardStates = [...cardStates];
@@ -117,7 +116,7 @@ export default function CardAgendado({ data, navigation }) {
                   <FontAwesome5 name="tasks" size={24} color="white" />
                 </View>
               )}
-              <Text style={styles.title}>{item.categoriaNome}</Text>
+              <Text style={styles.title}>{item.categoria.nome}</Text>
               <Text style={styles.value}>
                 {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
               </Text>

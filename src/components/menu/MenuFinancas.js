@@ -13,7 +13,10 @@ import gastosGeraisStyles from "./MenuFinancasStyle";
 import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
 
+
+
 function MenuFinancas({ navigation }) {
+
 
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
@@ -114,7 +117,7 @@ function MenuFinancas({ navigation }) {
                             ? (<GastosGerais />) :
                             (telaAtual === 2) ?
                                 <GastoCategorias /> :
-                                    <CompGastos/>
+                                <CompGastos />
                     }
                 </View>
             </View>

@@ -25,8 +25,12 @@ import {
     ScrollView,
 } from "react-native";
 
+import { useIsFocused } from '@react-navigation/native';
+
 //função que gerencia a tela, juntamente com seus parâmetros
 export default function Home({ navigation, route }) {
+
+    const isFocused = useIsFocused();
 
 
     //parâmetros de aviso, para eventuais alertas na tela principal
@@ -74,7 +78,7 @@ export default function Home({ navigation, route }) {
     //função que requisita renda / orçamento do usuário
     useEffect(() => {
         fetchData();
-    }, [usuarioId]);
+    }, [usuarioId, isFocused]);
 
 
     const fetchData = async () => {

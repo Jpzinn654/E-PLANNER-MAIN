@@ -13,6 +13,8 @@ import {
 
 import config from '../../../config/config.json'
 
+import { useIsFocused } from '@react-navigation/native';
+
 import { FlatList } from 'react-native-gesture-handler';
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -20,6 +22,8 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import moment from 'moment';
 
 export default function Card({ usuario, navigation }) {
+
+    const isFocused = useIsFocused();
 
     //estado de gerenciamento de card
     const [activeIndex, setActiveIndex] = useState(null);
@@ -49,14 +53,18 @@ export default function Card({ usuario, navigation }) {
             let json = await response.json()
 
             if (json === 'success') {
-                navigation.reset({
-                    routes: [{
-                         name: 'Home', params: {
-                            etiqueta: 'Categoria excluída com sucesso!'
-                        },
 
-                    }],
-                });
+                const backAction = () => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home', params: {
+                            etiqueta: 'Categoria excluída com sucesso!'
+                        }, }],
+                    });
+                    return true;
+                };
+
+                backAction()
   
             } else {
                 console.log('error')
@@ -126,7 +134,7 @@ export default function Card({ usuario, navigation }) {
     const usuarioId = usuario || ''
     useEffect(() => {
         fetchData();
-    }, [usuarioId]);
+    }, [usuarioId, isFocused]);
 
 
     const fetchData = async () => {

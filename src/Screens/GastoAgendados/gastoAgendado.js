@@ -17,11 +17,16 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import CardAgendado from "../../components/cardAgendado/cardAgendado";
 
+import { useIsFocused } from '@react-navigation/native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
 export default function GastoAgendado({navigation}) {
+
+    const isFocused = useIsFocused();
+
 
     const [usuarioId, setUsuarioId] = useState(null)
 
@@ -43,7 +48,7 @@ export default function GastoAgendado({navigation}) {
     //função responsável por trazer os dados da api
     useEffect(() => {
         fetchData();
-    }, [usuarioId]);
+    }, [usuarioId, isFocused]);
 
 
     const fetchData = async () => {

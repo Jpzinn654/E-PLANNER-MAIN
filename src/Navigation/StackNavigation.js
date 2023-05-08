@@ -39,7 +39,7 @@ function Navigation() {
     <Stack.Navigator
       initialRouteName='Registrar'
       screenOptions={{ headerShown: false }} >
-      <Stack.Screen name="Home" component={HomeStack}/>
+      <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
       <Stack.Screen name="AgendarGasto" component={AgendarGasto} />
       <Stack.Screen name="Login" component={Login} />
@@ -79,8 +79,8 @@ function HomeStack() {
             }
             return <Ionicons name='home-outline' size={size} color={color} />
           }
-        }} 
-        />
+        }}
+      />
       <Tab.Screen
         name="GastosAgendadosTab"
         component={GastoAgendado}
@@ -177,27 +177,27 @@ function MyDrawer() {
       }}
     >
       <Drawer.Screen
-        name="Home"
+        name="HomeDrawer"
         component={Home}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Ionicons name='home-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
-            ),
-            drawerLabel: ({ focused }) => (
-              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Home</Text>
-            ),
+            <Ionicons name='home-outline' size={size} color={color} style={{ marginLeft: 20 }} />
+          ),
+          drawerLabel: ({ focused }) => (
+            <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Home</Text>
+          ),
         }}
-        />
+        initialParams={{ etiqueta: '' }} />
       <Drawer.Screen
         name="Editar Renda"
         component={EditarRenda}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Ionicons name='cash-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
-            ),
-            drawerLabel: ({ focused }) => (
-              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Editar Renda</Text>
-            ),
+            <Ionicons name='cash-outline' size={size} color={color} style={{ marginLeft: 20 }} />
+          ),
+          drawerLabel: ({ focused }) => (
+            <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -15, }}>Editar Renda</Text>
+          ),
         }}
       />
       <Drawer.Screen
@@ -205,11 +205,11 @@ function MyDrawer() {
         component={LoginScreen}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Ionicons name='exit-outline' size={size} color={color} style={{ marginLeft: 20 }}  />
-            ),
-            drawerLabel: ({ focused }) => (
-              <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -20, }}>Sair</Text>
-            ),
+            <Ionicons name='exit-outline' size={size} color={color} style={{ marginLeft: 20 }} />
+          ),
+          drawerLabel: ({ focused }) => (
+            <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'center', alignSelf: 'center', marginLeft: -20, }}>Sair</Text>
+          ),
         }}
       />
     </Drawer.Navigator>

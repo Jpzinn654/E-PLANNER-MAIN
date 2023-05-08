@@ -6,9 +6,11 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
 import config from '../../../config/config.json'
 
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function CardGasto({ data, navigation }) {
+export default function CardGasto({ data }) {
+    const navigation = useNavigation();
 
     //responsável por gerenciar eventos do card
     const [cardStates, setCardStates] = useState(data.map(() => false));
@@ -35,11 +37,14 @@ export default function CardGasto({ data, navigation }) {
             let json = await response.json()
 
             if (json === 'success') {
-                console.log('categoria deletada')
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'MenuFinancasTab', 
+                    params: { etiqueta: 'Gasto excluído com sucesso!'} }],
+                });
             } else {
                 console.log('error')
             }
-            // console.log(item.id)
         }
 
         //alerta de exclusão

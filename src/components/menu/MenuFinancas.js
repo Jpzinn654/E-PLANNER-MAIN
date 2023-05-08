@@ -15,14 +15,17 @@ import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
 
 
-function MenuFinancas({ navigation }) {
+function MenuFinancas({ navigation, route }) {
 
+    const etiqueta = route.params?.etiqueta ?? ''
+
+    console.log(etiqueta)
 
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
 
     const item = [
-        { id: 1, tela: 'GastosGerais' },
+        { id: 1, tela: 'GastosGerais'},
         { id: 2, tela: 'GastosCategorias' },
         { id: 3, tela: 'CompGastos' },
     ]
@@ -66,7 +69,7 @@ function MenuFinancas({ navigation }) {
                     <Text
                         style={gastosGeraisStyles.midText1}>
                         {(telaAtual === 1) ?
-                            <Text>TOTAL DE GASTO ECONOMIZADO</Text> :
+                            <Text>GASTOS TOTAIS</Text> :
                             (telaAtual === 2) ?
                                 <Text>TOTAL GASTO</Text> :
                                 <Text>COMPARAÇÃO DE GASTOS</Text>

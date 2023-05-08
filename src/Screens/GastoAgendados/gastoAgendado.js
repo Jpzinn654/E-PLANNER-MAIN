@@ -23,9 +23,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
-export default function GastoAgendado({navigation}) {
+export default function GastoAgendado({navigation, route}) {
 
     const isFocused = useIsFocused();
+
+
+    const etiqueta = route.params?.etiqueta ?? ''
+    console.log(etiqueta)
 
 
     const [usuarioId, setUsuarioId] = useState(null)

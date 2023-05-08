@@ -21,9 +21,17 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 import moment from 'moment';
 
-export default function Card({ usuario, navigation }) {
+export default function Card({ usuario, navigation, onChildData  }) {
 
     const isFocused = useIsFocused();
+
+    const [childData, setChildData] = useState('');
+
+    const handlePress = () => {
+        const data = 'Categoria excluìda com sucesso!';
+        setChildData(data);
+        onChildData(data);
+      };
 
     //estado de gerenciamento de card
     const [activeIndex, setActiveIndex] = useState(null);
@@ -36,9 +44,12 @@ export default function Card({ usuario, navigation }) {
     const [data, setData] = useState([]);
 
     moment.locale('pt-br');
+    
 
     //função de gerenciamento de exclusão de registro
     const leftSwipe = (item) => {
+
+        
 
         //função que deleta registro e trata resposta
         const handleExcluir = async () => {
@@ -54,18 +65,9 @@ export default function Card({ usuario, navigation }) {
 
             if (json === 'success') {
 
-                const backAction = () => {
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: 'Home', params: {
-                            etiqueta: 'Categoria excluída com sucesso!'
-                        }, }],
-                    });
-                    return true;
-                };
 
-                backAction()
-  
+                handlePress()
+
             } else {
                 console.log('error')
             }

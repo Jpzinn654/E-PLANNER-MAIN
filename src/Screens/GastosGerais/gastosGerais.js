@@ -23,9 +23,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 
-export default function GastosGerais({ navigation }) {
+export default function GastosGerais({ navigation, route }) {
 
     const isFocused = useIsFocused();
+
+    // const etiqueta = route.params?.etiqueta ?? ''
+
+    // console.log(etiqueta)
 
     //gerencia os valores de data na lista suspensa
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
@@ -138,7 +142,8 @@ export default function GastosGerais({ navigation }) {
                 <SafeAreaView
                     style={gastosGeraisStyles.cardsConatiner}>
                     
-                        <CardGasto data={data}/>
+                        <CardGasto data={data}
+                        />
 
                         
                     

@@ -30,23 +30,62 @@ import { useIsFocused } from '@react-navigation/native';
 //função que gerencia a tela, juntamente com seus parâmetros
 export default function Home({ navigation, route }) {
 
+
+    // Limpa os parâmetros quando o usuário clica em um botão
+
+    const [params, setParams] = useState({ foo: 'bar' });
+    
+    function handleClearParams() {
+        navigation.setParams({});
+        navigation.navigate('Categorias')
+    }
+
     const isFocused = useIsFocused();
+
+    const [childData, setChildData] = useState('');
+
+    const handleChildData = (data) => {
+        setChildData(data);
+    };
+
 
 
     //parâmetros de aviso, para eventuais alertas na tela principal
-    const etiqueta = route.params?.etiqueta ?? ''
+    const etiqueta = route.params.etiqueta
 
+    console.log(etiqueta)
 
     if (etiqueta != '') {
-        Toast.show({
-            type: "success",
-            text1: etiqueta,
-            autoHide: true,
-            visibilityTime: 2000,
-            topOffset: 0,
-        })
+        setTimeout(() => {
+            Toast.show({
+                type: "success",
+                text1: etiqueta,
+                autoHide: true,
+                visibilityTime: 2000,
+                topOffset: 0,
+            });
+        }, 100);
+    }
 
-        console.log(etiqueta)
+    if (childData != '') {
+        setTimeout(() => {
+            Toast.show({
+                type: "success",
+                text1: childData,
+                autoHide: true,
+                visibilityTime: 2000,
+                topOffset: 0,
+            });
+        }, 100);
+
+
+        setTimeout(() => {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+            });
+        }, 200);
+
     }
 
     // if (route.params){
@@ -238,12 +277,14 @@ export default function Home({ navigation, route }) {
                 <SafeAreaView
                     style={homeStyle.components}>
                     <Card usuario={usuario.id}
-                        navigation={navigation} />
+                        navigation={navigation}
+                        onChildData={handleChildData} />
                 </SafeAreaView>
 
                 <View style={homeStyle.buttonCategoria}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Categorias')}
+                        onPress={handleClearParams
+                        }
                     >
                         <AntDesign name="plus" size={30} />
                     </TouchableOpacity>

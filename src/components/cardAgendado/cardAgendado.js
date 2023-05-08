@@ -18,10 +18,57 @@ export default function CardAgendado({ data, navigation }) {
     setCardStates(newCardStates);
   };
 
-  const rightSwipe = () => {
+  const rightSwipe = (item) => {
+
+    //função que confirma registro e trata resposta
+    const handleExcluir = async () => {
+      let response = await fetch(`${config.urlRoot}/gastoAgendado/excluir/${item.id}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
+
+      let json = await response.json()
+
+      if (json === 'success') {
+        navigation.reset({
+          routes: [{
+            name: 'GastosAgendadosTab', params: {
+              etiqueta: 'Gasto excluído com sucesso!'
+            },
+
+          }],
+        });
+
+      } else {
+        console.log('error')
+      }
+
+    }
+
+    //alerta de confirmação
+    const showAlert = async () => {
+      Alert.alert(
+        '',
+        'Deseja excluir o gasto?',
+        [
+          {
+            text: 'Cancelar',
+          },
+          {
+            text: 'Sim',
+            onPress: () => handleExcluir(),
+          },
+        ]
+      );
+
+    }
+
     return (
       <View style={styles.rightView}>
-        <TouchableOpacity style={styles.right}>
+        <TouchableOpacity style={styles.right} onPress={showAlert}>
           <Ionicons name="ios-trash-outline" size={24} color="white" />
         </TouchableOpacity>
       </View>
@@ -31,7 +78,7 @@ export default function CardAgendado({ data, navigation }) {
   const leftSwipe = (item) => {
 
 
-    //função que deleta registro e trata resposta
+    //função que confirma registro e trata resposta
     const handleConfirmar = async () => {
       let response = await fetch(`${config.urlRoot}/gastoAgendado/confirmarGasto/${item.id}`, {
         method: 'POST',
@@ -44,16 +91,14 @@ export default function CardAgendado({ data, navigation }) {
       let json = await response.json()
 
       if (json === 'success') {
-        // navigation.reset({
-        //   routes: [{
-        //     name: 'Home', params: {
-        //       etiqueta: 'Categoria excluída com sucesso!'
-        //     },
+        navigation.reset({
+          routes: [{
+            name: 'GastosAgendadosTab', params: {
+              etiqueta: 'Gasto efetuado com sucesso!'
+            },
 
-        //   }],
-        // });
-
-        console.log("gasto efetuado")
+          }],
+        });
 
       } else {
         console.log('error')

@@ -120,13 +120,11 @@ export default function EditarCategorias({ navigation }) {
         })
         let json = await response.json()
         if (json === 'success') {
-            navigation.reset({
-                routes: [{
-                    name: 'Home', params: {
-                        etiqueta: 'Categoria editada com sucesso!'
-                    }
-                }],
-            });
+            navigation.navigate('HomeDrawer', {
+                    etiqueta: 'Categoria editada com sucesso!'
+                  }
+            )
+              
         } else {
             setDisplay(json.erros)
             setTimeout(() => {

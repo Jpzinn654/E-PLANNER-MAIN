@@ -10,22 +10,41 @@ import {
 
 import { View, Text, Dimensions } from "react-native";
 
-export default function Graph() {
+export default function Graph({data}) {
+
+    console.log(data)
+
+    // Cria um novo objeto Date para obter o mês atual
+    var currentDate = new Date();
+
+    // Cria um array para armazenar os meses
+    var meses = [];
+
+    // Loop pelos últimos 5 meses, incluindo o mês atual
+    for (var i = 0; i < 6; i++) {
+        // Adiciona o mês atual menos o índice de meses para obter os meses anteriores
+        var mesAnterior = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+
+        // Adiciona o mês ao array de meses
+        meses.push(mesAnterior.toLocaleString('pt-BR', { month: 'long' }));
+    }
+
+    meses.reverse();
+
     return (
         <View>
             <BarChart
                 data={{
-                    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"],
+                    labels: meses,
                     datasets: [
                         {
                             data: [
-                                34,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
+                                data.mes6,
+                                data.mes5,
+                                data.mes4,
+                                data.mes3,
+                                data.mes2,
+                                data.mes1
                             ]
                         }
                     ]
@@ -33,7 +52,7 @@ export default function Graph() {
                 width={Dimensions.get("window").width} // from react-native
                 height={220}
                 yAxisLabel="R$"
-                yAxisSuffix="k"
+                yAxisSuffix=""
                 yAxisInterval={1} // optional, defaults to 1
                 chartConfig={{
                     backgroundColor: "#eeeeef",

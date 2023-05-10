@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import homeStyle from "../../Screens/Home/homeStyle";
 
+import accounting from 'accounting';
+
 import {
     StyleSheet,
     Text,
@@ -24,14 +26,6 @@ import moment from 'moment';
 export default function Card({ usuario, navigation, onChildData  }) {
 
     const isFocused = useIsFocused();
-
-    const [childData, setChildData] = useState('');
-
-    const handlePress = () => {
-        const data = 'Categoria excluìda com sucesso!';
-        setChildData(data);
-        onChildData(data);
-      };
 
     //estado de gerenciamento de card
     const [activeIndex, setActiveIndex] = useState(null);
@@ -66,7 +60,10 @@ export default function Card({ usuario, navigation, onChildData  }) {
             if (json === 'success') {
 
 
-                handlePress()
+                navigation.navigate('HomeDrawer', {
+                    etiqueta: 'Categoria excluída com sucesso!'
+                  }
+            )
 
             } else {
                 console.log('error')
@@ -187,13 +184,13 @@ export default function Card({ usuario, navigation, onChildData  }) {
                 <Swipeable renderLeftActions={() => leftSwipe(item)} renderRightActions={() => rightSwipe(item)}>
                     <View style={styles.upContainer}>
                         <Text style={styles.title}>{item.nome}</Text>
-                        <Text style={styles.value}>{item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados))}</Text>
+                        <Text style={styles.value}>{accounting.formatMoney(item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)), 'R$', 2, '.', ',')}</Text>
                     </View>
                 </Swipeable>
                 {isActive && (
                     <View style={styles.cardContent}>
                         <Text style={styles.text}>
-                            Valor Total: R$ {item.valor}
+                            Valor Total:  {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}
                         </Text>
                         <Text style={styles.text}>
                             {item.descricao}

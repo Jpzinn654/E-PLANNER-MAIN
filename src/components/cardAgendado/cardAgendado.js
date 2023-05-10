@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
-
+import accounting from 'accounting';
 
 import config from '../../../config/config.json'
 
@@ -165,7 +165,7 @@ export default function CardAgendado({ data, navigation }) {
               <Text style={styles.value}>
                 {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
               </Text>
-              <Text style={styles.value}>{item.valor}</Text>
+              <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
             </View>
           </Swipeable>
           {cardStates[item.id] && (

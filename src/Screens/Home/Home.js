@@ -10,6 +10,10 @@ import Card from "../../components/card/card";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
+import accounting from 'accounting';
+
+import { CommonActions } from '@react-navigation/native';
+
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { AntDesign } from '@expo/vector-icons'
@@ -23,6 +27,8 @@ import {
     Image,
     TextInput,
     ScrollView,
+    Alert,
+    BackHandler
 } from "react-native";
 
 import { useIsFocused } from '@react-navigation/native';
@@ -33,20 +39,15 @@ export default function Home({ navigation, route }) {
 
     // Limpa os parâmetros quando o usuário clica em um botão
 
-    const [params, setParams] = useState({ foo: 'bar' });
-    
-    function handleClearParams() {
-        navigation.setParams({});
-        navigation.navigate('Categorias')
-    }
+    // const [params, setParams] = useState({ foo: 'bar' });
+
+    // function handleClearParams() {
+    //     navigation.setParams({});
+    //     navigation.navigate('Categorias')
+    // }
 
     const isFocused = useIsFocused();
 
-    const [childData, setChildData] = useState('');
-
-    const handleChildData = (data) => {
-        setChildData(data);
-    };
 
 
 
@@ -65,28 +66,20 @@ export default function Home({ navigation, route }) {
                 topOffset: 0,
             });
         }, 100);
+
+        //limpa os parametros
+        setTimeout(() => {
+            const resetAction = CommonActions.reset({
+                index: 0, 
+                routes: [
+                  { name: 'HomeDrawer' }, 
+                ],
+              });
+              
+              navigation.dispatch(resetAction);
+            }, 1500);
     }
 
-    if (childData != '') {
-        setTimeout(() => {
-            Toast.show({
-                type: "success",
-                text1: childData,
-                autoHide: true,
-                visibilityTime: 2000,
-                topOffset: 0,
-            });
-        }, 100);
-
-
-        setTimeout(() => {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Home' }],
-            });
-        }, 200);
-
-    }
 
     // if (route.params){
 
@@ -98,6 +91,35 @@ export default function Home({ navigation, route }) {
     const [usuarioId, setUsuarioId] = useState(null)
     const [orcamento, setOrcamento] = useState('');
     const [soma, setSoma] = useState('');
+
+    //configuração de alerta caso o usuário pressione o botão de voltar na home
+    const handleBackButton = () => {
+        Alert.alert(
+            '',
+            'Deseja sair do app?',
+            [
+                {
+                    text: 'Cancelar',
+                    onPress: () => { },
+                    style: 'cancel',
+                },
+                {
+                    text: 'Sim',
+                    onPress: () => BackHandler.exitApp(),
+                },
+            ],
+            { cancelable: false }
+        );
+        return true;
+    };
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+        };
+    }, []);
+
 
     moment.locale('pt-br');
 
@@ -190,20 +212,16 @@ export default function Home({ navigation, route }) {
 
             <View
                 style={homeStyle.renda1} >
-                <Text
-                    style={homeStyle.rendaTxt1}
-                >R$</Text>
 
-                <Text
-                    style={homeStyle.rendaTxt2}
-                >{orcamento}</Text>
-                <Text
-                    style={homeStyle.rendaTxt3}
-                >R$</Text>
+                <Text style={homeStyle.rendaTxt2}>
+                    {accounting.formatMoney(orcamento, 'R$', 2, '.', ',')}
+                </Text>
+
+
 
                 <Text
                     style={homeStyle.rendaTxt4}
-                >{disponivel}</Text>
+                > {accounting.formatMoney(disponivel, 'R$', 2, '.', ',')}</Text>
             </View>
 
             <View
@@ -278,13 +296,12 @@ export default function Home({ navigation, route }) {
                     style={homeStyle.components}>
                     <Card usuario={usuario.id}
                         navigation={navigation}
-                        onChildData={handleChildData} />
+                    />
                 </SafeAreaView>
 
                 <View style={homeStyle.buttonCategoria}>
                     <TouchableOpacity
-                        onPress={handleClearParams
-                        }
+                        onPress={() => navigation.navigate('Categorias')}
                     >
                         <AntDesign name="plus" size={30} />
                     </TouchableOpacity>

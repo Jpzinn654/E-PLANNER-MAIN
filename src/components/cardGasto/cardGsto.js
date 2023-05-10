@@ -6,6 +6,8 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
 import config from '../../../config/config.json'
 
+import accounting from 'accounting';
+
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -86,7 +88,7 @@ export default function CardGasto({ data }) {
                     <Swipeable renderLeftActions={() => rightSwipe(item)}>
                         <View style={styles.upContainer}>
                             <Text style={styles.title}>{item.categoria.nome}</Text>
-                            <Text style={styles.value}>{item.valor}</Text>
+                            <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
                         </View>
                     </Swipeable>
                     {cardStates[item.id] && (

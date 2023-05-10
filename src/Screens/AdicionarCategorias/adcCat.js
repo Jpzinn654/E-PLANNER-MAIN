@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
+import accounting from 'accounting';
+
 import {
     View,
     Text,
@@ -160,8 +162,7 @@ export default function Categorias({ navigation }) {
 
             <View style={adcCatStyle.Valor}>
                 <Text style={adcCatStyle.txtVal1}>Valor Disponível:</Text>
-                <Text style={adcCatStyle.txtVal2}>R$</Text>
-                <Text style={adcCatStyle.txtVal3}>{data}</Text>
+                <Text style={adcCatStyle.txtVal3}> {accounting.formatMoney(data, 'R$', 2, '.', ',')}</Text>
             </View>
 
             <KeyboardAvoidingView

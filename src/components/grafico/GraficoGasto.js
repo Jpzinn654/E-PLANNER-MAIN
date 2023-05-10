@@ -10,9 +10,9 @@ import {
 
 import { View, Text, Dimensions } from "react-native";
 
-export default function Graph({data}) {
+import accounting from 'accounting';
 
-    console.log(data)
+export default function Graph({data}) {
 
     // Cria um novo objeto Date para obter o mês atual
     var currentDate = new Date();
@@ -30,6 +30,8 @@ export default function Graph({data}) {
     }
 
     meses.reverse();
+
+    
 
     return (
         <View>
@@ -59,6 +61,7 @@ export default function Graph({data}) {
                     backgroundGradientFrom: "#eeeeef",
                     backgroundGradientTo: "#eeeeef",
                     decimalPlaces: 2, // optional, defaults to 2dp
+                   
                     color: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
                     style: {

@@ -20,6 +20,7 @@
     "@react-navigation/stack": "^6.3.11",
     "@types/react": "~18.0.27",
     "@types/react-native": "~0.69.1",
+    "accounting": "^0.4.1",
     "apexcharts": "^3.37.3",
     "expo": "^48.0.0",
     "expo-cli": "^6.3.2",

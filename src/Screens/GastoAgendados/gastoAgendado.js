@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import { CommonActions } from '@react-navigation/native';
+
 import {
     View,
     Text,
@@ -17,6 +19,8 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import CardAgendado from "../../components/cardAgendado/cardAgendado";
 
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+
 import { useIsFocused } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,8 +32,33 @@ export default function GastoAgendado({navigation, route}) {
     const isFocused = useIsFocused();
 
 
-    const etiqueta = route.params?.etiqueta ?? ''
+    let etiqueta = route.params?.etiqueta ?? ''
     console.log(etiqueta)
+
+    if (etiqueta != '') {
+        setTimeout(() => {
+            Toast.show({
+                type: "success",
+                text1: etiqueta,
+                autoHide: true,
+                visibilityTime: 2000,
+                topOffset: 0,
+            });
+
+        }, 100);
+        
+        //limpa os parametros
+        setTimeout(() => {
+        const resetAction = CommonActions.reset({
+            index: 0, 
+            routes: [
+              { name: 'GastosAgendadosTab' }, 
+            ],
+          });
+          
+          navigation.dispatch(resetAction);
+        }, 2000);
+    }
 
 
     const [usuarioId, setUsuarioId] = useState(null)
@@ -104,6 +133,8 @@ export default function GastoAgendado({navigation, route}) {
                         {currentMonth}, {currentYear}</Text>
                 </View>
             </View>
+
+            <Toast />
 
 
             <View

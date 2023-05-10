@@ -12,7 +12,9 @@ import {
 import gastosGeraisStyles from "./MenuFinancasStyle";
 import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
+import { CommonActions } from '@react-navigation/native';
 
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 
 function MenuFinancas({ navigation, route }) {
@@ -21,11 +23,35 @@ function MenuFinancas({ navigation, route }) {
 
     console.log(etiqueta)
 
+    if (etiqueta != '') {
+        setTimeout(() => {
+            Toast.show({
+                type: "success",
+                text1: etiqueta,
+                autoHide: true,
+                visibilityTime: 2000,
+                topOffset: 0,
+            });
+        }, 100);
+
+        //limpa os parametros
+        setTimeout(() => {
+            const resetAction = CommonActions.reset({
+                index: 0, 
+                routes: [
+                  { name: 'MenuFinancasTab' }, 
+                ],
+              });
+              
+              navigation.dispatch(resetAction);
+            }, 1500);
+    }
+
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
 
     const item = [
-        { id: 1, tela: 'GastosGerais'},
+        { id: 1, tela: 'GastosGerais', },
         { id: 2, tela: 'GastosCategorias' },
         { id: 3, tela: 'CompGastos' },
     ]
@@ -81,6 +107,8 @@ function MenuFinancas({ navigation, route }) {
 
             </View>
 
+            <Toast />
+
             <View
                 style={gastosGeraisStyles.finalContainer}>
 
@@ -117,7 +145,7 @@ function MenuFinancas({ navigation, route }) {
                 <View>
                     {
                         (telaAtual === 1)
-                            ? (<GastosGerais />) :
+                            ? (<GastosGerais etiqueta={etiqueta}/>) :
                             (telaAtual === 2) ?
                                 <GastoCategorias /> :
                                 <CompGastos />

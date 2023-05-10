@@ -39,10 +39,7 @@ export default function Categorias({ navigation }) {
     //função responsável por atualizar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
         const backAction = () => {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Home' }],
-            });
+            navigation.goBack()
             return true;
         };
 

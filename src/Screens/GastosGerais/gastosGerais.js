@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 
-export default function GastosGerais({ navigation, route }) {
+export default function GastosGerais({ navigation, etiqueta }) {
 
     const isFocused = useIsFocused();
 

@@ -15,7 +15,8 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Input,
-    Pressable
+    Pressable,
+    BackHandler
 } from "react-native";
 
 import { useState, useEffect } from "react";
@@ -28,6 +29,21 @@ import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AgendarGasto({ navigation }) {
+
+    //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
+    useEffect(() => {
+        const backAction = () => {
+           navigation.goBack()
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
 
     const [categoriaId, setCategoriaId] = useState(null);
     const [categoriaNome, setCategoriaNome] = useState(null);

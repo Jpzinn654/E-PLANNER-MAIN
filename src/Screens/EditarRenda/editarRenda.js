@@ -13,6 +13,7 @@ import {
     StyleSheet,
     Dimensions,
     Image,
+    BackHandler
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -22,6 +23,21 @@ const WIDTH = Dimensions.get('window').width - 125;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DefinirRenda({ navigation, min, max, steps }) {
+
+    //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
+    useEffect(() => {
+        const backAction = () => {
+           navigation.goBack()
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
 
     //estados que armazenam os dados
     const [display, setDisplay] = useState([])

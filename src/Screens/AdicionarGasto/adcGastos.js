@@ -19,6 +19,7 @@ import {
     Image,
     TextInput,
     KeyboardAvoidingView,
+    BackHandler,
     Alert
 } from "react-native";
 
@@ -35,6 +36,21 @@ export default function AdicionarGastos({ navigation }) {
             topOffset: 0,
         })
     }
+
+    //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
+    useEffect(() => {
+        const backAction = () => {
+           navigation.goBack()
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
 
     //enviados para a api
     const [categoriaId, setCategoriaId] = useState(null);

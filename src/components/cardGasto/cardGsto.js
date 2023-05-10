@@ -39,11 +39,7 @@ export default function CardGasto({ data }) {
             let json = await response.json()
 
             if (json === 'success') {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'MenuFinancasTab', 
-                    params: { etiqueta: 'Gasto excluído com sucesso!'} }],
-                });
+                navigation.navigate('MenuFinancasTab', { etiqueta: 'Gasto excluído com sucesso!' })
             } else {
                 console.log('error')
             }

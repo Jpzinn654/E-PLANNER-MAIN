@@ -5,7 +5,8 @@ import {
     Text,
     ScrollView,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    SafeAreaView
 } from "react-native"
 
 import gastosGeraisStyles from "./gastosGeraisStyles";
@@ -19,8 +20,16 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { useIsFocused } from '@react-navigation/native';
 
-export default function GastosGerais({ navigation }) {
+
+export default function GastosGerais({ navigation, etiqueta }) {
+
+    const isFocused = useIsFocused();
+
+    // const etiqueta = route.params?.etiqueta ?? ''
+
+    // console.log(etiqueta)
 
     //gerencia os valores de data na lista suspensa
     const [selectedDate, setSelectedDate] = useState(getCurrentDate());
@@ -49,7 +58,7 @@ export default function GastosGerais({ navigation }) {
     //função responsável por trazer os dados da api
     useEffect(() => {
         fetchData();
-    }, [selectedDate, usuarioId]);
+    }, [selectedDate, usuarioId, isFocused]);
 
 
     const fetchData = async () => {
@@ -129,15 +138,17 @@ export default function GastosGerais({ navigation }) {
 
                     </View>
                 </View>
-
-                <View
+                
+                <SafeAreaView
                     style={gastosGeraisStyles.cardsConatiner}>
-                    <ScrollView>
-                        <CardGasto data={data}/>
+                    
+                        <CardGasto data={data}
+                        />
 
                         
-                    </ScrollView>
-                </View>
+                    
+                </SafeAreaView>
+                
             </View>
         </View>
     )

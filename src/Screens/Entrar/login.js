@@ -54,7 +54,10 @@ export default function Login({ navigation }) {
         else {
             //armazenando dados do usuario em cache e o redirecionando para home
             await AsyncStorage.setItem('usuarioData', JSON.stringify(json))
-            navigation.navigate('Home')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+            });
         }
 
     }

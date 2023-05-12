@@ -12,14 +12,46 @@ import {
 import gastosGeraisStyles from "./MenuFinancasStyle";
 import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
+import { CommonActions } from '@react-navigation/native';
 
-function MenuFinancas({ navigation }) {
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+
+
+function MenuFinancas({ navigation, route }) {
+
+    const etiqueta = route.params?.etiqueta ?? ''
+
+    console.log(etiqueta)
+
+    if (etiqueta != '') {
+        setTimeout(() => {
+            Toast.show({
+                type: "success",
+                text1: etiqueta,
+                autoHide: true,
+                visibilityTime: 2000,
+                topOffset: 0,
+            });
+        }, 100);
+
+        //limpa os parametros
+        setTimeout(() => {
+            const resetAction = CommonActions.reset({
+                index: 0, 
+                routes: [
+                  { name: 'MenuFinancasTab' }, 
+                ],
+              });
+              
+              navigation.dispatch(resetAction);
+            }, 1500);
+    }
 
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
 
     const item = [
-        { id: 1, tela: 'GastosGerais' },
+        { id: 1, tela: 'GastosGerais', },
         { id: 2, tela: 'GastosCategorias' },
         { id: 3, tela: 'CompGastos' },
     ]
@@ -63,7 +95,7 @@ function MenuFinancas({ navigation }) {
                     <Text
                         style={gastosGeraisStyles.midText1}>
                         {(telaAtual === 1) ?
-                            <Text>TOTAL DE GASTO ECONOMIZADO</Text> :
+                            <Text>GASTOS TOTAIS</Text> :
                             (telaAtual === 2) ?
                                 <Text>TOTAL GASTO</Text> :
                                 <Text>COMPARAÇÃO DE GASTOS</Text>
@@ -74,6 +106,8 @@ function MenuFinancas({ navigation }) {
                 </View>
 
             </View>
+
+            <Toast />
 
             <View
                 style={gastosGeraisStyles.finalContainer}>
@@ -111,10 +145,10 @@ function MenuFinancas({ navigation }) {
                 <View>
                     {
                         (telaAtual === 1)
-                            ? (<GastosGerais />) :
+                            ? (<GastosGerais etiqueta={etiqueta}/>) :
                             (telaAtual === 2) ?
                                 <GastoCategorias /> :
-                                    <CompGastos/>
+                                <CompGastos />
                     }
                 </View>
             </View>

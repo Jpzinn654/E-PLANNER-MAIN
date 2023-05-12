@@ -12,6 +12,7 @@ import {
     Image,
     TextInput,
     KeyboardAvoidingView,
+    BackHandler,
     Alert,
 
 } from "react-native";
@@ -20,6 +21,21 @@ import EditarcAtegoriaStyle from "./editarCategoriaStyle";
 import { useRoute } from '@react-navigation/native';
 
 export default function EditarCategorias({ navigation }) {
+
+    //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
+    useEffect(() => {
+        const backAction = () => {
+           navigation.goBack()
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
 
     //tratamento de id da categoria que vem do parâmentro
     const route = useRoute();
@@ -120,13 +136,11 @@ export default function EditarCategorias({ navigation }) {
         })
         let json = await response.json()
         if (json === 'success') {
-            navigation.reset({
-                routes: [{
-                    name: 'Home', params: {
-                        etiqueta: 'Categoria editada com sucesso!'
-                    }
-                }],
-            });
+            navigation.navigate('HomeDrawer', {
+                    etiqueta: 'Categoria editada com sucesso!'
+                  }
+            )
+              
         } else {
             setDisplay(json.erros)
             setTimeout(() => {

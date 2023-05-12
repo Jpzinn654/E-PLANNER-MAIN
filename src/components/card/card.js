@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import homeStyle from "../../Screens/Home/homeStyle";
 
+import accounting from 'accounting';
+
 import {
     StyleSheet,
     Text,
@@ -13,13 +15,17 @@ import {
 
 import config from '../../../config/config.json'
 
+import { useIsFocused } from '@react-navigation/native';
+
 import { FlatList } from 'react-native-gesture-handler';
 import { Swipeable } from 'react-native-gesture-handler'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 import moment from 'moment';
 
-export default function Card({ usuario, navigation }) {
+export default function Card({ usuario, navigation, onChildData  }) {
+
+    const isFocused = useIsFocused();
 
     //estado de gerenciamento de card
     const [activeIndex, setActiveIndex] = useState(null);
@@ -32,9 +38,12 @@ export default function Card({ usuario, navigation }) {
     const [data, setData] = useState([]);
 
     moment.locale('pt-br');
+    
 
     //função de gerenciamento de exclusão de registro
     const leftSwipe = (item) => {
+
+        
 
         //função que deleta registro e trata resposta
         const handleExcluir = async () => {
@@ -49,15 +58,13 @@ export default function Card({ usuario, navigation }) {
             let json = await response.json()
 
             if (json === 'success') {
-                navigation.reset({
-                    routes: [{
-                         name: 'Home', params: {
-                            etiqueta: 'Categoria excluída com sucesso!'
-                        },
 
-                    }],
-                });
-  
+
+                navigation.navigate('HomeDrawer', {
+                    etiqueta: 'Categoria excluída com sucesso!'
+                  }
+            )
+
             } else {
                 console.log('error')
             }
@@ -126,7 +133,7 @@ export default function Card({ usuario, navigation }) {
     const usuarioId = usuario || ''
     useEffect(() => {
         fetchData();
-    }, [usuarioId]);
+    }, [usuarioId, isFocused]);
 
 
     const fetchData = async () => {
@@ -177,13 +184,13 @@ export default function Card({ usuario, navigation }) {
                 <Swipeable renderLeftActions={() => leftSwipe(item)} renderRightActions={() => rightSwipe(item)}>
                     <View style={styles.upContainer}>
                         <Text style={styles.title}>{item.nome}</Text>
-                        <Text style={styles.value}>{item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados))}</Text>
+                        <Text style={styles.value}>{accounting.formatMoney(item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)), 'R$', 2, '.', ',')}</Text>
                     </View>
                 </Swipeable>
                 {isActive && (
                     <View style={styles.cardContent}>
                         <Text style={styles.text}>
-                            Valor Total: R$ {item.valor}
+                            Valor Total:  {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}
                         </Text>
                         <Text style={styles.text}>
                             {item.descricao}

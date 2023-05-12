@@ -35,7 +35,7 @@ export default function Graph({data}) {
 
     return (
         <View>
-            <BarChart
+            <LineChart
                 data={{
                     labels: meses,
                     datasets: [
@@ -56,6 +56,7 @@ export default function Graph({data}) {
                 yAxisLabel="R$"
                 yAxisSuffix=""
                 yAxisInterval={1} // optional, defaults to 1
+                withDots="0"
                 chartConfig={{
                     backgroundColor: "#eeeeef",
                     backgroundGradientFrom: "#eeeeef",
@@ -65,18 +66,18 @@ export default function Graph({data}) {
                     color: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
                     style: {
-                        borderRadius: 16
+                        borderRadius: 2
                     },
                     propsForDots: {
-                        r: "10",
+                        r: "1",
                         strokeWidth: "5",
                         stroke: "#2C3C51"
                     }
                 }}
                 bezier
                 style={{
-                    marginVertical: 8,
-                    borderRadius: 8
+                    marginVertical: 0,
+                    borderRadius: 20
                 }}
             />
         </View>

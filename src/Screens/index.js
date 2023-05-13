@@ -12,16 +12,14 @@ import EditarRenda from "./EditarRenda/editarRenda";
 import GastoCategorias from "./GastoPorCategoria/gastoCategoria";
 import EditarCategorias from "./EditarCategoria/editarCategoria";
 import CompGastos from "./CompGastos/CompGastos";
-import Registrar from "./Register/registrar";
-import Entrar from "./Login/entrar";
+import Registrar from "./Registrar/registrar";
+import Entrar from "./Entrar/entrar";
 
 export {
     Home,
     AdicionarGastos,
     AgendarGasto,
-    Login,
     DefinirRenda,
-    Register,
     PrincipalHome,
     Categorias,
     GastoAgendado,

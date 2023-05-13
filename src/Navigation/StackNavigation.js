@@ -21,6 +21,7 @@ import {
   Categorias,
   GastoAgendado,
   GastosGerais,
+  Registrar,
   EditarRenda,
   GastoCategorias,
   EditarCategorias
@@ -37,12 +38,13 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
-      initialRouteName='Registrar'
+      initialRouteName='Register'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
       <Stack.Screen name="AgendarGasto" component={AgendarGasto} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Registrar} />
       <Stack.Screen name="DefinirRenda" component={DefinirRenda} />
       <Stack.Screen name="Registrar" component={Register} />
       <Stack.Screen name="PrincipalHome" component={PrincipalHome} />

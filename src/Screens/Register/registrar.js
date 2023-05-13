@@ -71,7 +71,9 @@ export default function Registrar({ navigation }) {
                     returnKeyType="done" />
 
                 <View style={registrarStyle.finalContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('Entrar')}
+                    >
                         <Text style={registrarStyle.txt}>Ja tenho uma conta</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={registrarStyle.btn}>

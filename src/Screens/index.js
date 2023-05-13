@@ -13,6 +13,7 @@ import GastoCategorias from "./GastoPorCategoria/gastoCategoria";
 import EditarCategorias from "./EditarCategoria/editarCategoria";
 import CompGastos from "./CompGastos/CompGastos";
 import Registrar from "./Register/registrar";
+import Entrar from "./Login/entrar";
 
 export {
     Home,
@@ -29,6 +30,7 @@ export {
     GastoCategorias,
     EditarCategorias,
     CompGastos,
-    Registrar
+    Registrar,
+    Entrar
     
 }

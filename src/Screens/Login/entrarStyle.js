@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 
-const registrarStyle = StyleSheet.create({
+const entrarStyle = StyleSheet.create({
     container: {
         flex: 1,
     },
@@ -62,4 +62,4 @@ const registrarStyle = StyleSheet.create({
 
 })
 
-export default registrarStyle;
+export default entrarStyle;

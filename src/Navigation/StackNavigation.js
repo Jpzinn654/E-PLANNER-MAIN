@@ -24,7 +24,8 @@ import {
   Registrar,
   EditarRenda,
   GastoCategorias,
-  EditarCategorias
+  EditarCategorias,
+  Entrar
 } from "../Screens"
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -44,6 +45,7 @@ function Navigation() {
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
       <Stack.Screen name="AgendarGasto" component={AgendarGasto} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Entrar" component={Entrar} />
       <Stack.Screen name="Register" component={Registrar} />
       <Stack.Screen name="DefinirRenda" component={DefinirRenda} />
       <Stack.Screen name="Registrar" component={Register} />

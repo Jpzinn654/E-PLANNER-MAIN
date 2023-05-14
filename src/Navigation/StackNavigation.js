@@ -14,16 +14,15 @@ import {
   Home,
   AdicionarGastos,
   AgendarGasto,
-  Login,
   DefinirRenda,
-  Register,
   PrincipalHome,
   Categorias,
   GastoAgendado,
-  GastosGerais,
+  Registrar,
   EditarRenda,
   GastoCategorias,
-  EditarCategorias
+  EditarCategorias,
+  Entrar
 } from "../Screens"
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -37,14 +36,14 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
-      initialRouteName='Registrar'
+      initialRouteName='Register'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />
       <Stack.Screen name="AgendarGasto" component={AgendarGasto} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Entrar" component={Entrar} />
+      <Stack.Screen name="Register" component={Registrar} />
       <Stack.Screen name="DefinirRenda" component={DefinirRenda} />
-      <Stack.Screen name="Registrar" component={Register} />
       <Stack.Screen name="PrincipalHome" component={PrincipalHome} />
       <Stack.Screen name="Categorias" component={Categorias} />
       <Stack.Screen name="GastoAgendados" component={HomeStack} />

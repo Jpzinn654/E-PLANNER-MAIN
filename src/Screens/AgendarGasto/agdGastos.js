@@ -24,7 +24,7 @@ import { useState, useEffect } from "react";
 import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import moment from "moment";
-import { Picker } from '@react-native-picker/picker';
+import { SelectList } from "react-native-dropdown-select-list"
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -45,8 +45,7 @@ export default function AgendarGasto({ navigation }) {
         return () => backHandler.remove();
     }, []);
 
-    const [categoriaId, setCategoriaId] = useState(null);
-    const [categoriaNome, setCategoriaNome] = useState(null);
+    const [selected, setSelected] = useState("")
 
     const [usuarioId, setUsuarioId] = useState(null)
     const [valor, setValor] = useState("");
@@ -99,48 +98,56 @@ export default function AgendarGasto({ navigation }) {
                 }),
             })
             let json = await response.json()
-            setCategorias(json)
+            let newArray = json.map((item) => {
+                return { key: item.id, value: item.nome }
+            })
 
-            if (json.length > 0) {
-                setCategoriaId(json[0].id);
-                setCategoriaNome(json[0].nome)
-            }
+            setCategorias(newArray)
+
         }
     }
 
     //função que envia dados do formuário para a api
     async function sendForm() {
-        let response = await fetch(`${config.urlRoot}/gastoAgendado/adicionar`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                mes: moment().format('M'),
-                ano: moment().format('YYYY'),
-                categoriaId: categoriaId,
-                valor: valor,
-                descricao: descricao,
-                dataGasto: date,
-                categoriaNome: categoriaNome
-            }),
-        })
-        let json = await response.json()
-        if (json === 'success') {
-            showToast()
-            setValorText('')
-            setValor('')
-            setDescricao('')
-            setDate(new Date())
-            setDateOfBirth()
-        } else {
-            setDisplay(json.erros)
+        if (selected === '' || selected == undefined){
+            setDisplay(['Selecione uma categoria!'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
-
+        } else{
+            let response = await fetch(`${config.urlRoot}/gastoAgendado/adicionar`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mes: moment().format('M'),
+                    ano: moment().format('YYYY'),
+                    categoriaId: selected,
+                    valor: valor,
+                    descricao: descricao,
+                    dataGasto: date,
+                }),
+            })
+            let json = await response.json()
+            if (json === 'success') {
+                showToast()
+                setValorText('')
+                setValor('')
+                setDescricao('')
+                setDate(new Date())
+                setDateOfBirth()
+                setSelected('')
+            } else {
+                setDisplay(json.erros)
+                setTimeout(() => {
+                    setDisplay('')
+                }, 5000)
+    
+            }
         }
+        
     }
 
     const handleValorChange = (value) => {
@@ -149,37 +156,6 @@ export default function AgendarGasto({ navigation }) {
         setValorText(value)
     }
 
-    const List = () => {
-        const handleCategoriaChange = (value) => {
-          setCategoriaId(value);
-          const categoriaSelecionada = categorias.find((categoria) => categoria.id === value);
-          setCategoriaNome(categoriaSelecionada.nome);
-        };
-      
-        if (categorias.length > 0) {
-          return (
-            <View>
-              <Picker
-                style={agdGastoStyle.picker}
-                selectedValue={categoriaId}
-                onValueChange={handleCategoriaChange}
-              >
-                <Picker.Item label="Selecione uma categoria" value={null} />
-                {categorias.map((categoria) => (
-                  <Picker.Item
-                    key={categoria.id}
-                    style={agdGastoStyle.pickerItem}
-                    label={categoria.nome}
-                    value={categoria.id}
-                  />
-                ))}
-              </Picker>
-            </View>
-          );
-        } else {
-          return null;
-        }
-      };
 
     const toggleDatepicker = () => {
         setShowPicker(!showPicker)
@@ -257,19 +233,16 @@ export default function AgendarGasto({ navigation }) {
                     </Text>
                 </View>
 
-                {categorias.length > 0 ? (
-                    <View >
-                        <Text style={agdGastoStyle.texto4}>
-                            Categoria:
-                        </Text>
-                        <List />
-                    </View>
-                ) : (
-                    <Text>
-                        Nenhuma categoria adicionada
-                    </Text>
+                <View  style={{ width: 280 }}>
+                <SelectList data={categorias} 
+                setSelected={setSelected}
+                placeholder = "Selecione uma categoria" 
+                searchPlaceholder = "Pesquise"
+                notFoundText = "Nenhuma categoria encontrada!"
+                dropdownShown= {false}
+               />
 
-                )}
+            </View>
 
                 <Text
                     style={agdGastoStyle.texto4}>

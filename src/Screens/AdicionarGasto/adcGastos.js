@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { Picker } from '@react-native-picker/picker';
+import { SelectList } from "react-native-dropdown-select-list"
 
 import { TextInputMask } from 'react-native-masked-text'
 import adcGastoSyle from "./adcGastoStyle";
@@ -40,7 +40,7 @@ export default function AdicionarGastos({ navigation }) {
     //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
         const backAction = () => {
-           navigation.goBack()
+            navigation.goBack()
             return true;
         };
 
@@ -53,8 +53,7 @@ export default function AdicionarGastos({ navigation }) {
     }, []);
 
     //enviados para a api
-    const [categoriaId, setCategoriaId] = useState(null);
-    const [categoriaNome, setCategoriaNome] = useState(null);
+    const [selected, setSelected] = useState("")
 
     const [valor, setValor] = useState(null);
     const [descricao, setDescricao] = useState(null);
@@ -64,6 +63,7 @@ export default function AdicionarGastos({ navigation }) {
     const [display, setDisplay] = useState([])
     const [categorias, setCategorias] = useState([]);
     const [valortext, setValorText] = useState(null);
+
 
     moment.locale('pt-br');
 
@@ -98,46 +98,56 @@ export default function AdicionarGastos({ navigation }) {
                 }),
             })
             let json = await response.json()
-            setCategorias(json)
 
-            if (json.length > 0) {
-                setCategoriaId(json[0].id);
-                setCategoriaNome(json[0].nome)
-            }
+            let newArray = json.map((item) => {
+                return { key: item.id, value: item.nome }
+            })
+
+            setCategorias(newArray)
+
         }
     }
 
 
     //função que envia dados do formuário para a api
     async function sendForm() {
-        let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                mes: moment().format('M'),
-                ano: moment().format('YYYY'),
-                categoriaId: categoriaId,
-                valor: valor,
-                descricao: descricao,
-                categoriaNome: categoriaNome
-            }),
-        })
-        let json = await response.json()
-        if (json === 'success') {
-            showToast()
-            setValorText('')
-            setValor('')
-            setDescricao('')
-        } else {
-            setDisplay(json.erros)
+        if (selected === '' || selected == undefined){
+            setDisplay(['Selecione uma categoria!'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
+        } else{
+            let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mes: moment().format('M'),
+                    ano: moment().format('YYYY'),
+                    categoriaId: selected,
+                    valor: valor,
+                    descricao: descricao,
+                   
+                }),
+            })
+            let json = await response.json()
+            if (json === 'success') {
+                showToast()
+                setValorText('')
+                setValor('')
+                setDescricao('')
+                setSelected('')
+            } else {
+                setDisplay(json.erros)
+                setTimeout(() => {
+                    setDisplay('')
+                }, 5000)
+            }
         }
         
+
     }
 
     //função que trata valor da mascara 
@@ -147,37 +157,8 @@ export default function AdicionarGastos({ navigation }) {
         setValorText(value)
     }
 
-    const List = () => {
-        const handleCategoriaChange = (value) => {
-          setCategoriaId(value);
-          const categoriaSelecionada = categorias.find((categoria) => categoria.id === value);
-          setCategoriaNome(categoriaSelecionada.nome);
-        };
-      
-        if (categorias.length > 0) {
-          return (
-            <View>
-              <Picker
-                style={adcGastoSyle.picker}
-                selectedValue={categoriaId}
-                onValueChange={handleCategoriaChange}
-              >
-                <Picker.Item label="Selecione uma categoria" value={null} />
-                {categorias.map((categoria) => (
-                  <Picker.Item
-                    key={categoria.id}
-                    style={adcGastoSyle.pickerItem}
-                    label={categoria.nome}
-                    value={categoria.id}
-                  />
-                ))}
-              </Picker>
-            </View>
-          );
-        } else {
-          return null;
-        }
-      };
+   
+
 
 
     return (
@@ -233,19 +214,16 @@ export default function AdicionarGastos({ navigation }) {
                     </Text>
                 </View>
 
-                {categorias.length > 0 ? (
-                    <View >
-                        <Text style={adcGastoSyle.texto4}>
-                            Categoria:
-                        </Text>
-                        <List />
-                    </View>
-                ) : (
-                    <Text>
-                        Nenhuma categoria adicionada
-                    </Text>
+                <View  style={{ width: 280 }}>
+                <SelectList data={categorias} 
+                setSelected={setSelected}
+                placeholder = "Selecione uma categoria" 
+                searchPlaceholder = "Pesquise"
+                notFoundText = "Nenhuma categoria encontrada!"
+                dropdownShown= {false}
+               />
 
-                )}
+            </View>
 
                 <Text
                     style={adcGastoSyle.texto4}>

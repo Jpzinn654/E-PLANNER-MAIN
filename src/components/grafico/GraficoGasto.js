@@ -11,8 +11,11 @@ import {
 import { View, Text, Dimensions } from "react-native";
 
 import accounting from 'accounting';
+import { Line } from "react-native-svg";
 
 export default function Graph({data}) {
+
+
 
     // Cria um novo objeto Date para obter o mês atual
     var currentDate = new Date();
@@ -35,18 +38,18 @@ export default function Graph({data}) {
 
     return (
         <View>
-            <BarChart
+            <LineChart
                 data={{
                     labels: meses,
                     datasets: [
                         {
                             data: [
-                                data.mes6,
-                                data.mes5,
-                                data.mes4,
-                                data.mes3,
-                                data.mes2,
-                                data.mes1
+                                data.mes6 || 0,
+                                data.mes5 || 0,
+                                data.mes4 || 0,
+                                data.mes3 || 0,
+                                data.mes2 || 0,
+                                data.mes1 || 0
                             ]
                         }
                     ]
@@ -68,8 +71,8 @@ export default function Graph({data}) {
                         borderRadius: 16
                     },
                     propsForDots: {
-                        r: "10",
-                        strokeWidth: "5",
+                        r: "2",
+                        strokeWidth: "2",
                         stroke: "#2C3C51"
                     }
                 }}

@@ -140,6 +140,7 @@ const registerStyle = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
     },
+    
 })
 
 export default registerStyle

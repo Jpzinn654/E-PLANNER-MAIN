@@ -190,7 +190,7 @@ export default function Categorias({ navigation }) {
                     onChangeText={text => setDescricao(text)}
                     value={descricao}
                     style={adcCatStyle.inp2}
-                    placeholder="Descrição"
+                    placeholder="DESCRIÇÃO (OPCIONAL)"
                     maxLength={100}
                     keyboardType="default"
                     underlineColorAndroid="transparent" />

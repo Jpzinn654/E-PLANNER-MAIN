@@ -51,6 +51,7 @@ const gastoAgendadoStyle = StyleSheet.create({
         top: 15,
         justifyContent: 'center',
         alignItems: 'center',
+        height: 420
     },
     aviso: {
         backgroundColor: "transparent", // Define o fundo como transparente

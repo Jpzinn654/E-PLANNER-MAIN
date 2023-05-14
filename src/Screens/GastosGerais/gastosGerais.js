@@ -139,23 +139,17 @@ export default function GastosGerais({ gastos }) {
                         >
                             {items}
                         </Picker>
-
-
                     </View>
                 </View>
 
-                <SafeAreaView
+                <View
                     style={gastosGeraisStyles.cardsConatiner}>
-
-                    <CardGasto data={data}
-                    />
-
-
-
-                </SafeAreaView>
+                        <CardGasto data={data}
+                        />
+                </View>
 
             </View>
-        </View>
+        </View >
     )
 }
 

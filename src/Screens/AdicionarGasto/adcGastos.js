@@ -6,8 +6,9 @@ import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { SelectList } from "react-native-dropdown-select-list"
 
-import { TextInputMask } from 'react-native-masked-text'
 import adcGastoSyle from "./adcGastoStyle";
+
+import CurrencyInput from 'react-native-currency-input';
 
 import moment from 'moment';
 
@@ -62,7 +63,6 @@ export default function AdicionarGastos({ navigation }) {
     const [usuarioId, setUsuarioId] = useState(null)
     const [display, setDisplay] = useState([])
     const [categorias, setCategorias] = useState([]);
-    const [valortext, setValorText] = useState(null);
 
 
     moment.locale('pt-br');
@@ -135,7 +135,6 @@ export default function AdicionarGastos({ navigation }) {
             let json = await response.json()
             if (json === 'success') {
                 showToast()
-                setValorText('')
                 setValor('')
                 setDescricao('')
                 setSelected('')
@@ -148,13 +147,6 @@ export default function AdicionarGastos({ navigation }) {
         }
         
 
-    }
-
-    //função que trata valor da mascara 
-    const handleValorChange = (value) => {
-        const valorDecimal = parseFloat(value.replace(',', '.').replace('R$', '').trim());
-        setValor(valorDecimal);
-        setValorText(value)
     }
 
    
@@ -230,20 +222,20 @@ export default function AdicionarGastos({ navigation }) {
                     Valor:
                 </Text>
 
-                <TextInputMask
+                <CurrencyInput
                     style={adcGastoSyle.input}
-                    type={'money'}
-                    options={{
-                        precision: 2,
-                        separator: ',',
-                        delimiter: '.',
-                        unit: 'R$',
-                        suffixUnit: ''
-                    }}
-                    value={valortext}
-                    placeholder={'R$ 0,00'}
-                    onChangeText={handleValorChange}
-                />
+                        value={valor}
+                        placeholder="R$0,00"
+                        onChangeValue={setValor}
+                        prefix="R$"
+                        delimiter="."
+                        separator=","
+                        precision={2}
+                        minValue={0}
+                        onChangeText={(formattedValue) => {
+                            console.log(formattedValue); // R$ +2.310,46
+                        }}
+                    />
 
                 <Text
                     style={adcGastoSyle.texto5}

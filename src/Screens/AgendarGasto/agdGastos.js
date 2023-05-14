@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TextInputMask } from 'react-native-masked-text'
+import CurrencyInput from 'react-native-currency-input';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,7 +33,7 @@ export default function AgendarGasto({ navigation }) {
     //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
         const backAction = () => {
-           navigation.goBack()
+            navigation.goBack()
             return true;
         };
 
@@ -56,7 +56,6 @@ export default function AgendarGasto({ navigation }) {
     const [date, setDate] = useState(new Date())
     const [showPicker, setShowPicker] = useState(false)
     const [categorias, setCategorias] = useState([]);
-    const [valortext, setValorText] = useState(null);
 
     const showToast = () => {
         Toast.show({
@@ -109,12 +108,12 @@ export default function AgendarGasto({ navigation }) {
 
     //função que envia dados do formuário para a api
     async function sendForm() {
-        if (selected === '' || selected == undefined){
+        if (selected === '' || selected == undefined) {
             setDisplay(['Selecione uma categoria!'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
-        } else{
+        } else {
             let response = await fetch(`${config.urlRoot}/gastoAgendado/adicionar`, {
                 method: 'POST',
                 headers: {
@@ -133,7 +132,6 @@ export default function AgendarGasto({ navigation }) {
             let json = await response.json()
             if (json === 'success') {
                 showToast()
-                setValorText('')
                 setValor('')
                 setDescricao('')
                 setDate(new Date())
@@ -144,16 +142,10 @@ export default function AgendarGasto({ navigation }) {
                 setTimeout(() => {
                     setDisplay('')
                 }, 5000)
-    
+
             }
         }
-        
-    }
 
-    const handleValorChange = (value) => {
-        const valorDecimal = parseFloat(value.replace(',', '.').replace('R$', '').trim());
-        setValor(valorDecimal);
-        setValorText(value)
     }
 
 
@@ -195,7 +187,7 @@ export default function AgendarGasto({ navigation }) {
                 style={agdGastoStyle.fundo}
                 source={require('../../assets/fundo.png')}
             />
-            
+
             <View
                 style={agdGastoStyle.upContainer}>
 
@@ -213,7 +205,7 @@ export default function AgendarGasto({ navigation }) {
                     <Text
                         style={agdGastoStyle.texto1}
                     >E-PLANNER</Text>
-                    <Toast/>
+                    <Toast />
                 </View>
 
                 <Text
@@ -233,35 +225,35 @@ export default function AgendarGasto({ navigation }) {
                     </Text>
                 </View>
 
-                <View  style={{ width: 280 }}>
-                <SelectList data={categorias} 
-                setSelected={setSelected}
-                placeholder = "Selecione uma categoria" 
-                searchPlaceholder = "Pesquise"
-                notFoundText = "Nenhuma categoria encontrada!"
-                dropdownShown= {false}
-               />
+                <View style={{ width: 280 }}>
+                    <SelectList data={categorias}
+                        setSelected={setSelected}
+                        placeholder="Selecione uma categoria"
+                        searchPlaceholder="Pesquise"
+                        notFoundText="Nenhuma categoria encontrada!"
+                        dropdownShown={false}
+                    />
 
-            </View>
+                </View>
 
                 <Text
                     style={agdGastoStyle.texto4}>
                     Valor:
                 </Text>
 
-                <TextInputMask
+                <CurrencyInput
                     style={agdGastoStyle.input}
-                    type={'money'}
-                    options={{
-                        precision: 2,
-                        separator: ',',
-                        delimiter: '.',
-                        unit: 'R$',
-                        suffixUnit: ''
+                    value={valor}
+                    placeholder="R$0,00"
+                    onChangeValue={setValor}
+                    prefix="R$"
+                    delimiter="."
+                    separator=","
+                    precision={2}
+                    minValue={0}
+                    onChangeText={(formattedValue) => {
+                        console.log(formattedValue); // R$ +2.310,46
                     }}
-                    value={valortext}
-                    placeholder={'R$ 0,00'}
-                    onChangeText={handleValorChange}
                 />
 
                 <Text
@@ -274,7 +266,7 @@ export default function AgendarGasto({ navigation }) {
                     keyboardType="default"
                     returnKeyType="done"
                     multiline={true}
-                    placeholder={'DESCRIÇÃO (OPCIONAL)'}
+                    placeholder={'DESCRIÇÃO'}
                     maxLength={70}
                     onChangeText={setDescricao}
                     value={descricao}
@@ -287,13 +279,34 @@ export default function AgendarGasto({ navigation }) {
                     style={agdGastoStyle.cardInput}>
 
                     {showPicker && (
-                        <DateTimePicker
-                            mode="date"
-                            display="spinner"
-                            value={date}
-                            onChange={onChange}
-                            minimumDate={new Date()}
-                        />
+                        // <DateTimePicker
+                        //     mode="date"
+                        //     display="spinner"
+                        //     value={date}
+                        //     onChange={onChange}
+                        //     minimumDate={new Date()}
+                        // />
+
+                        <Pressable
+                            onPress={toggleDatepicker}
+                        >
+                            <DateTimePicker
+                                mode="date"
+                                display="spinner"
+                                value={date}
+                                onChange={onChange}
+                                minimumDate={new Date()}
+                            />
+                            <TextInput
+                                style={agdGastoStyle.input}
+                                value={dateOfBirth}
+                                onChangeText={setDateOfBirth}
+                                placeholder={"00/00/0000"}
+                                color='#000000'
+                                editable={false}
+                            />
+                        </Pressable>
+
                     )}
 
                     {!showPicker && (

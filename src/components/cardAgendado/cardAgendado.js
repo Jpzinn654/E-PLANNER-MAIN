@@ -137,12 +137,17 @@ export default function CardAgendado({ data, navigation }) {
   return (
 
     <View>
+
+      
+
+
       {data.map((item) => (
         <TouchableOpacity
           style={styles.card}
           onPress={() => toggleCard(item.id)}
           key={item.id}
         >
+
           <Swipeable
             renderRightActions={() => rightSwipe(item)}
             renderLeftActions={() => leftSwipe(item)}
@@ -161,6 +166,7 @@ export default function CardAgendado({ data, navigation }) {
                   <FontAwesome5 name="tasks" size={24} color="white" />
                 </View>
               )}
+
               <Text style={styles.title}>{item.categoria.nome}</Text>
               <Text style={styles.value}>
                 {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}

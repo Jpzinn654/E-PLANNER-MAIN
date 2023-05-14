@@ -110,7 +110,7 @@ function LoginScreen({ navigation }) {
   React.useEffect(() => {
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Login' }],
+      routes: [{ name: 'Entrar' }],
     });
   }, []);
 }

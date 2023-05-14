@@ -7,6 +7,8 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import accounting from 'accounting';
 
+import CurrencyInput from 'react-native-currency-input';
+
 import {
     View,
     Text,
@@ -35,6 +37,8 @@ export default function Categorias({ navigation }) {
     const [nome, setNome] = useState(null)
     const [descricao, setDescricao] = useState(null)
     const [valor, setValor] = useState(null)
+
+    console.log(valor)
 
     //função responsável por atualizar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
@@ -164,7 +168,7 @@ export default function Categorias({ navigation }) {
 
             <KeyboardAvoidingView
                 style={adcCatStyle.inputContainer}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                behavior={"padding"}
             >
                 <Text style={adcCatStyle.inpTxt1}>Adicionar uma categoria</Text>
 
@@ -186,21 +190,29 @@ export default function Categorias({ navigation }) {
                     onChangeText={text => setDescricao(text)}
                     value={descricao}
                     style={adcCatStyle.inp2}
-                    placeholder="Descrição (opcional)"
+                    placeholder="Descrição"
                     maxLength={100}
                     keyboardType="default"
                     underlineColorAndroid="transparent" />
 
                 <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    behavior={"padding"}
                     style={adcCatStyle.subContainerInput}>
-                    <TextInput
-                        onChangeText={text => setValor(text)}
+
+                    <CurrencyInput
+                    style={adcCatStyle.inp3}
                         value={valor}
-                        style={adcCatStyle.inp3}
-                        placeholder="Valor"
-                        keyboardType="numeric"
-                        underlineColorAndroid="transparent" />
+                        placeholder="R$0,00"
+                        onChangeValue={setValor}
+                        prefix="R$"
+                        delimiter="."
+                        separator=","
+                        precision={2}
+                        minValue={0}
+                        onChangeText={(formattedValue) => {
+                            console.log(formattedValue); // R$ +2.310,46
+                        }}
+                    />
 
                     <View style={adcCatStyle.btn}>
                         <Text style={adcCatStyle.btnText}>R$</Text>
@@ -213,8 +225,6 @@ export default function Categorias({ navigation }) {
                 >
                     <TouchableOpacity style={adcCatStyle.btnContinuar}
                         onPress={() => sendForm()}
-                    // onPress={showToast}
-                    // onPress={showToastError}
                     >
 
                         <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>

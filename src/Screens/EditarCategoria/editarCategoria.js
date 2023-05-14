@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
+import CurrencyInput from 'react-native-currency-input';
+
 import {
     View,
     Text,
@@ -207,14 +209,20 @@ export default function EditarCategorias({ navigation }) {
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={EditarcAtegoriaStyle.subContainerInput}>
-                    <TextInput
-                        onChangeText={text => setValor(text)}
+                    <CurrencyInput
+                    style={EditarcAtegoriaStyle.inp3}
                         value={valor}
-                        style={EditarcAtegoriaStyle.inp3}
-                        placeholder="Valor"
-                        keyboardType="default"
-                        underlineColorAndroid="transparent" />
-
+                        placeholder="R$0,00"
+                        onChangeValue={setValor}
+                        prefix="R$"
+                        delimiter="."
+                        separator=","
+                        precision={2}
+                        minValue={0}
+                        onChangeText={(formattedValue) => {
+                            console.log(formattedValue); // R$ +2.310,46
+                        }}
+                    />
                     <View style={EditarcAtegoriaStyle.btn}>
                         <Text style={EditarcAtegoriaStyle.btnText}>R$</Text>
                     </View>

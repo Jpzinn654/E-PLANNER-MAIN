@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-    StatusBar
+    StatusBar,
 } from "react-native"
 
 import gastoAgendadoStyle from "./gastoAgendadoStyle";
@@ -27,7 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
-export default function GastoAgendado({navigation, route}) {
+export default function GastoAgendado({ navigation, route }) {
 
     const isFocused = useIsFocused();
 
@@ -46,17 +46,17 @@ export default function GastoAgendado({navigation, route}) {
             });
 
         }, 100);
-        
+
         //limpa os parametros
         setTimeout(() => {
-        const resetAction = CommonActions.reset({
-            index: 0, 
-            routes: [
-              { name: 'GastosAgendadosTab' }, 
-            ],
-          });
-          
-          navigation.dispatch(resetAction);
+            const resetAction = CommonActions.reset({
+                index: 0,
+                routes: [
+                    { name: 'GastosAgendadosTab' },
+                ],
+            });
+
+            navigation.dispatch(resetAction);
         }, 2000);
     }
 
@@ -140,18 +140,40 @@ export default function GastoAgendado({navigation, route}) {
             <View
                 style={gastoAgendadoStyle.container2}
             >
-                <Text
+
+                {/* <Text>
+                    Você possui gastos pendentes!
+                </Text> */}
+
+                {data.map((item) => {
+                    if (new Date(item.dataGasto) <= new Date()) {
+                        return (
+                            <View key={item.id} style={gastoAgendadoStyle.aviso}>
+                                <Text style={gastoAgendadoStyle.avisoTexto}>
+                                    Você possui despesas pendentes!
+                                </Text>
+                            </View>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+
+
+
+
+                < Text
                     style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
 
                 <View
                     style={gastoAgendadoStyle.cards}>
                     <ScrollView>
                         <CardAgendado data={data}
-                        navigation={navigation}/>
+                            navigation={navigation} />
                     </ScrollView>
                 </View>
             </View>
 
-        </View>
+        </View >
     )
 }

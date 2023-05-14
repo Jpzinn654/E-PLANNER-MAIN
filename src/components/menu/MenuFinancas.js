@@ -16,12 +16,12 @@ import { CommonActions } from '@react-navigation/native';
 
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
+import accounting from 'accounting';
 
 function MenuFinancas({ navigation, route }) {
 
     const etiqueta = route.params?.etiqueta ?? ''
 
-    console.log(etiqueta)
 
     if (etiqueta != '') {
         setTimeout(() => {
@@ -37,15 +37,24 @@ function MenuFinancas({ navigation, route }) {
         //limpa os parametros
         setTimeout(() => {
             const resetAction = CommonActions.reset({
-                index: 0, 
+                index: 0,
                 routes: [
-                  { name: 'MenuFinancasTab' }, 
+                    { name: 'MenuFinancasTab' },
                 ],
-              });
-              
-              navigation.dispatch(resetAction);
-            }, 1500);
+            });
+
+            navigation.dispatch(resetAction);
+        }, 1500);
     }
+
+    //gastos totais a serem exibidos no histórico geral
+    const [gastosGerais, setGastosGerais] = useState('');
+
+    const getGastos = (gastos) => {
+        setGastosGerais(gastos);
+    };
+
+
 
     const [clicou, setClicou] = useState(1);
     const [telaAtual, setTelaAtual] = useState(1);
@@ -92,17 +101,30 @@ function MenuFinancas({ navigation, route }) {
                 <View
                     style={gastosGeraisStyles.midContainer}
                 >
-                    <Text
-                        style={gastosGeraisStyles.midText1}>
-                        {(telaAtual === 1) ?
-                            <Text>GASTOS TOTAIS</Text> :
-                            (telaAtual === 2) ?
-                                <Text>TOTAL GASTO</Text> :
-                                <Text>COMPARAÇÃO DE GASTOS</Text>
-                        }</Text>
-                    <Text
-                        style={gastosGeraisStyles.midText}>
-                        R$ 0,00</Text>
+                    <View>
+                        {telaAtual === 1 ? (
+                            <>
+                                <Text style={gastosGeraisStyles.midText1}>GASTOS TOTAIS</Text>
+                                {gastosGerais && (
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                        {accounting.formatMoney(gastosGerais.reduce((total, gasto) => 
+                                        Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
+                                    </Text>
+                                )}{!gastosGerais && (
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                       "R$0,00"
+                                    </Text>
+                                )}
+
+                            </>
+                        ) : telaAtual === 2 ? (
+                            <Text>TOTAL GASTO</Text>
+                        ) : (
+                            <Text>COMPARAÇÃO DE GASTOS</Text>
+                        )}
+                    </View>
+
+
                 </View>
 
             </View>
@@ -145,7 +167,8 @@ function MenuFinancas({ navigation, route }) {
                 <View>
                     {
                         (telaAtual === 1)
-                            ? (<GastosGerais etiqueta={etiqueta}/>) :
+                            ? (<GastosGerais etiqueta={etiqueta}
+                                gastos={getGastos} />) :
                             (telaAtual === 2) ?
                                 <GastoCategorias /> :
                                 <CompGastos />

@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 
-export default function GastosGerais({ navigation, etiqueta }) {
+export default function GastosGerais({ gastos }) {
 
     const isFocused = useIsFocused();
 
@@ -42,6 +42,11 @@ export default function GastosGerais({ navigation, etiqueta }) {
     //armazena valores que chegam da api
     const [data, setData] = useState([]);
 
+    useEffect(() => {
+        if (data !== ['']) {
+            gastos(data);
+        }
+    }, [data]);
 
     //requisita id do usuário
     useEffect(() => {
@@ -138,17 +143,17 @@ export default function GastosGerais({ navigation, etiqueta }) {
 
                     </View>
                 </View>
-                
+
                 <SafeAreaView
                     style={gastosGeraisStyles.cardsConatiner}>
-                    
-                        <CardGasto data={data}
-                        />
 
-                        
-                    
+                    <CardGasto data={data}
+                    />
+
+
+
                 </SafeAreaView>
-                
+
             </View>
         </View>
     )

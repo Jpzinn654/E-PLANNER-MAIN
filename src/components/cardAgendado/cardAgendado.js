@@ -33,14 +33,19 @@ export default function CardAgendado({ data, navigation }) {
       let json = await response.json()
 
       if (json === 'success') {
-        navigation.reset({
-          routes: [{
-            name: 'GastosAgendadosTab', params: {
-              etiqueta: 'Gasto excluído com sucesso!'
-            },
+        // navigation.reset({
+        //   routes: [{
+        //     name: 'GastosAgendadosTab', params: {
+        //       etiqueta: 'Gasto excluído com sucesso!'
+        //     },
 
-          }],
-        });
+        //   }],
+        // });
+
+        navigation.navigate('GastosAgendadosTab', {
+          etiqueta: 'Gasto excluído com sucesso!'
+        }
+  )
 
       } else {
         console.log('error')

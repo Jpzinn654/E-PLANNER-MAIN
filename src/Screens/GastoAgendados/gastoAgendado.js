@@ -108,6 +108,22 @@ export default function GastoAgendado({ navigation, route }) {
     const currentMonth = moment().format('MMMM');
     const currentYear = moment().format('YYYY');
 
+    const hasPendingExpenses = data.some(item => new Date(item.dataGasto) <= new Date());
+
+    const Msg = ()=>{
+        if (hasPendingExpenses) {
+            return (
+              <View style={gastoAgendadoStyle.aviso}>
+                <Text style={gastoAgendadoStyle.avisoTexto}>
+                  Você possui despesas pendentes!
+                </Text>
+              </View>
+            );
+          } else {
+            return null;
+          }
+    }
+
     return (
         <View style={gastoAgendadoStyle.container}>
             <StatusBar backgroundColor={'#eeeeef'} barStyle="dark-content" />
@@ -145,20 +161,8 @@ export default function GastoAgendado({ navigation, route }) {
                     Você possui gastos pendentes!
                 </Text> */}
 
-                {data.map((item) => {
-                    if (new Date(item.dataGasto) <= new Date()) {
-                        return (
-                            <View key={item.id} style={gastoAgendadoStyle.aviso}>
-                                <Text style={gastoAgendadoStyle.avisoTexto}>
-                                    Você possui despesas pendentes!
-                                </Text>
-                            </View>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
 
+                <Msg/>
 
 
 

@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 
-export default function GastosGerais({ gastos }) {
+export default function GastosGerais({ gastosGerais }) {
 
     const isFocused = useIsFocused();
 
@@ -44,7 +44,7 @@ export default function GastosGerais({ gastos }) {
 
     useEffect(() => {
         if (data !== ['']) {
-            gastos(data);
+            gastosGerais(data);
         }
     }, [data]);
 
@@ -144,8 +144,12 @@ export default function GastosGerais({ gastos }) {
 
                 <View
                     style={gastosGeraisStyles.cardsConatiner}>
-                        <CardGasto data={data}
-                        />
+
+                    <Text
+                        style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
+
+                    <CardGasto data={data}
+                    />
                 </View>
 
             </View>
@@ -164,12 +168,21 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginBottom: 5,
+        marginTop: 8,
     },
     pickerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-    },
+        justifyContent: 'center', // Adicione esta propriedade
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 7,
+        width: 280,
+        paddingHorizontal: 10, // Adicione esta propriedade
+        height: 45,
+      },
+      
     picker: {
         width: 180,
         height: 30,

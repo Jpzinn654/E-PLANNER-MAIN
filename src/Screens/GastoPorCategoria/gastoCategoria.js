@@ -15,31 +15,32 @@ import Graph from "../../components/grafico/GraficoGasto";
 import gastoCategoriaStyle from "./gastoCategoriaStyle";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-import { Picker } from '@react-native-picker/picker';
+import { SelectList } from "react-native-dropdown-select-list"
 
 import moment from 'moment';
 
-export default function GastoCategorias({ navigation }) {
+import { useIsFocused } from '@react-navigation/native';
 
-    // const showToast = () => {
-    //     Toast.show({
-    //         type: "success",
-    //         text1: "teste",
-    //         text2: "teste2"
-    //     })
-    // }
+export default function GastoCategorias({ gastosCat }) {
+
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (data !== ['']) {
+            gastosCat(data);
+        }
+    }, [data]);
 
     //enviados para a api
-    const [categoriaId, setCategoriaId] = useState(null);
-    const [categoriaNome, setCategoriaNome] = useState(null);
+    const [selected, setSelected] = useState("")
 
     //operações adicionais
     const [usuarioId, setUsuarioId] = useState(null)
     const [categorias, setCategorias] = useState([]);
 
-      //armazena valores que chegam da api
-      const [data, setData] = useState([]);
-      
+    //armazena valores que chegam da api
+    const [data, setData] = useState([]);
+
 
     moment.locale('pt-br');
 
@@ -59,7 +60,7 @@ export default function GastoCategorias({ navigation }) {
     //função que requisita categorias
     useEffect(() => {
         getCategorias();
-    }, [usuarioId]);
+    }, [usuarioId, isFocused]);
 
     const getCategorias = async () => {
         if (usuarioId !== null) {
@@ -79,8 +80,11 @@ export default function GastoCategorias({ navigation }) {
             setCategorias(json)
 
             if (json.length > 0) {
-                setCategoriaId(json[0].id);
-                setCategoriaNome(json[0].nome)
+                let newArray = json.map((item) => {
+                    return { key: item.id, value: item.nome }
+                })
+
+                setCategorias(newArray)
             }
         }
     }
@@ -88,13 +92,13 @@ export default function GastoCategorias({ navigation }) {
     //função responsável por trazer os dados da api
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-          fetchData();
+            fetchData();
         }, 1000); // 1000ms = 1 segundo
-      
+
         return () => {
-          clearTimeout(timeoutId);
+            clearTimeout(timeoutId);
         };
-      }, [categoriaId, usuarioId]);
+    }, [selected, usuarioId, isFocused]);
 
 
     const fetchData = async () => {
@@ -108,81 +112,41 @@ export default function GastoCategorias({ navigation }) {
                 },
 
                 body: JSON.stringify({
-                    id: categoriaId,
+                    id: selected,
                     mes: moment().format('M'),
                     ano: moment().format('YYYY')
                 }),
             })
             let json = await response.json()
-            if (json == '') {
-                // setDisplay('Você não possui nenhuma categoria!')
-                // setCarregando(false)
-                console.log('erro')
-            } else {
+            if (json != "error") {
                 setData(json)
-                // setDisplay(false)
-                // setCarregando(false)
-                // console.log(json)
-            }
-            
-            
+                console.log(json)
+            } 
+
+
         }
     }
 
 
-    //lista suspensa com categorias
-    const List = () => {
-        const handleCategoriaChange = (value) => {
-            setCategoriaId(value);
-            const categoriaSelecionada = categorias.find((categoria) => categoria.id === value);
-            setCategoriaNome(categoriaSelecionada.nome);
-        };
-
-        if (categorias.length > 0) {
-            return (
-                <View>
-                    <Picker
-                        style={gastoCategoriaStyle.picker}
-                        selectedValue={categoriaId}
-                        onValueChange={handleCategoriaChange}
-                    >
-                        <Picker.Item label="Selecione uma categoria" value={null} />
-                        {categorias.map((categoria) => (
-                            <Picker.Item
-                                key={categoria.id}
-                                style={gastoCategoriaStyle.pickerItem}
-                                label={categoria.nome}
-                                value={categoria.id}
-                            />
-                        ))}
-                    </Picker>
-                </View>
-            );
-        } else {
-            return null;
-        }
-    };
 
 
 
     return (
         <View style={gastoCategoriaStyle.container}>
             <Toast />
-            {categorias.length > 0 ? (
-                <View >
-                    <Text style={gastoCategoriaStyle.texto4}>
-                        Categoria:
-                    </Text>
-                    <List />
-                </View>
-            ) : (
-                <Text>
-                    Nenhuma categoria adicionada
-                </Text>
 
-            )}
+            <View style={{ width: 280, marginTop: 30, marginBottom: 12 }}>
+                <SelectList data={categorias}
+                    setSelected={setSelected}
+                    placeholder="Selecione uma categoria"
+                    searchPlaceholder="Pesquise"
+                    notFoundText="Nenhuma categoria encontrada!"
+                    dropdownShown={false}
+                />
 
-            <Graph  data={data}/>
+            </View>
+
+            <Graph data={data} />
         </View>
     )
 }

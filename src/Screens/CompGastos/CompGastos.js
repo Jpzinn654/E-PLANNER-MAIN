@@ -25,8 +25,8 @@ export default function CompGastos({ navigation }) {
                     </TextInput>
                 </View>
                 <View style={compGastoStyles.textInputs}>
-                    <Text style={compGastoStyles.textInp1}> Mês inicial</Text>
-                    <Text style={compGastoStyles.textInp2}> Mês final</Text>
+                    <Text style={compGastoStyles.textInp1}> Selecione um mês</Text>
+                    <Text style={compGastoStyles.textInp2}> Mês de Comparação</Text>
                 </View>
             </View>
 

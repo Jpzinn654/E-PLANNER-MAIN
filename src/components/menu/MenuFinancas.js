@@ -50,13 +50,21 @@ function MenuFinancas({ navigation, route }) {
     //gastos totais a serem exibidos no histórico geral
     const [gastosGerais, setGastosGerais] = useState('');
 
-    const getGastos = (gastos) => {
-        setGastosGerais(gastos);
+    const getGastosGerais = (gastosGerais) => {
+        setGastosGerais(gastosGerais);
     };
 
 
+    //gastos totais a serem exibidos no histórico por categoria
+    const [gastosCat, setGastosCat] = useState('');
 
-    const [clicou, setClicou] = useState(1);
+    const getGastosCat = (gastosCat) => {
+        setGastosCat(gastosCat);
+    };
+
+    console.log(gastosCat)
+
+
     const [telaAtual, setTelaAtual] = useState(1);
 
     const item = [
@@ -65,17 +73,6 @@ function MenuFinancas({ navigation, route }) {
         { id: 3, tela: 'CompGastos' },
     ]
 
-    useEffect(() => {
-        if (clicou == true) {
-            (telaAtual == 1) ? setTelaAtual(1) : setTelaAtual(2)
-        }
-        else if (clicou == true) {
-            (telaAtual == 2) ? setTelaAtual(2) : setTelaAtual(3)
-        }
-        else () => {
-            setClicou(false)
-        }
-    }, [clicou])
 
     return (
         <View style={gastosGeraisStyles.container}>
@@ -104,23 +101,54 @@ function MenuFinancas({ navigation, route }) {
                     <View>
                         {telaAtual === 1 ? (
                             <>
-                                <Text style={gastosGeraisStyles.midText1}>GASTOS TOTAIS</Text>
+                                <Text style={gastosGeraisStyles.midText1}>TOTAL DE GASTOS</Text>
                                 {gastosGerais && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                        {accounting.formatMoney(gastosGerais.reduce((total, gasto) => 
-                                        Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
+                                        {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
+                                            Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
                                     </Text>
                                 )}{!gastosGerais && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                       "R$0,00"
+                                        "R$0,00"
                                     </Text>
                                 )}
 
                             </>
                         ) : telaAtual === 2 ? (
-                            <Text>TOTAL GASTO</Text>
+                            <>
+                                <Text style={gastosGeraisStyles.midText1}>TOTAL DE GASTOS</Text>
+                                {gastosCat && (
+                                    // <Text style={gastosGeraisStyles.midText1}>
+                                    //     {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
+                                    //         Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
+                                    // </Text>
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                        "R$0,00"
+                                    </Text>
+                                )}{!gastosCat && (
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                        "R$0,00"
+                                    </Text>
+                                )}
+
+                            </>
                         ) : (
-                            <Text>COMPARAÇÃO DE GASTOS</Text>
+                            <>
+                            {gastosCat && (
+                                // <Text style={gastosGeraisStyles.midText1}>
+                                //     {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
+                                //         Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
+                                // </Text>
+                                <Text style={gastosGeraisStyles.midText1}>
+                                    "R$0,00"
+                                </Text>
+                            )}{!gastosCat && (
+                                <Text style={gastosGeraisStyles.midText1}>
+                                    "R$0,00"
+                                </Text>
+                            )}
+
+                        </>
                         )}
                     </View>
 
@@ -138,19 +166,23 @@ function MenuFinancas({ navigation, route }) {
                     style={gastosGeraisStyles.buttonContainer}>
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
-                        onPress={() => { setClicou(true); setTelaAtual(1); }}
-                    ><Text style={gastosGeraisStyles.buttonTexts}>Gastos</Text></TouchableOpacity>
+                        onPress={() => { setTelaAtual(1); }}
+                    ><Text style={gastosGeraisStyles.buttonTexts}>Histórico</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
-                        onPress={() => { setClicou(true); setTelaAtual(2); }}
-                    ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
+                        onPress={() => {
+                            setTelaAtual(2);
+                        }}
+                    ><Text style={gastosGeraisStyles.buttonTexts}>Gráfico</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
-                        onPress={() => { setClicou(true); setTelaAtual(3); }}>
+                        onPress={() => {
+                            setTelaAtual(3);
+                        }}>
                         <Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
                 </View>
 
-                <View
+                {/* <View
                     style={gastosGeraisStyles.monthContainer}>
                     {(telaAtual === 1) ? (
                         <Text
@@ -162,15 +194,15 @@ function MenuFinancas({ navigation, route }) {
                                 style={gastosGeraisStyles.title}>COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
                     }
 
-                </View>
+                </View> */}
 
                 <View>
                     {
                         (telaAtual === 1)
                             ? (<GastosGerais etiqueta={etiqueta}
-                                gastos={getGastos} />) :
+                                gastosGerais={getGastosGerais} />) :
                             (telaAtual === 2) ?
-                                <GastoCategorias /> :
+                                <GastoCategorias gastosCat={getGastosCat}/> :
                                 <CompGastos />
                     }
                 </View>

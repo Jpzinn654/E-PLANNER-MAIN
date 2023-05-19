@@ -26,6 +26,10 @@ O aplicativo oferece recursos de geração de relatórios e gráficos, fornecend
 
 ---
 
+## 📱 Imagens Demonstrativas do App
+
+---
+
   ## 🚀 Tecnologias Utilizadas
   
   - [React Native](https://reactnative.dev/)
@@ -48,18 +52,18 @@ O aplicativo oferece recursos de geração de relatórios e gráficos, fornecend
   
   | Colaboradores                            | Participação                                             |Git Hub                                                           |
 | ------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------- |
-| Juan Pablo                            | Desenvolvedor Front-End e Designer                            |Git Hub                                                           |
-| Murilo Lima                            | Desenvolvedor Back-End                             |Git Hub                                                         |
-| Gustavo Nunes                            | Desenvolvedor Back-End                            |Git Hub                                                           |
+| Juan Pablo                            | Desenvolvedor Front-End e Designer                            |[Git Hub](https://github.com/Jpzinn654)                           |
+| Murilo Lima                            | Desenvolvedor de Back-End e Integração                             |[Git Hub](https://github.com/MuriloJLima)                   |
+| Gustavo Nunes                            | Desenvolvedor Back-End                            |[Git Hub](https://github.com/Nunesxntj)                        |
 | Dayla Mozzer                            | Documentação                            |Git Hub                                                           |
-| Ana  Albuquerque                    | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |Git Hub                                        |
-| Byatriz                             | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |Git Hub                                        |
+| Ana  Albuquerque                    | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |[Git Hub](https://github.com/AnaAlbuquerque28) |
+| Byatriz                             | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |[Git Hub](https://github.com/Bya61)            |
   
 ---
 
 ## ⚠️ Licença
 
-Este projeto está sob a licença do Apache 2.0. Consulte a [Licença](License.md) para obter mais informações.
+> Este projeto está sob a licença do Apache 2.0. Consulte a [Licença](License.md) para obter mais informações.
   
  <div align="center">
   <img src="https://img.shields.io/github/package-json/v/Jpzinn654/E-PLANNER-MAIN/main?color=a&label=App+Version&style=for-the-badge" alt="version"/>

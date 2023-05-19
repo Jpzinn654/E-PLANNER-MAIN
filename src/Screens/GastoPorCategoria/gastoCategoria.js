@@ -25,11 +25,7 @@ export default function GastoCategorias({ gastosCat }) {
 
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        if (data !== ['']) {
-            gastosCat(data);
-        }
-    }, [data]);
+    
 
     //enviados para a api
     const [selected, setSelected] = useState("")
@@ -40,7 +36,13 @@ export default function GastoCategorias({ gastosCat }) {
 
     //armazena valores que chegam da api
     const [data, setData] = useState([]);
+    // console.log(data)
 
+    useEffect(() => {
+        if (data !== ['']) {
+            gastosCat(data);
+        }
+    }, [data]);
 
     moment.locale('pt-br');
 
@@ -91,13 +93,7 @@ export default function GastoCategorias({ gastosCat }) {
 
     //função responsável por trazer os dados da api
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
             fetchData();
-        }, 1000); // 1000ms = 1 segundo
-
-        return () => {
-            clearTimeout(timeoutId);
-        };
     }, [selected, usuarioId, isFocused]);
 
 
@@ -120,7 +116,6 @@ export default function GastoCategorias({ gastosCat }) {
             let json = await response.json()
             if (json != "error") {
                 setData(json)
-                console.log(json)
             } 
 
 

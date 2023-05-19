@@ -58,12 +58,22 @@ function MenuFinancas({ navigation, route }) {
     //gastos totais a serem exibidos no histórico por categoria
     const [gastosCat, setGastosCat] = useState('');
 
+    console.log(gastosCat)
+
     const getGastosCat = (gastosCat) => {
         setGastosCat(gastosCat);
     };
 
-    console.log(gastosCat)
 
+    let soma = 0;
+
+    for (let i = 1; i <= 6; i++) {
+        const mes = gastosCat[`mes${i}`];
+
+        if (mes) {
+            soma += parseFloat(mes);
+        }
+    }
 
     const [telaAtual, setTelaAtual] = useState(1);
 
@@ -118,6 +128,20 @@ function MenuFinancas({ navigation, route }) {
                             <>
                                 <Text style={gastosGeraisStyles.midText1}>TOTAL DE GASTOS</Text>
                                 {gastosCat && (
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                        {accounting.formatMoney(soma, 'R$', 2, '.', ',')}
+                                    </Text>
+                                )}
+                                {!gastosCat && (
+                                    <Text style={gastosGeraisStyles.midText1}>
+                                        "R$0,00"
+                                    </Text>
+                                )}
+                            </>
+
+                        ) : (
+                            <>
+                                {gastosCat && (
                                     // <Text style={gastosGeraisStyles.midText1}>
                                     //     {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
                                     //         Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
@@ -132,23 +156,6 @@ function MenuFinancas({ navigation, route }) {
                                 )}
 
                             </>
-                        ) : (
-                            <>
-                            {gastosCat && (
-                                // <Text style={gastosGeraisStyles.midText1}>
-                                //     {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
-                                //         Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
-                                // </Text>
-                                <Text style={gastosGeraisStyles.midText1}>
-                                    "R$0,00"
-                                </Text>
-                            )}{!gastosCat && (
-                                <Text style={gastosGeraisStyles.midText1}>
-                                    "R$0,00"
-                                </Text>
-                            )}
-
-                        </>
                         )}
                     </View>
 
@@ -202,7 +209,7 @@ function MenuFinancas({ navigation, route }) {
                             ? (<GastosGerais etiqueta={etiqueta}
                                 gastosGerais={getGastosGerais} />) :
                             (telaAtual === 2) ?
-                                <GastoCategorias gastosCat={getGastosCat}/> :
+                                <GastoCategorias gastosCat={getGastosCat} /> :
                                 <CompGastos />
                     }
                 </View>

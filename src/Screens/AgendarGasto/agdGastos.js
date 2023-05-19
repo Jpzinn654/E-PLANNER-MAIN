@@ -232,6 +232,7 @@ export default function AgendarGasto({ navigation }) {
                         searchPlaceholder="Pesquise"
                         notFoundText="Nenhuma categoria encontrada!"
                         dropdownShown={false}
+                        maxHeight={135}
                     />
 
                 </View>

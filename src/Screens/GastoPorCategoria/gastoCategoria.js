@@ -137,6 +137,7 @@ export default function GastoCategorias({ gastosCat }) {
                     searchPlaceholder="Pesquise"
                     notFoundText="Nenhuma categoria encontrada!"
                     dropdownShown={false}
+                    maxHeight={135}
                 />
 
             </View>

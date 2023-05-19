@@ -213,6 +213,7 @@ export default function AdicionarGastos({ navigation }) {
                 searchPlaceholder = "Pesquise"
                 notFoundText = "Nenhuma categoria encontrada!"
                 dropdownShown= {false}
+                maxHeight={135}
                />
 
             </View>

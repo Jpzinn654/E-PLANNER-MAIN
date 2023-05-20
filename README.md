@@ -63,7 +63,7 @@ O aplicativo oferece recursos de geração de relatórios e gráficos, fornecend
 
 ## ⚠️ Licença
 
-> Este projeto está sob a licença do Apache 2.0. Consulte a [Licença](License.md) para obter mais informações.
+> Este projeto está sob a licença do Apache 2.0. Consulte a [Licença](https://www.apache.org/licenses/LICENSE-2.0) para obter mais informações.
   
  <div align="center">
   <img src="https://img.shields.io/github/package-json/v/Jpzinn654/E-PLANNER-MAIN/main?color=a&label=App+Version&style=for-the-badge" alt="version"/>

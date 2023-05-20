@@ -52,7 +52,7 @@ const adcCatStyle = StyleSheet.create({
         borderTopLeftRadius: 25,
     },
     inpTxt1: {
-        padding: '10%',
+        padding: '8%',
         color: '#000',
         fontSize: 22,
         fontWeight: '600',

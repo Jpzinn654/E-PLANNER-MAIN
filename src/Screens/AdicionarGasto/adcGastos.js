@@ -111,12 +111,12 @@ export default function AdicionarGastos({ navigation }) {
 
     //função que envia dados do formuário para a api
     async function sendForm() {
-        if (selected === '' || selected == undefined){
+        if (selected === '' || selected == undefined) {
             setDisplay(['Selecione uma categoria!'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
-        } else{
+        } else {
             let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
                 method: 'POST',
                 headers: {
@@ -129,7 +129,7 @@ export default function AdicionarGastos({ navigation }) {
                     categoriaId: selected,
                     valor: valor,
                     descricao: descricao,
-                   
+
                 }),
             })
             let json = await response.json()
@@ -145,11 +145,11 @@ export default function AdicionarGastos({ navigation }) {
                 }, 5000)
             }
         }
-        
+
 
     }
 
-   
+
 
 
 
@@ -157,7 +157,7 @@ export default function AdicionarGastos({ navigation }) {
 
 
 
-        <View style={adcGastoSyle.container}>
+        < View style={adcGastoSyle.container}>
             <StatusBar backgroundColor={'#2C3C51'} barStyle="light-content" />
 
             <Image
@@ -194,37 +194,36 @@ export default function AdicionarGastos({ navigation }) {
 
             </View>
 
+    
+                <KeyboardAvoidingView
+                    behavior="padding"
+                    style={adcGastoSyle.card}>
 
+                    <View>
+                        <Text style={adcGastoSyle.gastoMsg}>
+                            {display[0]}
+                        </Text>
+                    </View>
 
-            <KeyboardAvoidingView
-                behavior="padding"
-                style={adcGastoSyle.card}>
+                    <View style={{ width: 280 }}>
+                        <SelectList data={categorias}
+                            setSelected={setSelected}
+                            placeholder="Selecione uma categoria"
+                            searchPlaceholder="Pesquise"
+                            notFoundText="Nenhuma categoria encontrada!"
+                            dropdownShown={false}
+                            maxHeight={135}
+                        />
 
-                <View>
-                    <Text style={adcGastoSyle.gastoMsg}>
-                        {display[0]}
+                    </View>
+
+                    <Text
+                        style={adcGastoSyle.texto4}>
+                        Valor:
                     </Text>
-                </View>
 
-                <View  style={{ width: 280 }}>
-                <SelectList data={categorias} 
-                setSelected={setSelected}
-                placeholder = "Selecione uma categoria" 
-                searchPlaceholder = "Pesquise"
-                notFoundText = "Nenhuma categoria encontrada!"
-                dropdownShown= {false}
-                maxHeight={135}
-               />
-
-            </View>
-
-                <Text
-                    style={adcGastoSyle.texto4}>
-                    Valor:
-                </Text>
-
-                <CurrencyInput
-                    style={adcGastoSyle.input}
+                    <CurrencyInput
+                        style={adcGastoSyle.input}
                         value={valor}
                         placeholder="R$0,00"
                         onChangeValue={setValor}
@@ -238,28 +237,28 @@ export default function AdicionarGastos({ navigation }) {
                         }}
                     />
 
-                <Text
-                    style={adcGastoSyle.texto5}
-                >Descrição do seu gasto
-                </Text>
+                    <Text
+                        style={adcGastoSyle.texto5}
+                    >Descrição do seu gasto
+                    </Text>
 
-                <TextInput
-                    style={adcGastoSyle.input}
-                    keyboardType="default"
-                    returnKeyType="done"
-                    multiline={true}
-                    placeholder={'DESCRIÇÃO'}
-                    maxLength={50}
-                    onChangeText={value => setDescricao(value)}
-                    value={descricao}
-                />
-            </KeyboardAvoidingView>
-            <TouchableOpacity
-                style={adcGastoSyle.btnContinuar}
-                onPress={() => sendForm()}>
-                <Text
-                    style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
-            </TouchableOpacity>
+                    <TextInput
+                        style={adcGastoSyle.input}
+                        keyboardType="default"
+                        returnKeyType="done"
+                        multiline={true}
+                        placeholder={'DESCRIÇÃO'}
+                        maxLength={50}
+                        onChangeText={value => setDescricao(value)}
+                        value={descricao}
+                    />
+                </KeyboardAvoidingView>
+                <TouchableOpacity
+                    style={adcGastoSyle.btnContinuar}
+                    onPress={() => sendForm()}>
+                    <Text
+                        style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
+                </TouchableOpacity>
         </View>
     )
 }

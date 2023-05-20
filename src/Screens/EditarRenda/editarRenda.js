@@ -73,7 +73,7 @@ export default function DefinirRenda({ navigation, min, max, steps }) {
         if (json === 'success') {
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'Home' }],
+                routes: [{ name: 'HomeDrawer', params: {etiqueta: 'Salário editado com sucesso!'}}],
               });
             console.log(json)
         } else {

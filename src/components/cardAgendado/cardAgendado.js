@@ -33,14 +33,19 @@ export default function CardAgendado({ data, navigation }) {
       let json = await response.json()
 
       if (json === 'success') {
-        navigation.reset({
-          routes: [{
-            name: 'GastosAgendadosTab', params: {
-              etiqueta: 'Gasto excluído com sucesso!'
-            },
+        // navigation.reset({
+        //   routes: [{
+        //     name: 'GastosAgendadosTab', params: {
+        //       etiqueta: 'Gasto excluído com sucesso!'
+        //     },
 
-          }],
-        });
+        //   }],
+        // });
+
+        navigation.navigate('GastosAgendadosTab', {
+          etiqueta: 'Gasto excluído com sucesso!'
+        }
+  )
 
       } else {
         console.log('error')
@@ -155,15 +160,15 @@ export default function CardAgendado({ data, navigation }) {
             <View style={styles.upContainer} key={item.id}>
               {new Date(item.dataGasto) <= new Date() ? (
                 <View style={styles.taskDander}>
-                  <FontAwesome5 name="tasks" size={24} color="white" />
+                  <FontAwesome5 name="tasks" size={20} color="white" />
                 </View>
               ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
                 <View style={styles.taskCritical}>
-                  <FontAwesome5 name="tasks" size={24} color="white" />
+                  <FontAwesome5 name="tasks" size={20} color="white" />
                 </View>
               ) : (
                 <View style={styles.taskOk}>
-                  <FontAwesome5 name="tasks" size={24} color="white" />
+                  <FontAwesome5 name="tasks" size={20} color="white" />
                 </View>
               )}
 

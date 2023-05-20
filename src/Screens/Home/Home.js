@@ -25,8 +25,6 @@ import {
     SafeAreaView,
     StatusBar,
     Image,
-    TextInput,
-    ScrollView,
     Alert,
     BackHandler
 } from "react-native";
@@ -292,12 +290,12 @@ export default function Home({ navigation, route }) {
                     homeStyle.txtCat
                 }>Categorias</Text>
 
-                <SafeAreaView
+                <View
                     style={homeStyle.components}>
                     <Card usuario={usuario.id}
                         navigation={navigation}
                     />
-                </SafeAreaView>
+                </View>
 
                 <View style={homeStyle.buttonCategoria}>
                     <TouchableOpacity

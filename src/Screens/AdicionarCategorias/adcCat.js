@@ -168,7 +168,7 @@ export default function Categorias({ navigation }) {
 
             <KeyboardAvoidingView
                 style={adcCatStyle.inputContainer}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                behavior={"padding"}
             >
                 <Text style={adcCatStyle.inpTxt1}>Adicionar uma categoria</Text>
 
@@ -190,13 +190,13 @@ export default function Categorias({ navigation }) {
                     onChangeText={text => setDescricao(text)}
                     value={descricao}
                     style={adcCatStyle.inp2}
-                    placeholder="Descrição (opcional)"
+                    placeholder="DESCRIÇÃO (OPCIONAL)"
                     maxLength={100}
                     keyboardType="default"
                     underlineColorAndroid="transparent" />
 
                 <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    behavior={"padding"}
                     style={adcCatStyle.subContainerInput}>
 
                     <CurrencyInput
@@ -225,8 +225,6 @@ export default function Categorias({ navigation }) {
                 >
                     <TouchableOpacity style={adcCatStyle.btnContinuar}
                         onPress={() => sendForm()}
-                    // onPress={showToast}
-                    // onPress={showToastError}
                     >
 
                         <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>

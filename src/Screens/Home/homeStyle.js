@@ -178,6 +178,10 @@ const homeStyle = StyleSheet.create({
         right: 10,
         top: 180,
     },
+    components:{
+        width: '80%',
+        height: '78%'
+    },
     fundoImg: {
         position: 'absolute',
     },

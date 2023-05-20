@@ -55,7 +55,7 @@ O aplicativo oferece recursos de geração de relatórios e gráficos, fornecend
 | Juan Pablo                            | Desenvolvedor Front-End e Designer                            |[Git Hub](https://github.com/Jpzinn654)                           |
 | Murilo Lima                            | Desenvolvedor de Back-End e Integração                             |[Git Hub](https://github.com/MuriloJLima)                   |
 | Gustavo Nunes                            | Desenvolvedor Back-End                            |[Git Hub](https://github.com/Nunesxntj)                        |
-| Dayla Mozzer                            | Documentação                            |Git Hub                                                           |
+| Dayla Mozzer                            | Documentação                            |[Git Hub](https://github.com/Daymozzer)                                                   |
 | Ana  Albuquerque                    | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |[Git Hub](https://github.com/AnaAlbuquerque28) |
 | Byatriz                             | Desenvolvedora Front-End Web-Site  e Modelagem de Dados                            |[Git Hub](https://github.com/Bya61)            |
   

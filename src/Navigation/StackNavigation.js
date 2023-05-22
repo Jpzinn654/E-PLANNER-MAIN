@@ -29,6 +29,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import MenuFinancas from '../components/menu/MenuFinancas';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -74,9 +75,9 @@ function HomeStack() {
         options={{
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name='home' size={size} color={color} />
+              return <Ionicons name='home' size={size} color={'#02CB7F'} />
             }
-            return <Ionicons name='home-outline' size={size} color={color} />
+            return <Ionicons name='home-outline' size={size} color={'#02CB7F'} />
           }
         }}
       />
@@ -86,9 +87,9 @@ function HomeStack() {
         options={{
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name='calendar' size={size} color={color} />
+              return <Ionicons name='calendar' size={size} color={'#02CB7F'} />
             }
-            return <Ionicons name='calendar-outline' size={size} color={color} />
+            return <Ionicons name='calendar-outline' size={size} color={'#02CB7F'} />
           }
         }} />
 
@@ -97,7 +98,7 @@ function HomeStack() {
         component={MenuFinancas}
         options={{
           tabBarIcon: ({ color, size }) => {
-            return <MaterialIcons name='attach-money' size={size} color={color} />
+            return <MaterialIcons name='attach-money' size={size} color={'#02CB7F'} />
           }
         }} />
 

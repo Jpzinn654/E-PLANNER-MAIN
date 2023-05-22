@@ -172,19 +172,22 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     pickerContainer: {
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center', // Adicione esta propriedade
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 7,
-        width: 280,
-        paddingHorizontal: 10, // Adicione esta propriedade
-        height: 45,
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
+        borderRadius: 30,
+        width: 320,
+        height: 61,
       },
       
     picker: {
-        width: 180,
-        height: 30,
+        width: '90%',
+        borderWidth: 1,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
+        height: 40,
+        backgroundColor: '#D9D9D9'
     }
 }); 

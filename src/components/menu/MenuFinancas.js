@@ -189,20 +189,6 @@ function MenuFinancas({ navigation, route }) {
                         <Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
                 </View>
 
-                {/* <View
-                    style={gastosGeraisStyles.monthContainer}>
-                    {(telaAtual === 1) ? (
-                        <Text
-                            style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>) :
-                        (telaAtual === 2) ? (
-                            <Text
-                                style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS POR CATEGORIA</Text>) :
-                            <Text
-                                style={gastosGeraisStyles.title}>COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
-                    }
-
-                </View> */}
-
                 <View>
                     {
                         (telaAtual === 1)

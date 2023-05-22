@@ -206,12 +206,14 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     pickerContainer1: {
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 10,
-        height: 45,
-        marginTop: '2%',
+        borderWidth: 2,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
+        borderRadius: 30,
+        width: 320,
+        height: 61,
     },
     picker1: {
         width: '90%',
@@ -220,13 +222,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9'
     },
     pickerContainer2: {
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 7,
-        paddingHorizontal: 10,
-        height: 45,
-        marginTop: '2%',
+        borderWidth: 2,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
+        borderRadius: 30,
+        width: 320,
+        height: 61,
     },
     picker2: {
         width: '90%',

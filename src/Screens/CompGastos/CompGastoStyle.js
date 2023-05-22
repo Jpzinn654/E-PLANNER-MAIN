@@ -8,13 +8,39 @@ const compGastoStyles = StyleSheet.create({
     upContainer: {
         // backgroundColor: 'red',
         width: '100%',
-        height: '25%',
+        height: '40%',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
     },
-    inputs: {
-        flexDirection: 'row',
+    titulo:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 20,
+    },
+    titulo2:{
+        marginTop: -20,
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+    valor1:{
+        fontSize: 18,
+        marginTop: '1%',
+    },
+    valor2:{
+        fontSize: 18,
+        marginTop: '1%',
+    },
+    valorTeste:{
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    listMonth: {
+        marginTop: 20,
+        justifyContent: 'space-evenly',
+        bottom: '3%'
+    },
+    listMonth2: {
         justifyContent: 'space-evenly',
         bottom: '3%'
     },
@@ -25,7 +51,6 @@ const compGastoStyles = StyleSheet.create({
         borderLeftColor: 'transparent',
         borderTopColor: 'transparent',
         borderRightColor: 'transparent',
-
     },
     inp2: {
         width: 100,
@@ -48,30 +73,9 @@ const compGastoStyles = StyleSheet.create({
     midContainer:{
         // backgroundColor: 'green',
         width: '100%',
-        height: '25%',
+        height: '55%',
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    finalContainer:{
-        // backgroundColor: 'royalblue',
-        width: '100%',
-        height: '30%',
-    },
-    meses: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        top: '3%'
-    },
-    valores: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        top: '4%'
-    },
-    valor1:{
-        right: '275%',
-    },
-    valor2:{
-        left: '285%',
     },
 })
 

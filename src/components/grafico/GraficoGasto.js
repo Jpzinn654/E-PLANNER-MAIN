@@ -1,87 +1,76 @@
 import React from "react";
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-} from "react-native-chart-kit";
-
 import { View, Text, Dimensions } from "react-native";
-
 import accounting from 'accounting';
-import { Line } from "react-native-svg";
+import { VictoryChart, VictoryLabel, VictoryAxis, VictoryBar } from "victory-native"
 
-export default function Graph({data}) {
-
-
-
-    // Cria um novo objeto Date para obter o mês atual
-    var currentDate = new Date();
-
-    // Cria um array para armazenar os meses
-    var meses = [];
-
-    // Loop pelos últimos 5 meses, incluindo o mês atual
-    for (var i = 0; i < 6; i++) {
-        // Adiciona o mês atual menos o índice de meses para obter os meses anteriores
-        var mesAnterior = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
-
-        // Adiciona o mês ao array de meses
-        meses.push(mesAnterior.toLocaleString('pt-BR', { month: 'long' }));
+export default function Graph({ data }) {
+    if (!data) {
+        // Caso o array de dados esteja vazio, exiba uma mensagem ou um indicador de carregamento
+        return (
+            <View>
+                <Text>Carregando...</Text>
+            </View>
+        );
     }
 
-    meses.reverse();
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth(); // Get the current month (0-11)
+    const currentYear = currentDate.getFullYear(); // Get the current year
 
-    
+    const chartData = [
+        { quarter: getQuarterLabel(currentMonth, currentYear, 5), earnings: parseFloat(data.mes6) || 0 },
+        { quarter: getQuarterLabel(currentMonth, currentYear, 4), earnings: parseFloat(data.mes5) || 0 },
+        { quarter: getQuarterLabel(currentMonth, currentYear, 3), earnings: parseFloat(data.mes4) || 0 },
+        { quarter: getQuarterLabel(currentMonth, currentYear, 2), earnings: parseFloat(data.mes3) || 0 },
+        { quarter: getQuarterLabel(currentMonth, currentYear, 1), earnings: parseFloat(data.mes2) || 0 },
+        { quarter: getQuarterLabel(currentMonth, currentYear, 0), earnings: parseFloat(data.mes1) || 0 },
+    ];
+
+    function getQuarterLabel(currentMonth, currentYear, offset) {
+        const monthNames = [
+            "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+            "Jul", "Ago", "Set", "Otu", "Nov", "Dez"
+        ];
+
+        const previousMonthIndex = (currentMonth - offset + 12) % 12;
+        const previousYear = currentYear - Math.floor((currentMonth - offset + 12) / 12);
+
+        return `${monthNames[previousMonthIndex]}`;
+    }
 
     return (
-        <View>
-            <LineChart
-                data={{
-                    labels: meses,
-                    datasets: [
-                        {
-                            data: [
-                                data.mes6 || 0,
-                                data.mes5 || 0,
-                                data.mes4 || 0,
-                                data.mes3 || 0,
-                                data.mes2 || 0,
-                                data.mes1 || 0
-                            ]
+        <View style={{ flexDirection: "row", alignContent: "center" }}>
+            <VictoryChart domainPadding={20}>
+                <VictoryAxis
+                    tickFormat={(tick) => tick}
+                />
+
+                <VictoryLabel
+                    x={Dimensions.get("window").width / 2}
+                    y={30}
+                    textAnchor="middle"
+                    style={{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        fontFamily: "Arial"
+                    }}
+                />
+                <VictoryBar
+                    data={chartData}
+                    x="quarter"
+                    y="earnings"
+                    style={{
+                        data: {
+                            fill: "green"
                         }
-                    ]
-                }}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-                yAxisLabel="R$"
-                yAxisSuffix=""
-                yAxisInterval={1} // optional, defaults to 1
-                chartConfig={{
-                    backgroundColor: "#eeeeef",
-                    backgroundGradientFrom: "#eeeeef",
-                    backgroundGradientTo: "#eeeeef",
-                    decimalPlaces: 2, // optional, defaults to 2dp
-                   
-                    color: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(40, 40, 40, ${opacity})`,
-                    style: {
-                        borderRadius: 16
-                    },
-                    propsForDots: {
-                        r: "2",
-                        strokeWidth: "2",
-                        stroke: "#2C3C51"
-                    }
-                }}
-                bezier
-                style={{
-                    marginVertical: 8,
-                    borderRadius: 8
-                }}
-            />
+                    }}
+                    labels={({ datum }) => `${accounting.formatMoney(datum.earnings, 'R$', 2, '.', ',')}`}
+                    labelComponent={<VictoryLabel dy={-20} style={{
+                        fontSize: 13,
+                        fontFamily: "Arial"
+                    }} />}
+                />
+            </VictoryChart>
         </View>
-    )
+    );
 }

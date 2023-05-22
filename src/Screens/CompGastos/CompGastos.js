@@ -136,54 +136,54 @@ export default function CompGastos({ navigation }) {
 
     return (
         <View style={compGastoStyles.container}>
-            
-
-            <View style={{ width: 280, marginTop: 30, marginBottom: 30 }}>
-                <SelectList data={categorias}
-                    setSelected={setSelected}
-                    placeholder="Selecione uma categoria"
-                    searchPlaceholder="Pesquise"
-                    notFoundText="Nenhuma categoria encontrada!"
-                    dropdownShown={false}
-                    maxHeight={135}
-                />
+            <View style={compGastoStyles.upContainer}>
+                <Text
+                    style={compGastoStyles.titulo}
+                >COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
+                <View style={{ width: 280, marginTop: 10, marginBottom: 10 }}>
+                    <SelectList data={categorias}
+                        setSelected={setSelected}
+                        placeholder="Selecione uma categoria"
+                        searchPlaceholder="Pesquise"
+                        notFoundText="Nenhuma categoria encontrada!"
+                        dropdownShown={false}
+                        maxHeight={80}
+                    />
+                </View>
             </View>
 
-            <View style={compGastoStyles.upContainer}>
-                <View style={compGastoStyles.inputs}>
-                    <View style={styles.pickerContainer}>
+            <View style={compGastoStyles.midContainer}>
+                <Text style={compGastoStyles.titulo2}
+                >SELECIONAR DOIS PERIODOS DIFERENTES</Text>
+                <View style={compGastoStyles.listMonth}>
+                    <View style={styles.pickerContainer1}>
                         <Picker
-                            style={styles.picker}
+                            style={styles.picker1}
                             selectedValue={selectedDate}
                             onValueChange={handleChange}
                         >
                             {items}
                         </Picker>
                     </View>
-                    <View style={styles.pickerContainer}>
+                    <View
+                        style={compGastoStyles.valorTeste}
+                    >
+                        <Text style={compGastoStyles.valor1}
+                        >R$ 200,00</Text>
+                    </View>
+                    <View style={styles.pickerContainer2}>
                         <Picker
-                            style={styles.picker}
+                            style={styles.picker2}
                             selectedValue={selectedComparisonDate}
-                            onValueChange={handleComparisonChange} // Novo handler
+                            onValueChange={handleComparisonChange}
                         >
                             {items}
                         </Picker>
                     </View>
-                </View>
-                <View style={compGastoStyles.textInputs}>
-                    <Text style={compGastoStyles.textInp1}>Selecione um mês</Text>
-                    <Text style={compGastoStyles.textInp2}>Mês de Comparação</Text>
-                </View>
-            </View>
-
-            <View style={compGastoStyles.finalContainer}>
-                <View style={compGastoStyles.meses}>
-                    <Text style={compGastoStyles.mes1}>Jan</Text>
-                    <Text style={compGastoStyles.mes2}>Fev</Text>
-                </View>
-                <View style={compGastoStyles.valores}>
-                    <Text style={compGastoStyles.valor1}>R$ 0</Text>
-                    <Text style={compGastoStyles.valor2}>R$ 0</Text>
+                    <View style={compGastoStyles.valorTeste}>
+                        <Text style={compGastoStyles.valor2}
+                        >R$ 100,00</Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -193,7 +193,6 @@ export default function CompGastos({ navigation }) {
 
 
 const styles = StyleSheet.create({
-
     container: {
         width: '100%',
         alignItems: 'center',
@@ -206,21 +205,33 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginTop: 8,
     },
-    pickerContainer: {
+    pickerContainer1: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center', // Adicione esta propriedade
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 7,
-        width: 160,
-        paddingHorizontal: 10, // Adicione esta propriedade
+        justifyContent: 'center',
+        paddingHorizontal: 10,
         height: 45,
+        marginTop: '2%',
     },
-
-    picker: {
-        width: 180,
+    picker1: {
+        width: '90%',
+        borderRadius: 20,
         height: 30,
+        backgroundColor: '#D9D9D9'
+    },
+    pickerContainer2: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 7,
+        paddingHorizontal: 10,
+        height: 45,
+        marginTop: '2%',
+    },
+    picker2: {
+        width: '90%',
+        height: 30,
+        backgroundColor: '#D9D9D9'
     }
 });
 

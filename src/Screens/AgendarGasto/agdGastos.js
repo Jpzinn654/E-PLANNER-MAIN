@@ -16,7 +16,8 @@ import {
     KeyboardAvoidingView,
     Input,
     Pressable,
-    BackHandler
+    BackHandler,
+    ScrollView
 } from "react-native";
 
 import { useState, useEffect } from "react";
@@ -214,10 +215,13 @@ export default function AgendarGasto({ navigation }) {
                 </Text>
 
             </View>
+            
 
             <KeyboardAvoidingView
                 behavior="padding"
                 style={agdGastoStyle.card}>
+
+                
 
                 <View>
                     <Text style={agdGastoStyle.gastoMsg}>

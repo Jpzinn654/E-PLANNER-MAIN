@@ -47,6 +47,7 @@
     "react-native-web": "~0.18.11",
     "react-swipeable": "^7.0.0",
     "typescript": "^4.9.4",
+    "victory-native": "^36.6.10",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

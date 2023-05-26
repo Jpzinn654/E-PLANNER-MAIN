@@ -207,9 +207,6 @@ export default function CompGastos({ gastosComp, mes }) {
     return (
         <View style={compGastoStyles.container}>
             <View style={compGastoStyles.upContainer}>
-                <Text
-                    style={compGastoStyles.titulo}
-                >COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
                 <View style={{ width: 280, marginTop: 10, marginBottom: 10 }}>
                     <SelectList data={categorias}
                         setSelected={setSelected}
@@ -217,14 +214,14 @@ export default function CompGastos({ gastosComp, mes }) {
                         searchPlaceholder="Pesquise"
                         notFoundText="Nenhuma categoria encontrada!"
                         dropdownShown={false}
-                        maxHeight={80}
+                        maxHeight={135}
                     />
                 </View>
             </View>
 
             <View style={compGastoStyles.midContainer}>
                 <Text style={compGastoStyles.titulo2}
-                >SELECIONAR DOIS PERIODOS DIFERENTES</Text>
+                >SELECIONE DOIS PERIODOS DIFERENTES</Text>
                 <View style={compGastoStyles.listMonth}>
                     <View style={styles.pickerContainer1}>
                         <Picker
@@ -284,13 +281,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 30,
         width: 320,
-        height: 61,
-    },
-    picker1: {
-        width: '90%',
-        borderRadius: 20,
-        height: 30,
-        backgroundColor: '#D9D9D9'
+        height: 45,
+        marginBottom: 5,
+        marginTop: 8,
     },
     pickerContainer2: {
         alignItems: 'center',
@@ -300,12 +293,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 30,
         width: 320,
-        height: 61,
+        height: 45,
+        marginBottom: 5,
+        marginTop: 8,
+    },
+    picker1: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 30,
     },
     picker2: {
-        width: '90%',
-        height: 30,
-        backgroundColor: '#D9D9D9'
-    }
+        width: '100%',
+        height: '100%',
+        borderRadius: 30,
+    },
 });
 

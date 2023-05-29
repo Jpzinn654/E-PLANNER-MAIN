@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { KeyboardAvoidingView, Platform } from 'react-native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -59,53 +61,59 @@ function Navigation() {
 
 function HomeStack() {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#EEEEEF',
-        },
-      }}
-
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={{ flex: 1 }}
     >
-      <Tab.Screen
-        name="HomeTab"
-        component={MyDrawer}
-        options={{
-          tabBarIcon: ({ color, size, focused }) => {
-            if (focused) {
-              return <Ionicons name='home' size={size} color={'#02CB7F'} />
-            }
-            return <Ionicons name='home-outline' size={size} color={'#02CB7F'} />
-          }
+      <Tab.Navigator
+        screenOptions={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: '#EEEEEF',
+          },
+          tabBarHideOnKeyboard: true,
         }}
-      />
-      <Tab.Screen
-        name="GastosAgendadosTab"
-        component={GastoAgendado}
-        options={{
-          tabBarIcon: ({ color, size, focused }) => {
-            if (focused) {
-              return <Ionicons name='calendar' size={size} color={'#02CB7F'} />
+      >
+
+        <Tab.Screen
+          name="HomeTab"
+          component={MyDrawer}
+          options={{
+            tabBarIcon: ({ color, size, focused }) => {
+              if (focused) {
+                return <Ionicons name='home' size={size} color={'#02CB7F'} />;
+              }
+              return <Ionicons name='home-outline' size={size} color={'#02CB7F'} />;
             }
-            return <Ionicons name='calendar-outline' size={size} color={'#02CB7F'} />
-          }
-        }} />
-
-      <Tab.Screen
-        name="MenuFinancasTab"
-        component={MenuFinancas}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <MaterialIcons name='attach-money' size={size} color={'#02CB7F'} />
-          }
-        }} />
-
-    </Tab.Navigator>
-
+          }}
+        />
+        <Tab.Screen
+          name="GastosAgendadosTab"
+          component={GastoAgendado}
+          options={{
+            tabBarIcon: ({ color, size, focused }) => {
+              if (focused) {
+                return <Ionicons name='calendar' size={size} color={'#02CB7F'} />;
+              }
+              return <Ionicons name='calendar-outline' size={size} color={'#02CB7F'} />;
+            }
+          }}
+        />
+        <Tab.Screen
+          name="MenuFinancasTab"
+          component={MenuFinancas}
+          options={{
+            tabBarIcon: ({ color, size }) => {
+              return <MaterialIcons name='attach-money' size={size} color={'#02CB7F'} />;
+            }
+          }}
+        />
+      </Tab.Navigator>
+    </KeyboardAvoidingView>
   );
 }
+
 
 function LoginScreen({ navigation }) {
   React.useEffect(() => {

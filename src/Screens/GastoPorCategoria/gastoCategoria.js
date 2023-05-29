@@ -130,7 +130,7 @@ export default function GastoCategorias({ gastosCat }) {
         <View style={gastoCategoriaStyle.container}>
             <Toast />
 
-            <View style={{ width: 280, marginTop: 30, marginBottom: 12 }}>
+            <View style={{ width: 280, marginTop: 10, marginBottom: 0 }}>
                 <SelectList data={categorias}
                     setSelected={setSelected}
                     placeholder="Selecione uma categoria"
@@ -139,7 +139,6 @@ export default function GastoCategorias({ gastosCat }) {
                     dropdownShown={false}
                     maxHeight={135}
                 />
-
             </View>
 
             <Graph data={data} />

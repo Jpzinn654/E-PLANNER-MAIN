@@ -75,6 +75,41 @@ function MenuFinancas({ navigation, route }) {
         }
     }
 
+    //valores de comparação a serem exibidos
+    const [gastosComp, setGastosComp] = useState('');
+
+    console.log(gastosComp)
+
+    const getGastosComp = (gastosComp) => {
+        setGastosComp(gastosComp);
+    };
+
+    //mes de comparação a serem exibidos
+    const [mes, setMes] = useState('');
+
+    console.log(mes)
+
+    const getMes = (mes) => {
+        setMes(mes);
+    };
+
+    var nomesMeses = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ];
+
+    var nomeMes = nomesMeses[mes - 1]
+
     const [telaAtual, setTelaAtual] = useState(1);
 
     const item = [
@@ -141,21 +176,28 @@ function MenuFinancas({ navigation, route }) {
 
                         ) : (
                             <>
-                                {gastosCat && (
-                                    // <Text style={gastosGeraisStyles.midText1}>
-                                    //     {accounting.formatMoney(gastosGerais.reduce((total, gasto) =>
-                                    //         Number(total) + Number(gasto.valor), 0), 'R$', 2, '.', ',')}
-                                    // </Text>
+                                {gastosComp && (
+                                    gastosComp.valorTotalGastos1 > gastosComp.valorTotalGastos2 ? (
+                                        <Text style={gastosGeraisStyles.midText1}>
+                                            {`Você gastou ${accounting.formatMoney(
+                                                gastosComp.valorTotalGastos1 - gastosComp.valorTotalGastos2, 'R$', 2, '.', ','
+                                            )} a mais em ${nomeMes}`}
+                                        </Text>
+                                    ) : (
+                                        <Text style={gastosGeraisStyles.midText1}>
+                                            {`Você economizou ${accounting.formatMoney(
+                                                gastosComp.valorTotalGastos2 - gastosComp.valorTotalGastos1, 'R$', 2, '.', ','
+                                            )} em ${nomeMes}`}
+                                        </Text>
+                                    )
+                                )}
+                                {!gastosComp && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                        "R$0,00"
-                                    </Text>
-                                )}{!gastosCat && (
-                                    <Text style={gastosGeraisStyles.midText1}>
-                                        "R$0,00"
+                                        {"R$0,00"}
                                     </Text>
                                 )}
-
                             </>
+
                         )}
                     </View>
 
@@ -196,7 +238,8 @@ function MenuFinancas({ navigation, route }) {
                                 gastosGerais={getGastosGerais} />) :
                             (telaAtual === 2) ?
                                 <GastoCategorias gastosCat={getGastosCat} /> :
-                                <CompGastos />
+                                <CompGastos gastosComp={getGastosComp}
+                                    mes={getMes} />
                     }
                 </View>
             </View>

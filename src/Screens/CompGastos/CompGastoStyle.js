@@ -7,8 +7,8 @@ const compGastoStyles = StyleSheet.create({
     },
     upContainer: {
         // backgroundColor: 'red',
-        width: '100%',
-        height: '40%',
+        width: '80%',
+        height: 150,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -19,7 +19,7 @@ const compGastoStyles = StyleSheet.create({
         marginTop: 0,
     },
     titulo2:{
-        marginTop: -20,
+        marginTop: -18,
         fontSize: 17,
         fontWeight: 'bold',
     },

@@ -16,9 +16,11 @@ import { Picker } from '@react-native-picker/picker';
 
 import { SelectList } from "react-native-dropdown-select-list"
 
+import accounting from 'accounting';
+
 import config from '../../../config/config.json';
 
-export default function CompGastos({ navigation }) {
+export default function CompGastos({ gastosComp, mes }) {
 
     const isFocused = useIsFocused();
 
@@ -37,6 +39,18 @@ export default function CompGastos({ navigation }) {
     const [selected, setSelected] = useState("")
 
     console.log(mes1, ano1, mes2, ano2)
+
+    //armazena valores que chegam da api
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (data !== ['']) {
+            gastosComp(data);
+        }
+        if (mes1 !== ['']) {
+            mes(mes1);
+        }
+    }, [data, mes1]);
 
     // requisita id do usuário
     useEffect(() => {
@@ -79,6 +93,39 @@ export default function CompGastos({ navigation }) {
         }
     }
 
+    //função responsável por trazer os dados da api
+    useEffect(() => {
+        fetchData();
+    }, [selected, usuarioId, isFocused, mes1, ano1, mes2, ano2]);
+
+
+    const fetchData = async () => {
+        if (usuarioId !== null) {
+            let response = await fetch(`${config.urlRoot}/categoria/gastosComparar`, {
+
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify({
+                    id: selected,
+                    mes1: mes1,
+                    ano1: ano1,
+                    mes2: mes2,
+                    ano2: ano2,
+                }),
+            })
+            let json = await response.json()
+            if (json != "error") {
+                setData(json)
+            }
+
+
+        }
+    }
+
     // obtém o ano e mês atual
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -105,6 +152,23 @@ export default function CompGastos({ navigation }) {
         }
     }
 
+    // cria as opções da lista suspensa da Picker 2,
+    // filtrando apenas os meses anteriores ao selecionado na Picker 1
+    const itemsPicker2 = [];
+    for (let year = 2023; year <= currentYear; year++) {
+        for (let month = 0; month <= 11; month++) {
+            if (
+                (year < currentYear || (year === currentYear && month < parseInt(mes1) - 1))
+            ) {
+                const monthString = ("0" + (month + 1)).slice(-2); // formata o número do mês com dois dígitos
+                const label = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+                const value = `${monthString}/${year}`;
+                itemsPicker2.push(<Picker.Item key={value} label={label} value={value} />);
+            }
+        }
+    }
+
+
     function getCurrentDate() {
         const date = new Date();
         const monthString = ("0" + (date.getMonth() + 1)).slice(-2); // formata o número do mês com dois dígitos
@@ -122,24 +186,27 @@ export default function CompGastos({ navigation }) {
 
     function handleChange(value) {
         setSelectedDate(value);
-        setMes1(value.split('/')[0]); // Atualizado
-        setAno1(value.split('/')[1]); // Atualizado
-        // fetchData();
-    }
-
-    function handleComparisonChange(value) {
+        setMes1(value.split('/')[0]);
+        setAno1(value.split('/')[1]);
+      
+        // Atualiza o valor da Picker 2 com o mês anterior ao selecionado na Picker 1
+        const [selectedMonth, selectedYear] = value.split('/');
+        const previousMonth = selectedMonth === '01' ? '12' : ("0" + (parseInt(selectedMonth) - 1)).slice(-2);
+        const previousYear = selectedMonth === '01' ? (parseInt(selectedYear) - 1).toString() : selectedYear;
+        const previousDate = `${previousMonth}/${previousYear}`;
+        handleComparisonChange(previousDate);
+      }
+      
+      function handleComparisonChange(value) {
         setSelectedComparisonDate(value);
-        setMes2(value.split('/')[0]); // Novo estado
-        setAno2(value.split('/')[1]); // Novo estado
-        // fetchData();
-    }
+        setMes2(value.split('/')[0]);
+        setAno2(value.split('/')[1]);
+      }
+      
 
     return (
         <View style={compGastoStyles.container}>
             <View style={compGastoStyles.upContainer}>
-                <Text
-                    style={compGastoStyles.titulo}
-                >COMPARAÇÃO DE GASTOS POR CATEGORIA</Text>
                 <View style={{ width: 280, marginTop: 10, marginBottom: 10 }}>
                     <SelectList data={categorias}
                         setSelected={setSelected}
@@ -147,14 +214,14 @@ export default function CompGastos({ navigation }) {
                         searchPlaceholder="Pesquise"
                         notFoundText="Nenhuma categoria encontrada!"
                         dropdownShown={false}
-                        maxHeight={80}
+                        maxHeight={135}
                     />
                 </View>
             </View>
 
             <View style={compGastoStyles.midContainer}>
                 <Text style={compGastoStyles.titulo2}
-                >SELECIONAR DOIS PERIODOS DIFERENTES</Text>
+                >SELECIONE DOIS PERIODOS DIFERENTES</Text>
                 <View style={compGastoStyles.listMonth}>
                     <View style={styles.pickerContainer1}>
                         <Picker
@@ -169,7 +236,7 @@ export default function CompGastos({ navigation }) {
                         style={compGastoStyles.valorTeste}
                     >
                         <Text style={compGastoStyles.valor1}
-                        >R$ 200,00</Text>
+                        >{accounting.formatMoney(data.valorTotalGastos1, 'R$', 2, '.', ',')}</Text>
                     </View>
                     <View style={styles.pickerContainer2}>
                         <Picker
@@ -177,12 +244,13 @@ export default function CompGastos({ navigation }) {
                             selectedValue={selectedComparisonDate}
                             onValueChange={handleComparisonChange}
                         >
-                            {items}
+                            {itemsPicker2}
                         </Picker>
+
                     </View>
                     <View style={compGastoStyles.valorTeste}>
                         <Text style={compGastoStyles.valor2}
-                        >R$ 100,00</Text>
+                        >{accounting.formatMoney(data.valorTotalGastos2, 'R$', 2, '.', ',')}</Text>
                     </View>
                 </View>
             </View>
@@ -213,13 +281,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 30,
         width: 320,
-        height: 61,
-    },
-    picker1: {
-        width: '90%',
-        borderRadius: 20,
-        height: 30,
-        backgroundColor: '#D9D9D9'
+        height: 45,
+        marginBottom: 5,
+        marginTop: 8,
     },
     pickerContainer2: {
         alignItems: 'center',
@@ -229,12 +293,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 30,
         width: 320,
-        height: 61,
+        height: 45,
+        marginBottom: 5,
+        marginTop: 8,
+    },
+    picker1: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 30,
     },
     picker2: {
-        width: '90%',
-        height: 30,
-        backgroundColor: '#D9D9D9'
-    }
+        width: '100%',
+        height: '100%',
+        borderRadius: 30,
+    },
 });
 

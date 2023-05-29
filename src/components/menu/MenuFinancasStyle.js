@@ -5,10 +5,10 @@ const menuFinancasStyle = StyleSheet.create({
         flex: 1,
         backgroundColor: '#eeeeef',
     },
-    upContainer:{
+    upContainer: {
         flex: 1,
     },
-    menuContainer:{
+    menuContainer: {
         flexDirection: 'row',
         top: 20,
     },
@@ -22,7 +22,7 @@ const menuFinancasStyle = StyleSheet.create({
         marginRight: 200,
         left: '10%'
     },
-    midContainer:{
+    midContainer: {
         width: 180,
         height: 180,
         borderRadius: 800,
@@ -32,12 +32,12 @@ const menuFinancasStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    midText1:{
+    midText1: {
         color: '#fff',
         fontSize: 18,
         textAlign: 'center',
     },
-    midText:{
+    midText: {
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',
@@ -45,15 +45,19 @@ const menuFinancasStyle = StyleSheet.create({
     },
     finalContainer: {
         flex: 2,
-        // backgroundColor: 'green',
-        top: 60,
+        overflow: 'hidden',
+        top: 50,
+        // paddingTop: 30,
+        backgroundColor: '#eeeeef',
+        marginTop: 10,
+        borderRadius: 10,
     },
-    buttonContainer:{
+    buttonContainer: {
         top: 5,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    buttons:{
+    buttons: {
         borderWidth: 1,
         width: 100,
         height: 20,
@@ -65,21 +69,21 @@ const menuFinancasStyle = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold'
     },
-    buttonTexts:{
+    buttonTexts: {
         fontWeight: 'bold'
     },
-    monthContainer:{
+    monthContainer: {
         top: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    title:{
+    title: {
         color: '#000',
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 20
     },
-    cardsConatiner:{
+    cardsConatiner: {
         top: 40,
         justifyContent: 'center',
         alignItems: 'center',

@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native"
 const gastoCategoriaStyle = StyleSheet.create({
     container: {
         width: '100%',
+        // height: 380,
         justifyContent: 'center',
         alignItems: 'center',
         top: 10,
@@ -14,7 +15,7 @@ const gastoCategoriaStyle = StyleSheet.create({
     },
     picker: {
         backgroundColor: '#d9d9d9',
-        width: 280,
+        width: 200,
         borderBottomStartRadius: 30,
     },
     pickerItem: {

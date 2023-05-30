@@ -25,8 +25,6 @@ export default function GastoCategorias({ gastosCat }) {
 
     const isFocused = useIsFocused();
 
-    
-
     //enviados para a api
     const [selected, setSelected] = useState("")
 
@@ -128,8 +126,10 @@ export default function GastoCategorias({ gastosCat }) {
 
     return (
         <View style={gastoCategoriaStyle.container}>
-            <Toast />
 
+            
+            <Toast />
+            
             <View style={{ width: 280, marginTop: 10, marginBottom: 0 }}>
                 <SelectList data={categorias}
                     setSelected={setSelected}
@@ -137,11 +137,16 @@ export default function GastoCategorias({ gastosCat }) {
                     searchPlaceholder="Pesquise"
                     notFoundText="Nenhuma categoria encontrada!"
                     dropdownShown={false}
-                    maxHeight={135}
+                    maxHeight={70}
                 />
             </View>
 
-            <Graph data={data} />
+            <View
+            style={gastoCategoriaStyle.grafico}
+            >
+               <Graph data={data} /> 
+            </View>
+            
         </View>
     )
 }

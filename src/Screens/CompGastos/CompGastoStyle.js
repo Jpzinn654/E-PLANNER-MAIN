@@ -19,7 +19,7 @@ const compGastoStyles = StyleSheet.create({
         marginTop: 0,
     },
     titulo2:{
-        marginTop: -18,
+        marginTop: -0,
         fontSize: 17,
         fontWeight: 'bold',
     },

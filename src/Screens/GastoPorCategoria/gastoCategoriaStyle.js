@@ -28,7 +28,11 @@ const gastoCategoriaStyle = StyleSheet.create({
         alignItems: 'center',
         fontFamily: 'Roboto',  
     },
-    
+    grafico:
+    {
+        height: '0%',
+        backgroundColor: 'red',
+    },
 })
 
 export default gastoCategoriaStyle;

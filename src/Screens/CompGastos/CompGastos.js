@@ -214,7 +214,7 @@ export default function CompGastos({ gastosComp, mes }) {
                         searchPlaceholder="Pesquise"
                         notFoundText="Nenhuma categoria encontrada!"
                         dropdownShown={false}
-                        maxHeight={135}
+                        maxHeight={65}
                     />
                 </View>
             </View>

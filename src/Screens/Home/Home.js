@@ -181,7 +181,9 @@ export default function Home({ navigation, route }) {
                 source={require('../../assets/fundo.png')}
             />
             <Toast />
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => props.navigation.openDrawer()}
+            >
                 <Image
                     style={homeStyle.menu}
                     source={require('../../assets/menu.png')}

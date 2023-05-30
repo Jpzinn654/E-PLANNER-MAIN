@@ -39,8 +39,8 @@ export default function Graph({ data }) {
     }
 
     return (
-        <View style={{ flexDirection: "row", alignContent: "center" }}>
-            <VictoryChart domainPadding={20}>
+        <View style={{ flexDirection: "row", alignContent: "center"}}>
+            <VictoryChart domainPadding={10}>
                 <VictoryAxis
                     tickFormat={(tick) => tick}
                 />
@@ -65,7 +65,7 @@ export default function Graph({ data }) {
                         }
                     }}
                     labels={({ datum }) => `${accounting.formatMoney(datum.earnings, 'R$', 2, '.', ',')}`}
-                    labelComponent={<VictoryLabel dy={-20} style={{
+                    labelComponent={<VictoryLabel dy={-10} style={{
                         fontSize: 13,
                         fontFamily: "Arial"
                     }} />}

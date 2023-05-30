@@ -44,7 +44,7 @@ O aplicativo oferece recursos de geração de relatórios e gráficos, fornecend
   * Notificações
   * Criptografia
   * 100% Responsivo
-  * Multiplataforma
+  * Compativel com o sistema iOS
  
 ---
   

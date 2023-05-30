@@ -40,7 +40,18 @@ const agdGastoStyle = StyleSheet.create({
         backgroundColor: '#EEEEEF',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems:'center'
+        alignItems:'center',
+        overflow: 'hidden',
+        
+    },
+    card2:{
+        flex: 1,
+        backgroundColor: '#EEEEEF',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        alignItems:'center',
+        overflow: 'hidden',
+        paddingVertical: 25,
     },
     texto4:{
         fontSize: 22,
@@ -66,6 +77,7 @@ const agdGastoStyle = StyleSheet.create({
     },
     cardInput:{
         flexDirection: 'row',
+        marginBottom: 60
     },
     inputData:{
         width: 40,
@@ -89,16 +101,17 @@ const agdGastoStyle = StyleSheet.create({
         backgroundColor: '#d9d9d9'
     },
     btnContinuar:{
-        width: 320,
-        height: 50,
+        width: 290,
+        height: 45,
+        // marginTop: 10,
         borderRadius: 20,
         backgroundColor: '#d9d9d9',
         justifyContent: 'center',
         alignItems: 'center',
-        top: '90%',
-        left: '10%',
+        top: '95%',
+        // left: '10%',
         position: "absolute",
-    },
+    }, 
     btnContinuarTxt: {
         color: '#000',
         fontSize: 18,
@@ -127,6 +140,9 @@ const agdGastoStyle = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
     },
+    scrollContainer: {
+        flex: 1,
+      },
    
 })
 

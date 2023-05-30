@@ -215,130 +215,135 @@ export default function AgendarGasto({ navigation }) {
                 </Text>
 
             </View>
-            
 
-            <KeyboardAvoidingView
-                behavior="padding"
+            <View behavior="padding"
                 style={agdGastoStyle.card}>
 
-                
+                <ScrollView style={agdGastoStyle.scrollContainer}>
 
-                <View>
-                    <Text style={agdGastoStyle.gastoMsg}>
-                        {display[0]}
-                    </Text>
-                </View>
+                    <KeyboardAvoidingView
+                        behavior="padding"
+                        style={agdGastoStyle.card2}>
 
-                <View style={{ width: 280 }}>
-                    <SelectList data={categorias}
-                        setSelected={setSelected}
-                        placeholder="Selecione uma categoria"
-                        searchPlaceholder="Pesquise"
-                        notFoundText="Nenhuma categoria encontrada!"
-                        dropdownShown={false}
-                        maxHeight={135}
-                    />
 
-                </View>
 
-                <Text
-                    style={agdGastoStyle.texto4}>
-                    Valor:
-                </Text>
+                        <View>
+                            <Text style={agdGastoStyle.gastoMsg}>
+                                {display[0]}
+                            </Text>
+                        </View>
 
-                <CurrencyInput
-                    style={agdGastoStyle.input}
-                    value={valor}
-                    placeholder="R$0,00"
-                    onChangeValue={setValor}
-                    prefix="R$"
-                    delimiter="."
-                    separator=","
-                    precision={2}
-                    minValue={0}
-                    onChangeText={(formattedValue) => {
-                        console.log(formattedValue); // R$ +2.310,46
-                    }}
-                />
-
-                <Text
-                    style={agdGastoStyle.texto5}
-                >Descrição do seu gasto
-                </Text>
-
-                <TextInput
-                    style={agdGastoStyle.input}
-                    keyboardType="default"
-                    returnKeyType="done"
-                    multiline={true}
-                    placeholder={'DESCRIÇÃO'}
-                    maxLength={70}
-                    onChangeText={setDescricao}
-                    value={descricao}
-                />
-
-                <Text
-                    style={agdGastoStyle.texto6}
-                >Data</Text>
-                <View
-                    style={agdGastoStyle.cardInput}>
-
-                    {showPicker && (
-                        // <DateTimePicker
-                        //     mode="date"
-                        //     display="spinner"
-                        //     value={date}
-                        //     onChange={onChange}
-                        //     minimumDate={new Date()}
-                        // />
-
-                        <Pressable
-                            onPress={toggleDatepicker}
-                        >
-                            <DateTimePicker
-                                mode="date"
-                                display="spinner"
-                                value={date}
-                                onChange={onChange}
-                                minimumDate={new Date()}
+                        <View style={{ width: 280 }}>
+                            <SelectList data={categorias}
+                                setSelected={setSelected}
+                                placeholder="Selecione uma categori a"
+                                searchPlaceholder="Pesquise"
+                                notFoundText="Nenhuma categoria encontrada!"
+                                dropdownShown={false}
+                                maxHeight={100}
                             />
-                            <TextInput
-                                style={agdGastoStyle.input}
-                                value={dateOfBirth}
-                                onChangeText={setDateOfBirth}
-                                placeholder={"00/00/0000"}
-                                color='#000000'
-                                editable={false}
-                            />
-                        </Pressable>
 
-                    )}
+                        </View>
 
-                    {!showPicker && (
-                        <Pressable
-                            onPress={toggleDatepicker}
-                        >
-                            <TextInput
-                                style={agdGastoStyle.input}
-                                value={dateOfBirth}
-                                onChangeText={setDateOfBirth}
-                                placeholder={"00/00/0000"}
-                                color='#000000'
-                                editable={false}
-                            />
-                        </Pressable>
-                    )}
+                        <Text
+                            style={agdGastoStyle.texto4}>
+                            Valor:
+                        </Text>
+
+                        <CurrencyInput
+                            style={agdGastoStyle.input}
+                            value={valor}
+                            placeholder="R$0,00"
+                            onChangeValue={setValor}
+                            prefix="R$"
+                            delimiter="."
+                            separator=","
+                            precision={2}
+                            minValue={0}
+                            onChangeText={(formattedValue) => {
+                                console.log(formattedValue); // R$ +2.310,46
+                            }}
+                        />
+
+                        <Text
+                            style={agdGastoStyle.texto5}
+                        >Descrição do seu gasto
+                        </Text>
+
+                        <TextInput
+                            style={agdGastoStyle.input}
+                            keyboardType="default"
+                            returnKeyType="done"
+                            multiline={true}
+                            placeholder={'DESCRIÇÃO'}
+                            maxLength={70}
+                            onChangeText={setDescricao}
+                            value={descricao}
+                        />
+
+                        <Text
+                            style={agdGastoStyle.texto6}
+                        >Data</Text>
+                        <View
+                            style={agdGastoStyle.cardInput}>
+
+                            {showPicker && (
+                                // <DateTimePicker
+                                //     mode="date"
+                                //     display="spinner"
+                                //     value={date}
+                                //     onChange={onChange}
+                                //     minimumDate={new Date()}
+                                // />
+
+                                <Pressable
+                                    onPress={toggleDatepicker}
+                                >
+                                    <DateTimePicker
+                                        mode="date"
+                                        display="spinner"
+                                        value={date}
+                                        onChange={onChange}
+                                        minimumDate={new Date()}
+                                    />
+                                    <TextInput
+                                        style={agdGastoStyle.input}
+                                        value={dateOfBirth}
+                                        onChangeText={setDateOfBirth}
+                                        placeholder={"00/00/0000"}
+                                        color='#000000'
+                                        editable={false}
+                                    />
+                                </Pressable>
+
+                            )}
+
+                            {!showPicker && (
+                                <Pressable
+                                    onPress={toggleDatepicker}
+                                >
+                                    <TextInput
+                                        style={agdGastoStyle.input}
+                                        value={dateOfBirth}
+                                        onChangeText={setDateOfBirth}
+                                        placeholder={"00/00/0000"}
+                                        color='#000000'
+                                        editable={false}
+                                    />
+                                </Pressable>
+                            )}
 
 
 
-                </View>
-            </KeyboardAvoidingView>
-            <TouchableOpacity
+                        </View>
+                        <TouchableOpacity
                 style={agdGastoStyle.btnContinuar}
                 onPress={() => sendForm()}>
                 <Text
                     style={agdGastoStyle.btnContinuarTxt}>Continuar</Text>
             </TouchableOpacity>
+                    </KeyboardAvoidingView></ScrollView></View>
+            
         </View>
     )
 }

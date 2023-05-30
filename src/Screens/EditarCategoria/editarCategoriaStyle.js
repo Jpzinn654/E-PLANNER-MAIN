@@ -124,8 +124,8 @@ const EditarcAtegoriaStyle = StyleSheet.create({
         top: '10%'
     },
     btnContinuarTxt: {
-        color: '#000',
-        fontSize: 189,
+        color: '#fff',
+        fontSize: 18,
     },
     categoriaMsg: {
         fontSize: 16,

@@ -94,13 +94,14 @@ const homeStyle = StyleSheet.create({
     },
     rendaBars: {
         width: '100%',
-        height: '2%',
+        height: '3%',
         flexDirection: 'row',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
     },
     barra1: {
-        marginRight: '10%',
+        left: 208,
+        width: 120
     },
     container4: {
         justifyContent: 'center',

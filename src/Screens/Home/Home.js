@@ -20,8 +20,6 @@ import { AntDesign } from '@expo/vector-icons'
 
 import { ProgressBar, MD3Colors } from 'react-native-paper';
 
-import Progress from "../../components/progressBar/progessBar";
-
 import {
     View,
     Text,
@@ -168,7 +166,7 @@ export default function Home({ navigation, route }) {
 
     const disponivel = orcamento - soma
 
-    let porcentagem = (disponivel / orcamento) * 1 || null
+    let porcentagem = (disponivel / orcamento) * 1 || 0
 
 
     let barraCor = MD3Colors.error50; // Cor padrão (vermelho)
@@ -245,13 +243,13 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.rendaBars}
             >
-                {porcentagem != null && (
+                
                     <ProgressBar
                     style={homeStyle.barra1}
                     progress={porcentagem}
                     color={barraCor}
                   />
-                )}
+                
 
 
 

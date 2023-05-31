@@ -5,6 +5,13 @@ const compGastoStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    container2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 40,
+        top: -40,
+        paddingHorizontal: 35,
+    },
     upContainer: {
         // backgroundColor: 'red',
         width: '80%',
@@ -76,6 +83,9 @@ const compGastoStyles = StyleSheet.create({
         height: '55%',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    scrollContainer: {
+        flex: 1,
     },
 })
 

@@ -51,6 +51,16 @@ const adcCatStyle = StyleSheet.create({
         borderTopEndRadius: 25,
         borderTopLeftRadius: 25,
     },
+    inputContainer2: {
+        flex: 2,
+        backgroundColor: '#EEEEEF',
+        alignItems: 'center',
+        borderTopEndRadius: 25,
+        borderTopLeftRadius: 25,
+        paddingVertical: 70,
+        paddingHorizontal: 20,
+        top: -55,
+    },
     inpTxt1: {
         padding: '10%',
         color: '#000',
@@ -132,6 +142,9 @@ const adcCatStyle = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         textAlign: 'center'
+    },
+    scrollContainer: {
+        flex: 1,
     },
     
 })

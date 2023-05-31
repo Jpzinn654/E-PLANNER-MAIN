@@ -52,6 +52,16 @@ const EditarcAtegoriaStyle = StyleSheet.create({
         borderTopEndRadius: 25,
         borderTopLeftRadius: 25,
     },
+    inputContainer2: {
+        flex: 2,
+        backgroundColor: '#EEEEEF',
+        alignItems: 'center',
+        borderTopEndRadius: 25,
+        borderTopLeftRadius: 25,
+        paddingVertical: 40,
+        paddingHorizontal: 45,
+        top: -35,
+    },
     inpTxt1: {
         padding: '10%',
         color: '#000',
@@ -111,10 +121,10 @@ const EditarcAtegoriaStyle = StyleSheet.create({
     btnText: {
         color: '#fff'
     },
-    btnContainer:{
+    btnContainer: {
         top: '15%',
     },
-    btnContinuar:{
+    btnContinuar: {
         width: 280,
         height: 50,
         borderRadius: 20,
@@ -134,7 +144,10 @@ const EditarcAtegoriaStyle = StyleSheet.create({
         marginBottom: 5,
         textAlign: 'center'
     },
-    
+    scrollContainer: {
+        flex: 1,
+    },
+
 })
 
 export default EditarcAtegoriaStyle

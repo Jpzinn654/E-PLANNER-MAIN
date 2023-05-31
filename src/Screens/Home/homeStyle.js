@@ -4,6 +4,7 @@ const homeStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2C3C51',
+        
     },
     container2: {
         paddingTop: '10%',
@@ -23,6 +24,7 @@ const homeStyle = StyleSheet.create({
         position: 'absolute',
         top: 30,
         left: '8%',
+
     },
     txt1: {
         top: '40%',
@@ -109,6 +111,7 @@ const homeStyle = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         height: '25%',
+       
     },
     card1: {
         backgroundColor: '#d9d9d9',
@@ -181,7 +184,7 @@ const homeStyle = StyleSheet.create({
     },
     components:{
         width: '80%',
-        height: '78%'
+        height: '78%',
     },
     fundoImg: {
         position: 'absolute',

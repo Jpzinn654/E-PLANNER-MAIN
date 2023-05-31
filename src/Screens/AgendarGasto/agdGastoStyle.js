@@ -52,6 +52,7 @@ const agdGastoStyle = StyleSheet.create({
         alignItems:'center',
         overflow: 'hidden',
         paddingVertical: 25,
+        paddingHorizontal: 45,
     },
     texto4:{
         fontSize: 22,

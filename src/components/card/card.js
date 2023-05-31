@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: 320,
         marginTop: 10,
+        
     },
     leftView: {
         backgroundColor: 'red',

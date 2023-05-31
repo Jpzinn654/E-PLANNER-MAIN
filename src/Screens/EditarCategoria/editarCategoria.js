@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
+import accounting from 'accounting';
+
 import CurrencyInput from 'react-native-currency-input';
 
 import {
@@ -16,6 +18,7 @@ import {
     KeyboardAvoidingView,
     BackHandler,
     Alert,
+    ScrollView
 
 } from "react-native";
 import EditarcAtegoriaStyle from "./editarCategoriaStyle";
@@ -27,7 +30,7 @@ export default function EditarCategorias({ navigation }) {
     //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
         const backAction = () => {
-           navigation.goBack()
+            navigation.goBack()
             return true;
         };
 
@@ -76,7 +79,7 @@ export default function EditarCategorias({ navigation }) {
         fetchData();
     }, [usuarioId]);
 
-    
+
     const fetchData = async () => {
         let response = await fetch(`${config.urlRoot}/categoria/disponivelCat`, {
             method: 'POST',
@@ -139,10 +142,10 @@ export default function EditarCategorias({ navigation }) {
         let json = await response.json()
         if (json === 'success') {
             navigation.navigate('HomeDrawer', {
-                    etiqueta: 'Categoria editada com sucesso!'
-                  }
+                etiqueta: 'Categoria editada com sucesso!'
+            }
             )
-              
+
         } else {
             setDisplay(json.erros)
             setTimeout(() => {
@@ -173,72 +176,78 @@ export default function EditarCategorias({ navigation }) {
 
             <View style={EditarcAtegoriaStyle.Valor}>
                 <Text style={EditarcAtegoriaStyle.txtVal1}>Valor Disponível:</Text>
-                <Text style={EditarcAtegoriaStyle.txtVal2}>R$</Text>
-                <Text style={EditarcAtegoriaStyle.txtVal3}>{Number(data) + Number(valorInicial)}</Text>
+                <Text style={EditarcAtegoriaStyle.txtVal3}>{accounting.formatMoney(Number(data) + Number(valorInicial), 'R$', 2, '.', ',')}</Text>
             </View>
 
-            <KeyboardAvoidingView
-                style={EditarcAtegoriaStyle.inputContainer}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                <Text style={EditarcAtegoriaStyle.inpTxt1}>Edite sua categoria:</Text>
+            <View style={EditarcAtegoriaStyle.inputContainer}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}>
 
-                <View>
-                    <Text style={EditarcAtegoriaStyle.categoriaMsg}>
-                        {display[0]}
-                    </Text>
-                </View>
+                <ScrollView style={EditarcAtegoriaStyle.scrollContainer}>
 
-                <TextInput
-                    style={EditarcAtegoriaStyle.inp1}
-                    onChangeText={text => setNome(text)}
-                    value={nome}
-                    placeholder="Nome da categoria"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent" />
+                    <KeyboardAvoidingView
+                        style={EditarcAtegoriaStyle.inputContainer2}
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    >
+                        <Text style={EditarcAtegoriaStyle.inpTxt1}>Edite sua categoria:</Text>
 
-                <TextInput
-                    onChangeText={text => setDescricao(text)}
-                    value={descricao}
-                    style={EditarcAtegoriaStyle.inp2}
-                    placeholder="Descrição (opcional)"
-                    maxLength={100}
-                    keyboardType="default"
-                    underlineColorAndroid="transparent" />
+                        <View>
+                            <Text style={EditarcAtegoriaStyle.categoriaMsg}>
+                                {display[0]}
+                            </Text>
+                        </View>
 
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style={EditarcAtegoriaStyle.subContainerInput}>
-                    <CurrencyInput
-                    style={EditarcAtegoriaStyle.inp3}
-                        value={valor}
-                        placeholder="R$0,00"
-                        onChangeValue={setValor}
-                        prefix="R$"
-                        delimiter="."
-                        separator=","
-                        precision={2}
-                        minValue={0}
-                        onChangeText={(formattedValue) => {
-                            console.log(formattedValue); // R$ +2.310,46
-                        }}
-                    />
-                    <View style={EditarcAtegoriaStyle.btn}>
-                        <Text style={EditarcAtegoriaStyle.btnText}>R$</Text>
-                    </View>
-                </KeyboardAvoidingView>
+                        <TextInput
+                            style={EditarcAtegoriaStyle.inp1}
+                            onChangeText={text => setNome(text)}
+                            value={nome}
+                            placeholder="Nome da categoria"
+                            keyboardType="default"
+                            underlineColorAndroid="transparent" />
 
-                <KeyboardAvoidingView
-                    style={EditarcAtegoriaStyle.btnContainer}
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
-                >
-                    <TouchableOpacity style={EditarcAtegoriaStyle.btnContinuar}
-                        onPress={() => sendForm()}>
-                        <Text style={EditarcAtegoriaStyle.btnContinuarTxt}>Continuar</Text>
-                    </TouchableOpacity>
-                </KeyboardAvoidingView>
+                        <TextInput
+                            onChangeText={text => setDescricao(text)}
+                            value={descricao}
+                            style={EditarcAtegoriaStyle.inp2}
+                            placeholder="Descrição (opcional)"
+                            maxLength={100}
+                            keyboardType="default"
+                            underlineColorAndroid="transparent" />
 
-            </KeyboardAvoidingView>
-        </View>
+                        <KeyboardAvoidingView
+                            behavior={Platform.OS === "ios" ? "padding" : "height"}
+                            style={EditarcAtegoriaStyle.subContainerInput}>
+                            <CurrencyInput
+                                style={EditarcAtegoriaStyle.inp3}
+                                value={valor}
+                                placeholder="R$0,00"
+                                onChangeValue={setValor}
+                                prefix="R$"
+                                delimiter="."
+                                separator=","
+                                precision={2}
+                                minValue={0}
+                                onChangeText={(formattedValue) => {
+                                    console.log(formattedValue); // R$ +2.310,46
+                                }}
+                            />
+                            <View style={EditarcAtegoriaStyle.btn}>
+                                <Text style={EditarcAtegoriaStyle.btnText}>R$</Text>
+                            </View>
+                        </KeyboardAvoidingView>
+
+                        <KeyboardAvoidingView
+                            style={EditarcAtegoriaStyle.btnContainer}
+                            behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        >
+                            <TouchableOpacity style={EditarcAtegoriaStyle.btnContinuar}
+                                onPress={() => sendForm()}>
+                                <Text style={EditarcAtegoriaStyle.btnContinuarTxt}>Continuar</Text>
+                            </TouchableOpacity>
+                        </KeyboardAvoidingView>
+
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
+        </View >
     )
 }

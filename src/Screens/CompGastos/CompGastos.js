@@ -7,7 +7,8 @@ import {
     ScrollView,
     StatusBar,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    KeyboardAvoidingView
 } from "react-native";
 import compGastoStyles from "./CompGastoStyle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -188,72 +189,79 @@ export default function CompGastos({ gastosComp, mes }) {
         setSelectedDate(value);
         setMes1(value.split('/')[0]);
         setAno1(value.split('/')[1]);
-      
+
         // Atualiza o valor da Picker 2 com o mês anterior ao selecionado na Picker 1
         const [selectedMonth, selectedYear] = value.split('/');
         const previousMonth = selectedMonth === '01' ? '12' : ("0" + (parseInt(selectedMonth) - 1)).slice(-2);
         const previousYear = selectedMonth === '01' ? (parseInt(selectedYear) - 1).toString() : selectedYear;
         const previousDate = `${previousMonth}/${previousYear}`;
         handleComparisonChange(previousDate);
-      }
-      
-      function handleComparisonChange(value) {
+    }
+
+    function handleComparisonChange(value) {
         setSelectedComparisonDate(value);
         setMes2(value.split('/')[0]);
         setAno2(value.split('/')[1]);
-      }
-      
+    }
+
 
     return (
         <View style={compGastoStyles.container}>
-            <View style={compGastoStyles.upContainer}>
-                <View style={{ width: 280, marginTop: 10, marginBottom: 10 }}>
-                    <SelectList data={categorias}
-                        setSelected={setSelected}
-                        placeholder="Selecione uma categoria"
-                        searchPlaceholder="Pesquise"
-                        notFoundText="Nenhuma categoria encontrada!"
-                        dropdownShown={false}
-                        maxHeight={135}
-                    />
-                </View>
-            </View>
 
-            <View style={compGastoStyles.midContainer}>
-                <Text style={compGastoStyles.titulo2}
-                >SELECIONE DOIS PERIODOS DIFERENTES</Text>
-                <View style={compGastoStyles.listMonth}>
-                    <View style={styles.pickerContainer1}>
-                        <Picker
-                            style={styles.picker1}
-                            selectedValue={selectedDate}
-                            onValueChange={handleChange}
-                        >
-                            {items}
-                        </Picker>
-                    </View>
-                    <View
-                        style={compGastoStyles.valorTeste}
-                    >
-                        <Text style={compGastoStyles.valor1}
-                        >{accounting.formatMoney(data.valorTotalGastos1, 'R$', 2, '.', ',')}</Text>
-                    </View>
-                    <View style={styles.pickerContainer2}>
-                        <Picker
-                            style={styles.picker2}
-                            selectedValue={selectedComparisonDate}
-                            onValueChange={handleComparisonChange}
-                        >
-                            {itemsPicker2}
-                        </Picker>
+            <ScrollView>
 
+                <KeyboardAvoidingView style={compGastoStyles.container2}>
+
+                    <View style={compGastoStyles.upContainer}>
+                        <View style={{ width: 280, marginTop: 10, marginBottom: 10 }}>
+                            <SelectList data={categorias}
+                                setSelected={setSelected}
+                                placeholder="Selecione uma categoria"
+                                searchPlaceholder="Pesquise"
+                                notFoundText="Nenhuma categoria encontrada!"
+                                dropdownShown={false}
+                                maxHeight={65}
+                            />
+                        </View>
                     </View>
-                    <View style={compGastoStyles.valorTeste}>
-                        <Text style={compGastoStyles.valor2}
-                        >{accounting.formatMoney(data.valorTotalGastos2, 'R$', 2, '.', ',')}</Text>
+
+                    <View style={compGastoStyles.midContainer}>
+                        <Text style={compGastoStyles.titulo2}
+                        >SELECIONE DOIS PERIODOS DIFERENTES</Text>
+                        <View style={compGastoStyles.listMonth}>
+                            <View style={styles.pickerContainer1}>
+                                <Picker
+                                    style={styles.picker1}
+                                    selectedValue={selectedDate}
+                                    onValueChange={handleChange}
+                                >
+                                    {items}
+                                </Picker>
+                            </View>
+                            <View
+                                style={compGastoStyles.valorTeste}
+                            >
+                                <Text style={compGastoStyles.valor1}
+                                >{accounting.formatMoney(data.valorTotalGastos1, 'R$', 2, '.', ',')}</Text>
+                            </View>
+                            <View style={styles.pickerContainer2}>
+                                <Picker
+                                    style={styles.picker2}
+                                    selectedValue={selectedComparisonDate}
+                                    onValueChange={handleComparisonChange}
+                                >
+                                    {itemsPicker2}
+                                </Picker>
+
+                            </View>
+                            <View style={compGastoStyles.valorTeste}>
+                                <Text style={compGastoStyles.valor2}
+                                >{accounting.formatMoney(data.valorTotalGastos2, 'R$', 2, '.', ',')}</Text>
+                            </View>
+                        </View>
                     </View>
-                </View>
-            </View>
+                </KeyboardAvoidingView>
+            </ScrollView>
         </View>
     )
 }

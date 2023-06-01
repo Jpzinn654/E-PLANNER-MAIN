@@ -8,13 +8,13 @@ const gastosGeraisStyles = StyleSheet.create({
         color: '#000',
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 5
     },
     cardsConatiner: {
         top: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 360,
+        height: 225,
     },
     pickerContainer: {
         flexDirection: 'row',
@@ -26,7 +26,7 @@ const gastosGeraisStyles = StyleSheet.create({
     },
     result: {
         marginTop: 20,
-        fontSize: 16,
+        fontSize: 10,
     },
 })
 

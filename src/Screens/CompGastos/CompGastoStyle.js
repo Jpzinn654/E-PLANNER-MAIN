@@ -5,10 +5,17 @@ const compGastoStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    container2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 40,
+        top: -40,
+        paddingHorizontal: 35,
+    },
     upContainer: {
         // backgroundColor: 'red',
         width: '80%',
-        height: '30%',
+        height: 150,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -19,7 +26,7 @@ const compGastoStyles = StyleSheet.create({
         marginTop: 0,
     },
     titulo2:{
-        marginTop: -20,
+        marginTop: -0,
         fontSize: 17,
         fontWeight: 'bold',
     },
@@ -76,6 +83,9 @@ const compGastoStyles = StyleSheet.create({
         height: '55%',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    scrollContainer: {
+        flex: 1,
     },
 })
 

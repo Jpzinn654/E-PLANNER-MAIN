@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import accounting from 'accounting';
 import { VictoryChart, VictoryLabel, VictoryAxis, VictoryBar } from "victory-native"
 
@@ -39,38 +39,50 @@ export default function Graph({ data }) {
     }
 
     return (
-        <View style={{ flexDirection: "row", alignContent: "center" }}>
-            <VictoryChart domainPadding={20}>
-                <VictoryAxis
-                    tickFormat={(tick) => tick}
-                />
-
-                <VictoryLabel
-                    x={Dimensions.get("window").width / 2}
-                    y={30}
-                    textAnchor="middle"
-                    style={{
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        fontFamily: "Arial"
-                    }}
-                />
-                <VictoryBar
-                    data={chartData}
-                    x="quarter"
-                    y="earnings"
-                    style={{
-                        data: {
-                            fill: "green"
-                        }
-                    }}
-                    labels={({ datum }) => `${accounting.formatMoney(datum.earnings, 'R$', 2, '.', ',')}`}
-                    labelComponent={<VictoryLabel dy={-20} style={{
-                        fontSize: 13,
-                        fontFamily: "Arial"
-                    }} />}
-                />
-            </VictoryChart>
+        <View style={styles.container}>
+          <VictoryChart domainPadding={10}>
+            <VictoryAxis tickFormat={(tick) => tick} />
+    
+            <VictoryLabel
+              x={Dimensions.get('window').width / 2}
+              y={30}
+              textAnchor="middle"
+              style={styles.chartLabel}
+            />
+    
+            <VictoryBar
+              data={chartData}
+              x="quarter"
+              y="earnings"
+              style={{
+                data: {
+                  fill: 'green',
+                },
+              }}
+              labels={({ datum }) =>
+                `${accounting.formatMoney(datum.earnings, 'R$', 2, '.', ',')}`
+              }
+              labelComponent={
+                <VictoryLabel dy={-5} style={styles.barLabel} />
+              }
+            />
+          </VictoryChart>
         </View>
-    );
+      );
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignContent: 'center',
+    },
+    chartLabel: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      fontFamily: 'Arial',
+    },
+    barLabel: {
+      fontSize: 13,
+      fontFamily: 'Arial',
+    },
+  });

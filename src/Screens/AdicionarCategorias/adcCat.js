@@ -19,7 +19,8 @@ import {
     KeyboardAvoidingView,
     Alert,
     BackHandler,
-    Platform
+    Platform,
+    ScrollView,
 
 } from "react-native";
 
@@ -166,72 +167,79 @@ export default function Categorias({ navigation }) {
                 <Text style={adcCatStyle.txtVal3}> {accounting.formatMoney(data, 'R$', 2, '.', ',')}</Text>
             </View>
 
-            <KeyboardAvoidingView
-                style={adcCatStyle.inputContainer}
-                behavior={"padding"}
-            >
-                <Text style={adcCatStyle.inpTxt1}>Adicionar uma categoria</Text>
+            <View style={adcCatStyle.inputContainer}
+                behavior={"padding"}>
 
-                <View>
-                    <Text style={adcCatStyle.categoriaMsg}>
-                        {display[0]}
-                    </Text>
-                </View>
+                <ScrollView style={adcCatStyle.scrollContainer}>
 
-                <TextInput
-                    style={adcCatStyle.inp1}
-                    onChangeText={text => setNome(text)}
-                    value={nome}
-                    placeholder="Nome da categoria"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent" />
-
-                <TextInput
-                    onChangeText={text => setDescricao(text)}
-                    value={descricao}
-                    style={adcCatStyle.inp2}
-                    placeholder="DESCRIÇÃO (OPCIONAL)"
-                    maxLength={100}
-                    keyboardType="default"
-                    underlineColorAndroid="transparent" />
-
-                <KeyboardAvoidingView
-                    behavior={"padding"}
-                    style={adcCatStyle.subContainerInput}>
-
-                    <CurrencyInput
-                    style={adcCatStyle.inp3}
-                        value={valor}
-                        placeholder="R$0,00"
-                        onChangeValue={setValor}
-                        prefix="R$"
-                        delimiter="."
-                        separator=","
-                        precision={2}
-                        minValue={0}
-                        onChangeText={(formattedValue) => {
-                            console.log(formattedValue); // R$ +2.310,46
-                        }}
-                    />
-
-                    <View style={adcCatStyle.btn}>
-                        <Text style={adcCatStyle.btnText}>R$</Text>
-                    </View>
-                </KeyboardAvoidingView>
-
-                <KeyboardAvoidingView
-                    style={adcCatStyle.btnContainer}
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
-                >
-                    <TouchableOpacity style={adcCatStyle.btnContinuar}
-                        onPress={() => sendForm()}
+                    <KeyboardAvoidingView
+                        style={adcCatStyle.inputContainer2}
+                        behavior={"padding"}
                     >
+                        <Text style={adcCatStyle.inpTxt1}>Adicionar uma categoria</Text>
 
-                        <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
-                    </TouchableOpacity>
-                </KeyboardAvoidingView>
+                        <View>
+                            <Text style={adcCatStyle.categoriaMsg}>
+                                {display[0]}
+                            </Text>
+                        </View>
 
-            </KeyboardAvoidingView>
+                        <TextInput
+                            style={adcCatStyle.inp1}
+                            onChangeText={text => setNome(text)}
+                            value={nome}
+                            placeholder="Nome da categoria"
+                            keyboardType="default"
+                            underlineColorAndroid="transparent" />
+
+                        <TextInput
+                            onChangeText={text => setDescricao(text)}
+                            value={descricao}
+                            style={adcCatStyle.inp2}
+                            placeholder="DESCRIÇÃO (OPCIONAL)"
+                            maxLength={100}
+                            keyboardType="default"
+                            underlineColorAndroid="transparent" />
+
+                        <KeyboardAvoidingView
+                            behavior={"padding"}
+                            style={adcCatStyle.subContainerInput}>
+
+                            <CurrencyInput
+                                style={adcCatStyle.inp3}
+                                value={valor}
+                                placeholder="R$0,00"
+                                onChangeValue={setValor}
+                                prefix="R$"
+                                delimiter="."
+                                separator=","
+                                precision={2}
+                                minValue={0}
+                                onChangeText={(formattedValue) => {
+                                    console.log(formattedValue); // R$ +2.310,46
+                                }}
+                            />
+
+                            <View style={adcCatStyle.btn}>
+                                <Text style={adcCatStyle.btnText}>R$</Text>
+                            </View>
+                        </KeyboardAvoidingView>
+
+                        <KeyboardAvoidingView
+                            style={adcCatStyle.btnContainer}
+                            behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        >
+                            <TouchableOpacity style={adcCatStyle.btnContinuar}
+                                onPress={() => sendForm()}
+                            >
+
+                                <Text style={adcCatStyle.btnContinuarTxt}>Continuar</Text>
+                            </TouchableOpacity>
+                        </KeyboardAvoidingView>
+
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
         </View>
     )
 }

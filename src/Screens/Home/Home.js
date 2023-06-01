@@ -18,6 +18,8 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { AntDesign } from '@expo/vector-icons'
 
+import { ProgressBar, MD3Colors } from 'react-native-paper';
+
 import {
     View,
     Text,
@@ -68,14 +70,14 @@ export default function Home({ navigation, route }) {
         //limpa os parametros
         setTimeout(() => {
             const resetAction = CommonActions.reset({
-                index: 0, 
+                index: 0,
                 routes: [
-                  { name: 'HomeDrawer' }, 
+                    { name: 'HomeDrawer' },
                 ],
-              });
-              
-              navigation.dispatch(resetAction);
-            }, 1500);
+            });
+
+            navigation.dispatch(resetAction);
+        }, 1500);
     }
 
 
@@ -164,12 +166,26 @@ export default function Home({ navigation, route }) {
 
     const disponivel = orcamento - soma
 
+    let porcentagem = (disponivel / orcamento) * 1 || 0
+
+
+    let barraCor = MD3Colors.error50; // Cor padrão (vermelho)
+
+    if (porcentagem > 0.6) {
+        barraCor = 'green'; // Cor verde se porcentagem for maior que 0.6
+    } else if (porcentagem < 0.3) {
+        barraCor = 'red'; // Cor vermelha se porcentagem for menor que 0.3
+    } else {
+        barraCor = 'yellow'; // Cor amarela para qualquer outro valor
+    }
+
 
     // Esses Consts trás o mes diacordo com as datas em tempo real
     // Já o moment.locale trás o mes traduzido para PT-BR
     moment.locale('pt-br');
     const currentMonth = moment().format('MMMM');
     const currentYear = moment().format('YYYY');
+
 
     return (
 
@@ -181,13 +197,13 @@ export default function Home({ navigation, route }) {
                 source={require('../../assets/fundo.png')}
             />
             <Toast />
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => props.navigation.openDrawer()}>
                 <Image
-                    style={homeStyle.menu}
-                    source={require('../../assets/menu.png')}
-                    onPress={() => navigation.toggleDrawer()}
-                />
+                style={homeStyle.menu}
+                source={require('../../assets/menu.png')}/>
             </TouchableOpacity>
+
 
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
 
@@ -225,15 +241,16 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.rendaBars}
             >
-                <Image
+                
+                    <ProgressBar
                     style={homeStyle.barra1}
-                    source={require('../../assets/barra2.png')}
-                />
+                    progress={porcentagem}
+                    color={barraCor}
+                  />
+                
 
-                <Image
-                    style={homeStyle.barra2}
-                    source={require('../../assets/barra2.png')}
-                />
+
+
             </View>
 
             <View
@@ -301,7 +318,7 @@ export default function Home({ navigation, route }) {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Categorias')}
                     >
-                        <AntDesign name="plus" size={30} />
+                        <AntDesign name="plus" size={30} color={'#eeeeef'} />
                     </TouchableOpacity>
                 </View>
 

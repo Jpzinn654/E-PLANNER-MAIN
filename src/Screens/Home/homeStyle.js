@@ -4,6 +4,7 @@ const homeStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2C3C51',
+        
     },
     container2: {
         paddingTop: '10%',
@@ -23,6 +24,7 @@ const homeStyle = StyleSheet.create({
         position: 'absolute',
         top: 30,
         left: '8%',
+
     },
     txt1: {
         top: '40%',
@@ -94,13 +96,14 @@ const homeStyle = StyleSheet.create({
     },
     rendaBars: {
         width: '100%',
-        height: '2%',
+        height: '3%',
         flexDirection: 'row',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
     },
     barra1: {
-        marginRight: '10%',
+        left: 208,
+        width: 120
     },
     container4: {
         justifyContent: 'center',
@@ -108,6 +111,7 @@ const homeStyle = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         height: '25%',
+       
     },
     card1: {
         backgroundColor: '#d9d9d9',
@@ -176,11 +180,12 @@ const homeStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         right: 10,
-        top: 180,
+        top: 160,
+        color: "black"
     },
     components:{
         width: '80%',
-        height: '78%'
+        height: '78%',
     },
     fundoImg: {
         position: 'absolute',

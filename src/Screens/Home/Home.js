@@ -198,10 +198,10 @@ export default function Home({ navigation, route }) {
             />
             <Toast />
             <TouchableOpacity
-            onPress={() => props.navigation.openDrawer()}>
+                onPress={() => props.navigation.openDrawer()}>
                 <Image
-                style={homeStyle.menu}
-                source={require('../../assets/menu.png')}/>
+                    style={homeStyle.menu}
+                    source={require('../../assets/menu.png')} />
             </TouchableOpacity>
 
 
@@ -241,13 +241,13 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.rendaBars}
             >
-                
-                    <ProgressBar
+
+                <ProgressBar
                     style={homeStyle.barra1}
                     progress={porcentagem}
                     color={barraCor}
-                  />
-                
+                />
+
 
 
 
@@ -303,15 +303,19 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.container5}
             >
-                <Text style={
-                    homeStyle.txtCat
-                }>Categorias</Text>
 
                 <View
                     style={homeStyle.components}>
+
+                    <Text style={
+                        homeStyle.txtCat
+                    }>Categorias</Text>
+
+
                     <Card usuario={usuario.id}
                         navigation={navigation}
                     />
+                   
                 </View>
 
                 <View style={homeStyle.buttonCategoria}>

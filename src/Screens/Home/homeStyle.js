@@ -18,7 +18,7 @@ const homeStyle = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18,
         color: '#fff',
-    
+
     },
     menu: {
         position: 'absolute',
@@ -111,12 +111,12 @@ const homeStyle = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         height: '25%',
-       
+
     },
     card1: {
         backgroundColor: '#d9d9d9',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: 130,
         height: 150,
         borderRadius: 20,
@@ -135,21 +135,26 @@ const homeStyle = StyleSheet.create({
         left: '10%',
         backgroundColor: '#d9d9d9',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: 130,
         height: 150,
         borderRadius: 20,
     },
     container5: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#EEEEEF',
+        width: '100%',
+        flexDirection: 'column',
+        
     },
+
     txtCat: {
         marginTop: '2%',
         fontWeight: '600',
         fontSize: 22,
-        
+        justifyContent: 'center',
     },
     subTxt: {
         marginTop: '5%',
@@ -157,6 +162,7 @@ const homeStyle = StyleSheet.create({
         width: '85%',
         fontWeight: '400',
         fontSize: 18,
+        justifyContent: 'center',
     },
     btnCat: {
         backgroundColor: '#D9D9D9',
@@ -171,7 +177,7 @@ const homeStyle = StyleSheet.create({
     btnTxt: {
         fontSize: 18,
     },
-    buttonCategoria:{
+    buttonCategoria: {
         position: 'absolute',
         backgroundColor: '#02CB7F',
         width: 55,
@@ -179,17 +185,21 @@ const homeStyle = StyleSheet.create({
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        right: 10,
-        top: 160,
-        color: "black"
+        right: '10%',
+        top: '72%',
     },
-    components:{
-        width: '80%',
-        height: '78%',
+    components: {
+        alignItems: 'center',
+        flex: 1,
+        width: '100%',
+        
+       
     },
+
     fundoImg: {
         position: 'absolute',
     },
+
 })
 
 export default homeStyle;

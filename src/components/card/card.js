@@ -130,26 +130,26 @@ export default function Card({ usuario, navigation, onChildData }) {
               <View style={styles.infoContainer}>
                 <Text style={styles.infoText}>Valor Disponível:</Text>
                 {item.valor == item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)) ? (
-                      <Text style={styles.valueText}>
-                       {accounting.formatMoney(
+                  <Text style={styles.valueText}>
+                    {accounting.formatMoney(
                       item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
                       'R$',
                       2,
                       '.',
                       ','
                     )}
-                      </Text>
-                    ) : (
-                      <Text style={styles.valueText2}>
-                        {accounting.formatMoney(
-                      item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados) ),
+                  </Text>
+                ) : (
+                  <Text style={styles.valueText2}>
+                    {accounting.formatMoney(
+                      item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
                       'R$',
                       2,
                       '.',
                       ','
                     )}
-                      </Text>
-                    )}
+                  </Text>
+                )}
               </View>
             </View>
           </Swipeable>
@@ -162,7 +162,6 @@ export default function Card({ usuario, navigation, onChildData }) {
               </Text>
             </View>
           )}
-
         </TouchableOpacity>
       </View>
     );
@@ -187,17 +186,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 1,
-    
   },
   card: {
     padding: 10,
     marginBottom: 10,
     width: 340,
-    backgroundColor: '#fff',
-    borderRadius: 7,
-    elevation: 4,
-    borderWidth: 1,
-    borderColor: '#808080',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    elevation: 3,
   },
   cardContent: {
     marginTop: 2,
@@ -207,10 +203,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 2,
     paddingHorizontal: 10,
+    color: '#333333',
   },
   subtitle: {
     fontSize: 16,
-    color: '#888',
+    color: '#888888',
     marginBottom: 2,
     paddingHorizontal: 10,
   },
@@ -223,11 +220,13 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
     marginRight: 8,
+    color: '#333333',
   },
   infoTextDisp: {
     fontSize: 16,
     marginRight: 8,
     paddingHorizontal: 10,
+    color: '#333333',
   },
   valueText: {
     fontSize: 16,
@@ -246,17 +245,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    width: 60,
+    width: 40,
+    height: 40,
+    top: "2%"
   },
   left: {
     padding: 5,
   },
   rightView: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#054f77',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    width: 60,
+    width: 40,
+    height: 40,
+    top: "2%"
   },
   right: {
     padding: 5,
@@ -264,25 +267,27 @@ const styles = StyleSheet.create({
   loading: {
     fontSize: 15,
     textAlign: 'center',
+    color: '#333333',
   },
   noItems: {
     fontSize: 15,
     textAlign: 'center',
+    color: '#333333',
   },
   separator: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: '#cccccc',
     marginHorizontal: 10,
     marginTop: 10,
   },
   separatorDesc: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: '#cccccc',
     marginHorizontal: 10,
     marginBottom: 10,
     marginTop: 10,
   },
   blankSpace: {
-    height: 70, // Adjust the height as needed
+    height: 70,
   },
 });

@@ -76,62 +76,84 @@ export default function CardGasto({ data }) {
 
 
     return (
-        <FlatList
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-                <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)}>
-                    <Swipeable renderLeftActions={() => rightSwipe(item)}>
-                        <View style={styles.upContainer}>
-                            <Text style={styles.title}>{item.categoria.nome}</Text>
-                            <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
-                        </View>
-                    </Swipeable>
-                    {cardStates[item.id] && (
-                        <View style={styles.cardContent}>
-                            <Text style={styles.text}>
-                                {item.descricao}
-                            </Text>
-                        </View>
+        <View style={styles.container}>
+            {data.length === 0 ? (
+                <Text style={styles.message}>Não gastos disponíveis no período selecionado</Text>
+            ) : (
+                <FlatList
+                    data={data}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)}>
+                            <Swipeable renderLeftActions={() => rightSwipe(item)}>
+                                <View style={styles.upContainer}>
+                                    <Text style={styles.title}>{item.categoria.nome}</Text>
+                                    <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
+                                </View>
+                            </Swipeable>
+
+                            {cardStates[item.id] && (
+                                <View>
+                                    <View style={styles.separatorDesc} />
+                                    <View style={styles.cardContent}>
+
+                                        <Text style={styles.text}>
+                                            {item.descricao}
+                                        </Text>
+                                        <Text style={styles.infoTextDisp}>
+                                        {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            )}
+                        </TouchableOpacity>
                     )}
-                </TouchableOpacity>
+                />
             )}
-        />
+        </View>
+
 
     );
 
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 1,
+        height: '30%',
+    },
     card: {
-        backgroundColor: '#d9d9d9',
-        borderRadius: 25,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
-        padding: 14,
-        textAlign: 'center',
-        width: 320,
-        marginTop: 10,
+        padding: 10,
+        marginBottom: 10,
+        width: 340,
+        backgroundColor: '#F5F5F5',
+        borderRadius: 10,
+        elevation: 3,
+        // height: 0,
     },
     rightView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        backgroundColor: '#054f77',
+        justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 10,
+        width: 40,
+        height: 40,
+        top: "2%",
 
     },
     right: {
-        backgroundColor: 'blue',
         padding: 4,
     },
     upContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        marginTop: 2,
+        paddingVertical: 7
+
     },
     title: {
         fontSize: 16,
@@ -152,5 +174,17 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         textAlign: 'justify',
+    },
+    message: {
+        fontSize: 15,
+        textAlign: 'center',
+        color: '#333333',
+    },
+    separatorDesc: {
+        height: 1,
+        backgroundColor: '#cccccc',
+        marginHorizontal: 10,
+        marginBottom: 10,
+        marginTop: 10,
     },
 });

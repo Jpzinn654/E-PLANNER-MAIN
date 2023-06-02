@@ -129,7 +129,7 @@ export default function GastosGerais({ gastosGerais }) {
 
                 <View style={styles.container}>
 
-                    <Text style={styles.label}>Selecione a data:</Text>
+                    <Text style={styles.label}>Histórico de gastos:</Text>
 
                     <View style={styles.pickerContainer}>
                         <Picker
@@ -145,8 +145,6 @@ export default function GastosGerais({ gastosGerais }) {
                 <View
                     style={gastosGeraisStyles.cardsConatiner}>
 
-                    <Text
-                        style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
 
                     <CardGasto data={data}
                     />

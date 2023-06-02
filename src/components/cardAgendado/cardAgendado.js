@@ -142,51 +142,51 @@ export default function CardAgendado({ data, navigation }) {
   return (
 
     <View>
-
-      
-
-
-      {data.map((item) => (
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => toggleCard(item.id)}
-          key={item.id}
+  {data.length === 0 ? (
+    <Text style={styles.message}>Você ainda não agendou um gasto!</Text>
+  ) : (
+    data.map((item) => (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => toggleCard(item.id)}
+        key={item.id}
+      >
+        <Swipeable
+          renderRightActions={() => rightSwipe(item)}
+          renderLeftActions={() => leftSwipe(item)}
         >
+          <View style={styles.upContainer} key={item.id}>
+            {new Date(item.dataGasto) <= new Date() ? (
+              <View style={styles.taskDander}>
+                <FontAwesome5 name="tasks" size={20} color="white" />
+              </View>
+            ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
+              <View style={styles.taskCritical}>
+                <FontAwesome5 name="tasks" size={20} color="white" />
+              </View>
+            ) : (
+              <View style={styles.taskOk}>
+                <FontAwesome5 name="tasks" size={20} color="white" />
+              </View>
+            )}
 
-          <Swipeable
-            renderRightActions={() => rightSwipe(item)}
-            renderLeftActions={() => leftSwipe(item)}
-          >
-            <View style={styles.upContainer} key={item.id}>
-              {new Date(item.dataGasto) <= new Date() ? (
-                <View style={styles.taskDander}>
-                  <FontAwesome5 name="tasks" size={20} color="white" />
-                </View>
-              ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
-                <View style={styles.taskCritical}>
-                  <FontAwesome5 name="tasks" size={20} color="white" />
-                </View>
-              ) : (
-                <View style={styles.taskOk}>
-                  <FontAwesome5 name="tasks" size={20} color="white" />
-                </View>
-              )}
+            <Text style={styles.title}>{item.categoria.nome}</Text>
+            <Text style={styles.value}>
+              {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+            </Text>
+            <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
+          </View>
+        </Swipeable>
+        {cardStates[item.id] && (
+          <View style={styles.cardContent}>
+            <Text style={styles.text}>{item.descricao}</Text>
+          </View>
+        )}
+      </TouchableOpacity>
+    ))
+  )}
+</View>
 
-              <Text style={styles.title}>{item.categoria.nome}</Text>
-              <Text style={styles.value}>
-                {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
-              </Text>
-              <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
-            </View>
-          </Swipeable>
-          {cardStates[item.id] && (
-            <View style={styles.cardContent}>
-              <Text style={styles.text}>{item.descricao}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      ))}
-    </View>
   );
 }
 
@@ -264,4 +264,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "justify",
   },
+  message: {
+      fontSize: 15,
+      color: '#fff',
+      top: '40%',
+      paddingVertical: 90
+  }
 });

@@ -5,10 +5,12 @@ const gastosGeraisStyles = StyleSheet.create({
         width: '100%',
     },
     title:{
+        position: 'absolute',
         color: '#000',
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 15,
+        bottom: "90%"
     },
     cardsConatiner: {
         top: 30,

@@ -1,152 +1,145 @@
 import React, { useEffect, useState } from "react";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import config from '../../../config/config.json'
+import config from "../../../config/config.json";
 
-import {
-    View,
-    Text,
-    TouchableOpacity
-} from "react-native"
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 
 import Graph from "../../components/grafico/GraficoGasto";
 
 import gastoCategoriaStyle from "./gastoCategoriaStyle";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-import { SelectList } from "react-native-dropdown-select-list"
+import { SelectList } from "react-native-dropdown-select-list";
 
-import moment from 'moment';
+import moment from "moment";
 
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 
 export default function GastoCategorias({ gastosCat }) {
+  const isFocused = useIsFocused();
 
-    const isFocused = useIsFocused();
+  //enviados para a api
+  const [selected, setSelected] = useState("");
 
-    //enviados para a api
-    const [selected, setSelected] = useState("")
+  //operações adicionais
+  const [usuarioId, setUsuarioId] = useState(null);
+  const [categorias, setCategorias] = useState([]);
 
-    //operações adicionais
-    const [usuarioId, setUsuarioId] = useState(null)
-    const [categorias, setCategorias] = useState([]);
+  //armazena valores que chegam da api
+  const [data, setData] = useState([]);
+  // console.log(data)
 
-    //armazena valores que chegam da api
-    const [data, setData] = useState([]);
-    // console.log(data)
-
-    useEffect(() => {
-        if (data !== ['']) {
-            gastosCat(data);
-        }
-    }, [data]);
-
-    moment.locale('pt-br');
-
-    // console.log(categoriaNome)
-
-    //função que requisita id do usuário
-    useEffect(() => {
-        getUsuario();
-    }, []);
-
-    async function getUsuario() {
-        let response = await AsyncStorage.getItem('usuarioData')
-        let json = JSON.parse(response)
-        setUsuarioId(json.id)
+  useEffect(() => {
+    if (data !== [""]) {
+      gastosCat(data);
     }
+  }, [data]);
 
-    //função que requisita categorias
-    useEffect(() => {
-        getCategorias();
-    }, [usuarioId, isFocused]);
+  moment.locale("pt-br");
 
-    const getCategorias = async () => {
-        if (usuarioId !== null) {
-            let response = await fetch(`${config.urlRoot}/gastoRealizado/listar/categotias`, {
+  // console.log(categoriaNome)
 
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
+  //função que requisita id do usuário
+  useEffect(() => {
+    getUsuario();
+  }, []);
 
-                body: JSON.stringify({
-                    usuarioId: usuarioId,
-                }),
-            })
-            let json = await response.json()
-            setCategorias(json)
+  async function getUsuario() {
+    let response = await AsyncStorage.getItem("usuarioData");
+    let json = JSON.parse(response);
+    setUsuarioId(json.id);
+  }
 
-            if (json.length > 0) {
-                let newArray = json.map((item) => {
-                    return { key: item.id, value: item.nome }
-                })
+  //função que requisita categorias
+  useEffect(() => {
+    getCategorias();
+  }, [usuarioId, isFocused]);
 
-                setCategorias(newArray)
-            }
+  const getCategorias = async () => {
+    if (usuarioId !== null) {
+      let response = await fetch(
+        `${config.urlRoot}/gastoRealizado/listar/categotias`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            usuarioId: usuarioId,
+          }),
         }
+      );
+      let json = await response.json();
+      setCategorias(json);
+
+      if (json.length > 0) {
+        let newArray = json.map((item) => {
+          return { key: item.id, value: item.nome };
+        });
+
+        setCategorias(newArray);
+      }
     }
+  };
 
-    //função responsável por trazer os dados da api
-    useEffect(() => {
-            fetchData();
-    }, [selected, usuarioId, isFocused]);
+  //função responsável por trazer os dados da api
+  useEffect(() => {
+    fetchData();
+  }, [selected, usuarioId, isFocused]);
 
+  const fetchData = async () => {
+    if (usuarioId !== null) {
+      let response = await fetch(`${config.urlRoot}/categoria/gastosMeses`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
 
-    const fetchData = async () => {
-        if (usuarioId !== null) {
-            let response = await fetch(`${config.urlRoot}/categoria/gastosMeses`, {
-
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-
-                body: JSON.stringify({
-                    id: selected,
-                    mes: moment().format('M'),
-                    ano: moment().format('YYYY')
-                }),
-            })
-            let json = await response.json()
-            if (json != "error") {
-                setData(json)
-            } 
-
-
-        }
+        body: JSON.stringify({
+          id: selected,
+          mes: moment().format("M"),
+          ano: moment().format("YYYY"),
+        }),
+      });
+      let json = await response.json();
+      if (json != "error") {
+        setData(json);
+      }
     }
+  };
 
+  return (
+    <View style={gastoCategoriaStyle.container}>
 
+      <ScrollView style={gastoCategoriaStyle.scrollContainer}>
 
+        <View style={gastoCategoriaStyle.container1}>
 
+          <Toast />
+          <View style={{ width: 280, marginTop: 15, marginBottom: 0 }}>
+            <SelectList
+              data={categorias}
+              setSelected={setSelected}
+              placeholder="Selecione uma categoria"
+              searchPlaceholder="Pesquise"
+              notFoundText="Nenhuma categoria encontrada!"
+              dropdownShown={false}
+              maxHeight={70}
+            />
+          </View>
 
-    return (
-        <View style={gastoCategoriaStyle.container}>
-
-            
-            <Toast />
-            
-            <View style={{ width: 280, marginTop: 10, marginBottom: 0 }}>
-                <SelectList data={categorias}
-                    setSelected={setSelected}
-                    placeholder="Selecione uma categoria"
-                    searchPlaceholder="Pesquise"
-                    notFoundText="Nenhuma categoria encontrada!"
-                    dropdownShown={false}
-                    maxHeight={70}
-                />
-            </View>
-
-            <View
-            style={gastoCategoriaStyle.grafico}
-            >
-               <Graph data={data} /> 
-            </View>
-            
+          <View style={gastoCategoriaStyle.grafico}>
+            <Graph data={data} />
+          </View>
         </View>
-    )
+
+      </ScrollView>
+
+    </View>
+  );
 }

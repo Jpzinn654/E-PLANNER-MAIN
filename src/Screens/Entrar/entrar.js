@@ -83,7 +83,7 @@ export default function Entrar({ navigation }) {
                 <Text>{display}</Text>
                 <TextInput
                     style={entrarStyle.inputs}
-                    placeholder="Nome Completo"
+                    placeholder="E-mail"
                     autoCapitalize="words"
                     keyboardType="default"
                     underlineColorAndroid="transparent"

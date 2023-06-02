@@ -59,7 +59,7 @@ const EditarcAtegoriaStyle = StyleSheet.create({
         borderTopEndRadius: 25,
         borderTopLeftRadius: 25,
         paddingVertical: 40,
-        paddingHorizontal: 45,
+        paddingHorizontal: 30,
         top: -35,
     },
     inpTxt1: {

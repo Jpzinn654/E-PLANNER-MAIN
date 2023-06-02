@@ -18,7 +18,9 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { AntDesign } from '@expo/vector-icons'
 
-import { ProgressBar, MD3Colors } from 'react-native-paper';
+import { ProgressBar, MD3Colors, Button } from 'react-native-paper';
+
+import { useDrawerStatus } from "@react-navigation/drawer";
 
 import {
     View,
@@ -187,6 +189,8 @@ export default function Home({ navigation, route }) {
     const currentYear = moment().format('YYYY');
 
 
+
+
     return (
 
         <View style={homeStyle.container}>
@@ -197,19 +201,26 @@ export default function Home({ navigation, route }) {
                 source={require('../../assets/fundo.png')}
             />
             <Toast />
-            <TouchableOpacity
-                onPress={() => props.navigation.openDrawer()}
-            >
-                <Image
-                    style={homeStyle.menu}
-                    source={require('../../assets/menu.png')}
-                    onPress={() => navigation.toggleDrawer()}
-                />
-            </TouchableOpacity>
 
+            
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
 
-            <SafeAreaView
+            <View  style={homeStyle.menu} >
+
+
+                <TouchableOpacity
+                    onPress={() => navigation.openDrawer()}
+                >
+                    <View>
+                        <View>
+                            <Image
+                                source={require('../../assets/menu.png')}
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity></View>
+
+            <View
                 style={homeStyle.container2}
             >
                 <Text
@@ -224,7 +235,7 @@ export default function Home({ navigation, route }) {
                     style={homeStyle.txt3}
                 >Aqui está sua renda</Text>
 
-            </SafeAreaView>
+            </View>
 
             <View
                 style={homeStyle.renda1} >
@@ -243,13 +254,13 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.rendaBars}
             >
-                
-                    <ProgressBar
+
+                <ProgressBar
                     style={homeStyle.barra1}
                     progress={porcentagem}
                     color={barraCor}
-                  />
-                
+                />
+
 
 
 
@@ -257,13 +268,19 @@ export default function Home({ navigation, route }) {
 
             <View
                 style={homeStyle.renda1} >
-                <Text
+                
+                <View style={homeStyle.txtRenda}>
+                  <Text
                     style={homeStyle.rendaTxt5}
-                >SUA RENDA</Text>
-
+                >SUA RENDA</Text>  
+                </View>
+                
+            <View>
                 <Text
                     style={homeStyle.rendaTxt3}
                 >GASTO DISPONÍVEL</Text>
+            </View>
+                
             </View>
 
 
@@ -305,15 +322,19 @@ export default function Home({ navigation, route }) {
             <View
                 style={homeStyle.container5}
             >
-                <Text style={
-                    homeStyle.txtCat
-                }>Categorias</Text>
 
                 <View
                     style={homeStyle.components}>
+
+                    <Text style={
+                        homeStyle.txtCat
+                    }>Categorias</Text>
+
+
                     <Card usuario={usuario.id}
                         navigation={navigation}
                     />
+
                 </View>
 
                 <View style={homeStyle.buttonCategoria}>

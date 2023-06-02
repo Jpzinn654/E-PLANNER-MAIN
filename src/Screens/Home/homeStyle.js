@@ -7,7 +7,7 @@ const homeStyle = StyleSheet.create({
         
     },
     container2: {
-        paddingTop: '10%',
+        paddingTop: '5%',
         width: '100%',
         height: '30%',
     },
@@ -18,12 +18,15 @@ const homeStyle = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18,
         color: '#fff',
-    
+
     },
     menu: {
         position: 'absolute',
-        top: 30,
-        left: '8%',
+        width: '25%',
+        marginTop: '7%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 200
 
     },
     txt1: {
@@ -80,19 +83,22 @@ const homeStyle = StyleSheet.create({
         paddingLeft: '10%',
         marginRight: '2%',
         marginTop: '1%',
-        left: '50%',
+        left: '15%',
     },
     rendaTxt4: {
         color: '#fff',
         fontSize: 20,
         left: '50%',
     },
+    txtRenda:{
+        marginLeft: '10%',
+    },
     rendaTxt5: {
         color: '#fff',
         fontSize: 14,
-        paddingLeft: '10%',
+        paddingLeft: '0%',
         marginTop: '1%',
-        right: '50%',
+        right: '0%',
     },
     rendaBars: {
         width: '100%',
@@ -111,12 +117,12 @@ const homeStyle = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         height: '25%',
-       
+
     },
     card1: {
         backgroundColor: '#d9d9d9',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: 130,
         height: 150,
         borderRadius: 20,
@@ -135,21 +141,26 @@ const homeStyle = StyleSheet.create({
         left: '10%',
         backgroundColor: '#d9d9d9',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: 130,
         height: 150,
         borderRadius: 20,
     },
     container5: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#EEEEEF',
+        width: '100%',
+        flexDirection: 'column',
+        
     },
+
     txtCat: {
         marginTop: '2%',
         fontWeight: '600',
         fontSize: 22,
-        
+        justifyContent: 'center',
     },
     subTxt: {
         marginTop: '5%',
@@ -157,6 +168,7 @@ const homeStyle = StyleSheet.create({
         width: '85%',
         fontWeight: '400',
         fontSize: 18,
+        justifyContent: 'center',
     },
     btnCat: {
         backgroundColor: '#D9D9D9',
@@ -171,7 +183,7 @@ const homeStyle = StyleSheet.create({
     btnTxt: {
         fontSize: 18,
     },
-    buttonCategoria:{
+    buttonCategoria: {
         position: 'absolute',
         backgroundColor: '#02CB7F',
         width: 55,
@@ -179,16 +191,21 @@ const homeStyle = StyleSheet.create({
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        right: 10,
-        top: 180,
+        right: '10%',
+        top: '72%',
     },
-    components:{
-        width: '80%',
-        height: '78%',
+    components: {
+        alignItems: 'center',
+        flex: 1,
+        width: '100%',
+        
+       
     },
+
     fundoImg: {
         position: 'absolute',
     },
+
 })
 
 export default homeStyle;

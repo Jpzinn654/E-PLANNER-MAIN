@@ -50,7 +50,8 @@ const menuFinancasStyle = StyleSheet.create({
         paddingTop: 20,
         backgroundColor: '#eeeeef',
         marginTop: 10,
-        borderRadius: 10,
+        borderRadius: 15,
+        elevation: 30
     },
     buttonContainer: {
         top: 5,

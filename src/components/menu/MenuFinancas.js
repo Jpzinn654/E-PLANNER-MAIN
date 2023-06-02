@@ -14,9 +14,16 @@ import { GastoCategorias, GastosGerais, CompGastos } from "../../Screens";
 
 import { CommonActions } from '@react-navigation/native';
 
+import { DrawerActions } from '@react-navigation/drawer';
+
+import { createStackNavigator } from '@react-navigation/stack';
+
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
+
+
 import accounting from 'accounting';
+
 
 function MenuFinancas({ navigation, route }) {
 
@@ -87,7 +94,7 @@ function MenuFinancas({ navigation, route }) {
     //mes de comparação a serem exibidos
     const [mes, setMes] = useState('');
 
-    console.log(mes)
+    console.log(gastosComp)
 
     const getMes = (mes) => {
         setMes(mes);
@@ -130,7 +137,8 @@ function MenuFinancas({ navigation, route }) {
                 />
                 <View
                     style={gastosGeraisStyles.menuContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity 
+                     onPress={() => navigation.dispatch()}>
                         <Image
                             style={gastosGeraisStyles.menu}
                             source={require('../../assets/menu.png')}
@@ -177,25 +185,30 @@ function MenuFinancas({ navigation, route }) {
                         ) : (
                             <>
                                 {gastosComp && (
-                                    gastosComp.valorTotalGastos1 > gastosComp.valorTotalGastos2 ? (
-                                        <Text style={gastosGeraisStyles.midText1}>
-                                            {`Você gastou ${accounting.formatMoney(
-                                                gastosComp.valorTotalGastos1 - gastosComp.valorTotalGastos2, 'R$', 2, '.', ','
-                                            )} a mais em ${nomeMes}`}
-                                        </Text>
-                                    ) : (
+                                     Number(gastosComp.valorTotalGastos1) < Number(gastosComp.valorTotalGastos2) ? (
                                         <Text style={gastosGeraisStyles.midText1}>
                                             {`Você economizou ${accounting.formatMoney(
                                                 gastosComp.valorTotalGastos2 - gastosComp.valorTotalGastos1, 'R$', 2, '.', ','
                                             )} em ${nomeMes}`}
                                         </Text>
+                                    ) : Number(gastosComp.valorTotalGastos1) > Number(gastosComp.valorTotalGastos2) ? (
+                                        <Text style={gastosGeraisStyles.midText1}>
+                                            {`Você gastou ${accounting.formatMoney(
+                                                gastosComp.valorTotalGastos1 - gastosComp.valorTotalGastos2, 'R$', 2, '.', ','
+                                            )} a mais em ${nomeMes}`}
+                                        </Text>
+                                    ) :(
+                                        <Text style={gastosGeraisStyles.midText1}>
+                                            -
+                                        </Text>
                                     )
                                 )}
                                 {!gastosComp && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                        {"R$0,00"}
+                                        -
                                     </Text>
                                 )}
+
                             </>
 
                         )}

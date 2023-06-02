@@ -129,7 +129,7 @@ export default function GastosGerais({ gastosGerais }) {
 
                 <View style={styles.container}>
 
-                    <Text style={styles.label}>Selecione a data:</Text>
+                    <Text style={styles.label}>Histórico de gastos:</Text>
 
                     <View style={styles.pickerContainer}>
                         <Picker
@@ -145,8 +145,6 @@ export default function GastosGerais({ gastosGerais }) {
                 <View
                     style={gastosGeraisStyles.cardsConatiner}>
 
-                    <Text
-                        style={gastosGeraisStyles.title}>HISTÓRICO DE GASTOS</Text>
 
                     <CardGasto data={data}
                     />
@@ -179,15 +177,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         borderRadius: 30,
         width: 320,
-        height: 61,
+        height: 45,
+        marginBottom: 5,
+        marginTop: 8,
       },
       
     picker: {
         width: '90%',
         borderWidth: 1,
-        borderColor: '#D9D9D9',
-        backgroundColor: '#D9D9D9',
-        height: 40,
-        backgroundColor: '#D9D9D9'
+        
+        height: 45,
+        
     }
 }); 

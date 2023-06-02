@@ -63,7 +63,7 @@ export default function Graph({ data }) {
                 `${accounting.formatMoney(datum.earnings, 'R$', 2, '.', ',')}`
               }
               labelComponent={
-                <VictoryLabel dy={-10} style={styles.barLabel} />
+                <VictoryLabel dy={-5} style={styles.barLabel} />
               }
             />
           </VictoryChart>

@@ -18,7 +18,9 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { AntDesign } from '@expo/vector-icons'
 
-import { ProgressBar, MD3Colors } from 'react-native-paper';
+import { ProgressBar, MD3Colors, Button } from 'react-native-paper';
+
+import { useDrawerStatus } from "@react-navigation/drawer";
 
 import {
     View,
@@ -187,6 +189,8 @@ export default function Home({ navigation, route }) {
     const currentYear = moment().format('YYYY');
 
 
+
+
     return (
 
         <View style={homeStyle.container}>
@@ -197,15 +201,42 @@ export default function Home({ navigation, route }) {
                 source={require('../../assets/fundo.png')}
             />
             <Toast />
-            <TouchableOpacity
-                onPress={() => props.navigation.openDrawer()}>
+
+            {/* <TouchableOpacity
+                     onPress={() => navigation.openDrawer()}
+                style={{
+                    position: 'absolute',
+                    marginLeft: 50,
+                    // left: 25,
+                    zIndex: "100%" // opcional, para controlar a ordem de sobreposição de elementos
+                }}
+            >
                 <Image
                     style={homeStyle.menu}
-                    source={require('../../assets/menu.png')} />
-            </TouchableOpacity>
+                    source={require('../../assets/menu.png')}
+                />
+            </TouchableOpacity> */}
+
+
+
 
 
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
+
+            <View  style={homeStyle.menu} >
+
+
+                <TouchableOpacity
+                    onPress={() => navigation.openDrawer()}
+                >
+                    <View>
+                        <View>
+                            <Image
+                                source={require('../../assets/menu.png')}
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity></View>
 
             <SafeAreaView
                 style={homeStyle.container2}
@@ -315,7 +346,7 @@ export default function Home({ navigation, route }) {
                     <Card usuario={usuario.id}
                         navigation={navigation}
                     />
-                   
+
                 </View>
 
                 <View style={homeStyle.buttonCategoria}>

@@ -88,7 +88,7 @@ export default function CardGasto({ data }) {
                             <Swipeable renderLeftActions={() => rightSwipe(item)}>
                                 <View style={styles.upContainer}>
                                     <Text style={styles.title}>{item.categoria.nome}</Text>
-                                    <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
+                                    <Text style={styles.value}> -{accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
                                 </View>
                             </Swipeable>
 
@@ -100,8 +100,8 @@ export default function CardGasto({ data }) {
                                         <Text style={styles.text}>
                                             {item.descricao}
                                         </Text>
-                                        <Text style={styles.infoTextDisp}>
-                                        {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+                                        <Text style={styles.infoData}>
+                                            {new Date(item.updatedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
                                         </Text>
                                     </View>
 
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         // height: 0,
     },
     rightView: {
-        backgroundColor: '#054f77',
+        backgroundColor: '#e74c3c',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
@@ -150,30 +150,34 @@ const styles = StyleSheet.create({
     },
     upContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         marginTop: 2,
-        paddingVertical: 7
+        paddingVertical: 12
 
     },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginBottom: 2,
+        paddingHorizontal: 20,
+        color: '#333333',
     },
     value: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginLeft: 10
+        marginLeft: 10,
+        paddingHorizontal: 20,
+        color: 'red'
     },
     cardContent: {
-        padding: 14,
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: 2,
 
     },
     text: {
         fontSize: 16,
-        textAlign: 'justify',
+        color: '#888888',
+        marginBottom: 4,
+        paddingHorizontal: 20,
     },
     message: {
         fontSize: 15,
@@ -187,4 +191,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
     },
+    infoData: {
+        fontSize: 16,
+        marginRight: 8,
+        paddingHorizontal: 20,
+        color: '#333333',
+    }
 });

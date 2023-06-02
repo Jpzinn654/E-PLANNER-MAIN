@@ -13,10 +13,10 @@ const gastosGeraisStyles = StyleSheet.create({
         bottom: "90%"
     },
     cardsConatiner: {
-        top: 30,
+        top: '7%',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 225,
+        height: '73%',
     },
     pickerContainer: {
         flexDirection: 'row',

@@ -22,8 +22,11 @@ const homeStyle = StyleSheet.create({
     },
     menu: {
         position: 'absolute',
-        top: 30,
-        left: '8%',
+        width: '25%',
+        marginTop: '7%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 200
 
     },
     txt1: {

@@ -19,7 +19,6 @@ export default function CardAgendado({ data, navigation }) {
   };
 
   const rightSwipe = (item) => {
-
     //função que confirma registro e trata resposta
     const handleExcluir = async () => {
       let response = await fetch(`${config.urlRoot}/gastoAgendado/excluir/${item.id}`, {
@@ -33,24 +32,13 @@ export default function CardAgendado({ data, navigation }) {
       let json = await response.json()
 
       if (json === 'success') {
-        // navigation.reset({
-        //   routes: [{
-        //     name: 'GastosAgendadosTab', params: {
-        //       etiqueta: 'Gasto excluído com sucesso!'
-        //     },
-
-        //   }],
-        // });
-
         navigation.navigate('GastosAgendadosTab', {
           etiqueta: 'Gasto excluído com sucesso!'
-        }
-  )
+        })
 
       } else {
         console.log('error')
       }
-
     }
 
     //alerta de confirmação
@@ -67,8 +55,7 @@ export default function CardAgendado({ data, navigation }) {
             onPress: () => handleExcluir(),
           },
         ]
-      );
-
+      )
     }
 
     return (
@@ -78,11 +65,9 @@ export default function CardAgendado({ data, navigation }) {
         </TouchableOpacity>
       </View>
     );
-  };
+  }
 
   const leftSwipe = (item) => {
-
-
     //função que confirma registro e trata resposta
     const handleConfirmar = async () => {
       let response = await fetch(`${config.urlRoot}/gastoAgendado/confirmarGasto/${item.id}`, {
@@ -98,17 +83,15 @@ export default function CardAgendado({ data, navigation }) {
       if (json === 'success') {
         navigation.reset({
           routes: [{
-            name: 'GastosAgendadosTab', params: {
+            name: 'GastosAgendadosTab',
+            params: {
               etiqueta: 'Gasto efetuado com sucesso!'
-            },
-
+            }
           }],
-        });
-
+        })
       } else {
         console.log('error')
       }
-
     }
 
     //alerta de confirmação
@@ -125,149 +108,221 @@ export default function CardAgendado({ data, navigation }) {
             onPress: () => handleConfirmar(),
           },
         ]
-      );
-
+      )
     }
 
     return (
       <View style={styles.leftView}>
-        <TouchableOpacity style={styles.check}
-          onPress={() => showAlert()}>
+        <TouchableOpacity style={styles.check} onPress={() => showAlert()}>
           <FontAwesome5 name="check" size={24} color="white" />
         </TouchableOpacity>
       </View>
     );
-  };
+  }
 
   return (
-
     <View>
-  {data.length === 0 ? (
-    <Text style={styles.message}>Você ainda não agendou um gasto!</Text>
-  ) : (
-    data.map((item) => (
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => toggleCard(item.id)}
-        key={item.id}
-      >
-        <Swipeable
-          renderRightActions={() => rightSwipe(item)}
-          renderLeftActions={() => leftSwipe(item)}
-        >
-          <View style={styles.upContainer} key={item.id}>
-            {new Date(item.dataGasto) <= new Date() ? (
-              <View style={styles.taskDander}>
-                <FontAwesome5 name="tasks" size={20} color="white" />
+      {data.length === 0 ? (
+        <Text style={styles.message}>Você ainda não agendou um gasto!</Text>
+      ) : (
+        data.map((item) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => toggleCard(item.id)}
+            key={item.id}
+          >
+            <Swipeable
+              renderRightActions={() => leftSwipe(item)}
+              renderLeftActions={() => rightSwipe(item)}
+            >
+              <View>
+                <View style={styles.upContainer} key={item.id}>
+
+                  <View style={styles.imgContainer}>
+                  {new Date(item.dataGasto) <= new Date() ? (
+                    <View style={styles.taskDanger}>
+                      <FontAwesome5 name="tasks" size={20} color="white" />
+                    </View>
+                  ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
+                    <View style={styles.taskCritical}>
+                      <FontAwesome5 name="tasks" size={20} color="white" />
+                    </View>
+                  ) : (
+                    <View style={styles.taskOk}>
+                      <FontAwesome5 name="tasks" size={20} color="white" />
+                    </View>
+                  )}
+                  </View>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.title}>{item.categoria.nome}</Text>
+                    <View style={[styles.infoContainer, { marginBottom: 0 }]}>
+                      <Text style={styles.infoText}>Data de pagamento:</Text>
+                      <Text style={styles.valueText}>
+                        {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+                      </Text>
+                    </View>
+                    <View style={styles.infoContainer}>
+                      <Text style={styles.infoText}>Valor:</Text>
+                      <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
-            ) : new Date(item.dataGasto) <= new Date(new Date().setDate(new Date().getDate() + 3)) ? (
-              <View style={styles.taskCritical}>
-                <FontAwesome5 name="tasks" size={20} color="white" />
-              </View>
-            ) : (
-              <View style={styles.taskOk}>
-                <FontAwesome5 name="tasks" size={20} color="white" />
+            </Swipeable>
+            {cardStates[item.id] && (
+              <View style={styles.cardContent}>
+                <Text style={styles.text}>{item.descricao}</Text>
               </View>
             )}
-
-            <Text style={styles.title}>{item.categoria.nome}</Text>
-            <Text style={styles.value}>
-              {new Date(item.dataGasto).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
-            </Text>
-            <Text style={styles.value}> {accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
-          </View>
-        </Swipeable>
-        {cardStates[item.id] && (
-          <View style={styles.cardContent}>
-            <Text style={styles.text}>{item.descricao}</Text>
-          </View>
-        )}
-      </TouchableOpacity>
-    ))
-  )}
-</View>
-
+          </TouchableOpacity>
+        ))
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#d9d9d9",
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    padding: 14,
-    textAlign: "center",
-    width: 320,
-    marginTop: 10,
-  },
-  taskDander: {
-    width: 30,
-    backgroundColor: "red",
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  taskCritical: {
-    width: 30,
-    backgroundColor: "#cd8d00",
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  taskOk: {
-    width: 30,
-    backgroundColor: "green",
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  rightView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  right: {
-    backgroundColor: "blue",
-    padding: 4,
-  },
-  check: {
-    backgroundColor: "green",
-    padding: 4,
-  },
-  upContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
+    padding: 10,
     marginBottom: 10,
-  },
-  value: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 10,
+    width: 340,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    elevation: 3,
   },
   cardContent: {
-    padding: 14,
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 2,
+    paddingHorizontal: 17
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 2,
+    color: '#333333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#888888',
+    marginBottom: 2,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  infoText: {
+    fontSize: 16,
+    marginRight: 8,
+    color: '#333333',
+  },
+  infoTextDisp: {
+    fontSize: 16,
+    marginRight: 8,
+    paddingHorizontal: 10,
+    color: '#333333',
+  },
+  valueText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 8,
+    color: 'green',
+  },
+  valueText2: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 8,
+    color: 'red',
+  },
+  leftView: {
+    backgroundColor: '#e74c3c',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    width: '10%',
+    height: '10%',
+    top: '2%',
+  },
+  left: {
+    padding: 5,
+  },
+  rightView: {
+    backgroundColor: '#054f77',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    width: 40,
+    height: 40,
+    top: '2%',
+  },
+  right: {
+    padding: 5,
+  },
+  loading: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#333333',
+  },
+  noItems: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#333333',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#cccccc',
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
+  separatorDesc: {
+    height: 1,
+    backgroundColor: '#cccccc',
+    marginHorizontal: 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  blankSpace: {
+    height: 70,
+  },
+  upContainer: {
+    flexDirection: 'row',
+    // marginTop: 2,
+    paddingHorizontal: 10
+  },
+  taskDanger: {
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  taskCritical: {
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: '#cd8d00',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  taskOk: {
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imgContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     fontSize: 16,
-    textAlign: "justify",
+    color: '#333333',
+    marginTop: 8,
   },
   message: {
-      fontSize: 15,
-      color: '#fff',
-      top: '40%',
-      paddingVertical: 90
-  }
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });

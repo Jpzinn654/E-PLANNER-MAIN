@@ -78,7 +78,7 @@ export default function CardGasto({ data }) {
     return (
         <View style={styles.container}>
             {data.length === 0 ? (
-                <Text style={styles.message}>Não gastos disponíveis no período selecionado</Text>
+                <Text style={styles.message}>Você ainda não possuí gastos no período selecionado</Text>
             ) : (
                 <FlatList
                     data={data}

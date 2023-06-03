@@ -7,7 +7,7 @@ const homeStyle = StyleSheet.create({
         
     },
     container2: {
-        paddingTop: '10%',
+        paddingTop: '5%',
         width: '100%',
         height: '30%',
     },
@@ -83,19 +83,22 @@ const homeStyle = StyleSheet.create({
         paddingLeft: '10%',
         marginRight: '2%',
         marginTop: '1%',
-        left: '50%',
+        left: '15%',
     },
     rendaTxt4: {
         color: '#fff',
         fontSize: 20,
         left: '50%',
     },
+    txtRenda:{
+        marginLeft: '10%',
+    },
     rendaTxt5: {
         color: '#fff',
         fontSize: 14,
-        paddingLeft: '10%',
+        paddingLeft: '0%',
         marginTop: '1%',
-        right: '50%',
+        right: '0%',
     },
     rendaBars: {
         width: '100%',

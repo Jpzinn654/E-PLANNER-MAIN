@@ -202,25 +202,7 @@ export default function Home({ navigation, route }) {
             />
             <Toast />
 
-            {/* <TouchableOpacity
-                     onPress={() => navigation.openDrawer()}
-                style={{
-                    position: 'absolute',
-                    marginLeft: 50,
-                    // left: 25,
-                    zIndex: "100%" // opcional, para controlar a ordem de sobreposição de elementos
-                }}
-            >
-                <Image
-                    style={homeStyle.menu}
-                    source={require('../../assets/menu.png')}
-                />
-            </TouchableOpacity> */}
-
-
-
-
-
+            
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
 
             <View  style={homeStyle.menu} >
@@ -238,7 +220,7 @@ export default function Home({ navigation, route }) {
                     </View>
                 </TouchableOpacity></View>
 
-            <SafeAreaView
+            <View
                 style={homeStyle.container2}
             >
                 <Text
@@ -253,7 +235,7 @@ export default function Home({ navigation, route }) {
                     style={homeStyle.txt3}
                 >Aqui está sua renda</Text>
 
-            </SafeAreaView>
+            </View>
 
             <View
                 style={homeStyle.renda1} >
@@ -286,13 +268,19 @@ export default function Home({ navigation, route }) {
 
             <View
                 style={homeStyle.renda1} >
-                <Text
+                
+                <View style={homeStyle.txtRenda}>
+                  <Text
                     style={homeStyle.rendaTxt5}
-                >SUA RENDA</Text>
-
+                >SUA RENDA</Text>  
+                </View>
+                
+            <View>
                 <Text
                     style={homeStyle.rendaTxt3}
                 >GASTO DISPONÍVEL</Text>
+            </View>
+                
             </View>
 
 

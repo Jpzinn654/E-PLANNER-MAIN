@@ -9,7 +9,7 @@
  
   ## 📄 Qual o principal motivo deste projeto?
   
-  O E-PLANNER é um aplicativo desenvolvido em React Native para dispositivos móveis, com o objetivo de ajudar pessoas leigas a gerenciar suas finanças. Ele oferece uma interface amigável, controle de despesas e receitas, orçamento mensal, alertas e notificações, relatórios e gráficos, o E-PLANNER se torna uma ferramenta valiosa para ajudar as pessoas a terem um maior controle sobre suas finanças pessoais.
+  O E-PLANNER é um aplicativo desenvolvido em React Native para dispositivos móveis, com o objetivo de ajudar pessoas leigas a gerenciar suas finanças. Ele oferece uma interface amigável, controle de despesas e receitas, orçamento mensal, alertas, relatórios e gráficos, o E-PLANNER se torna uma ferramenta valiosa para ajudar as pessoas a terem um maior controle sobre suas finanças pessoais.
   
 ---
 

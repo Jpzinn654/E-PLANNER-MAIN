@@ -229,13 +229,13 @@ function MenuFinancas({ navigation, route }) {
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
                         onPress={() => { setTelaAtual(1); }}
-                    ><Text style={gastosGeraisStyles.buttonTexts}>Histórico</Text></TouchableOpacity>
+                    ><Text style={gastosGeraisStyles.buttonTexts}>Gastos</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
                         onPress={() => {
                             setTelaAtual(2);
                         }}
-                    ><Text style={gastosGeraisStyles.buttonTexts}>Gráfico</Text></TouchableOpacity>
+                    ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={gastosGeraisStyles.buttons}
                         onPress={() => {

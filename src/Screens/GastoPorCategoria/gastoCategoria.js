@@ -121,7 +121,10 @@ export default function GastoCategorias({ gastosCat }) {
         <View style={gastoCategoriaStyle.container1}>
 
           <Toast />
-          <View style={{ width: 280, marginTop: 15, marginBottom: 0 }}>
+          <View style={{ width: 280, marginBottom: 0 }}>
+
+          <Text style={gastoCategoriaStyle.label}>Histórico de categorias:</Text>
+
             <SelectList
               data={categorias}
               setSelected={setSelected}

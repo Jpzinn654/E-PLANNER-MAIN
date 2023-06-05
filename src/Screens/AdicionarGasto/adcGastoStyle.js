@@ -98,6 +98,9 @@ const adcGastoSyle = StyleSheet.create({
         color: 'red',
         marginTop: 5,
         marginBottom: 5,
+        textAlign: "center",
+        paddingVertical: 7,
+        paddingHorizontal: 20,
     },
 
 })

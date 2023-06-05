@@ -110,18 +110,18 @@ export default function GastoAgendado({ navigation, route }) {
 
     const hasPendingExpenses = data.some(item => new Date(item.dataGasto) <= new Date());
 
-    const Msg = ()=>{
+    const Msg = () => {
         if (hasPendingExpenses) {
             return (
-              <View style={gastoAgendadoStyle.aviso}>
-                <Text style={gastoAgendadoStyle.avisoTexto}>
-                  Você possui despesas pendentes!
-                </Text>
-              </View>
+                <View style={gastoAgendadoStyle.aviso}>
+                    <Text style={gastoAgendadoStyle.avisoTexto}>
+                        Você possui despesas pendentes!
+                    </Text>
+                </View>
             );
-          } else {
+        } else {
             return null;
-          }
+        }
     }
 
     return (
@@ -157,24 +157,24 @@ export default function GastoAgendado({ navigation, route }) {
                 style={gastoAgendadoStyle.container2}
             >
 
-                {/* <Text>
-                    Você possui gastos pendentes!
-                </Text> */}
-
-
-                <Msg/>
-
-
-
-                < Text
-                    style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
 
                 <View
                     style={gastoAgendadoStyle.cards}>
-                    <ScrollView>
-                        <CardAgendado data={data}
-                            navigation={navigation} />
-                    </ScrollView>
+
+                    <Msg />
+
+
+
+                    < Text
+                        style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
+
+                    <View style={gastoAgendadoStyle.cards2}>
+                        <ScrollView>
+                            <CardAgendado data={data}
+                                navigation={navigation} />
+                        </ScrollView>
+
+                    </View>
                 </View>
             </View>
 

@@ -39,19 +39,27 @@ const gastoAgendadoStyle = StyleSheet.create({
     container2: {
         flex: 3,
         backgroundColor: '#2C3C51',
+        // paddingVertical: 90
     },
     gastoText: {
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',
         top: 15,
-        left: 40,
+        right: '20%',
+        marginBottom: 5
     },
     cards: {
         top: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 420
+        height: '90%'
+    },
+    cards2: {
+        top: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '90%'
     },
     aviso: {
         backgroundColor: "transparent", // Define o fundo como transparente
@@ -65,7 +73,7 @@ const gastoAgendadoStyle = StyleSheet.create({
         shadowRadius: 5,
         padding: 14,
         width: 320,
-        marginTop: 10,
+        marginTop: 20,
         alignSelf: "center", // Centraliza horizontalmente o componente
         justifyContent: "center", // Centraliza verticalmente o componente
         borderWidth: 2, // Define a largura da borda

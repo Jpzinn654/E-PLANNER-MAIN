@@ -65,7 +65,7 @@ const menuFinancasStyle = StyleSheet.create({
         height: 20,
         borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonText1: {
         color: '#fff',

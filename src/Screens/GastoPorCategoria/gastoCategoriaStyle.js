@@ -43,6 +43,12 @@ const gastoCategoriaStyle = StyleSheet.create({
   scrollContainer: {
     // flex: 1,
   },
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    textAlign: "center"
+},
 });
 
 export default gastoCategoriaStyle;

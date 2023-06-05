@@ -106,7 +106,7 @@ const agdGastoStyle = StyleSheet.create({
         height: 45,
         // marginTop: 10,
         borderRadius: 20,
-        backgroundColor: '#d9d9d9',
+        backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
         top: '95%',
@@ -114,7 +114,7 @@ const agdGastoStyle = StyleSheet.create({
         position: "absolute",
     }, 
     btnContinuarTxt: {
-        color: '#000',
+        color: '#fff',
         fontSize: 18,
     },
     fundo:{
@@ -140,6 +140,7 @@ const agdGastoStyle = StyleSheet.create({
         color: 'red',
         marginTop: 5,
         marginBottom: 5,
+        textAlign: "center"
     },
     scrollContainer: {
         flex: 1,

@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     width: 340,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#e1e1e1',
     borderRadius: 10,
     elevation: 3,
   },
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#888888',
+    color: '#222233',
     marginBottom: 2,
     paddingHorizontal: 10,
   },
@@ -220,13 +220,13 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
     marginRight: 8,
-    color: '#333333',
+    color: '#444',
   },
   infoTextDisp: {
     fontSize: 16,
     marginRight: 8,
     paddingHorizontal: 10,
-    color: '#333333',
+    color: '#444',
   },
   valueText: {
     fontSize: 16,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 8,
-    color: 'red',
+    color: '#ed5c53',
   },
   leftView: {
     backgroundColor: '#e74c3c',

@@ -168,13 +168,15 @@ export default function GastoAgendado({ navigation, route }) {
                     < Text
                         style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
 
-                    <View style={gastoAgendadoStyle.cards2}>
+                 
+                       <View style={gastoAgendadoStyle.cards2}>
                         <ScrollView>
                             <CardAgendado data={data}
                                 navigation={navigation} />
                         </ScrollView>
-
+                  
                     </View>
+                    
                 </View>
             </View>
 

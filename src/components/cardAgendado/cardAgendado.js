@@ -183,14 +183,14 @@ export default function CardAgendado({ data, navigation }) {
 }
 
 const styles = StyleSheet.create({
+
   card: {
     padding: 5,
     marginBottom: 10,
     width: 340,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#f9f9f9',
     borderRadius: 10,
     elevation: 3,
-    
   },
   cardContent: {
     marginTop: 2,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   leftView: {
-    backgroundColor: 'green',
+    backgroundColor: '#3CB371',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

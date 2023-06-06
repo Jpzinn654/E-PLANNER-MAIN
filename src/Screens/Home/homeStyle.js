@@ -91,7 +91,7 @@ const homeStyle = StyleSheet.create({
         left: '50%',
     },
     txtRenda:{
-        marginLeft: '10%',
+        marginLeft: '8%',
     },
     rendaTxt5: {
         color: '#fff',
@@ -191,7 +191,7 @@ const homeStyle = StyleSheet.create({
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        right: '10%',
+        right: '5%',
         top: '72%',
     },
     components: {

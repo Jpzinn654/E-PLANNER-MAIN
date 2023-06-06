@@ -202,10 +202,10 @@ export default function Home({ navigation, route }) {
             />
             <Toast />
 
-            
+
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
 
-            <View  style={homeStyle.menu} >
+            <View style={homeStyle.menu} >
 
 
                 <TouchableOpacity
@@ -252,6 +252,22 @@ export default function Home({ navigation, route }) {
             </View>
 
             <View
+                style={homeStyle.renda1} >
+
+                <View style={homeStyle.txtRenda}>
+                    <Text
+                        style={homeStyle.rendaTxt5}
+                    >SUA RENDA</Text>
+                </View>
+
+                <View>
+                    <Text
+                        style={homeStyle.rendaTxt3}
+                    >GASTO DISPONÍVEL</Text>
+                </View>
+
+            </View>
+            <View
                 style={homeStyle.rendaBars}
             >
 
@@ -260,30 +276,7 @@ export default function Home({ navigation, route }) {
                     progress={porcentagem}
                     color={barraCor}
                 />
-
-
-
-
             </View>
-
-            <View
-                style={homeStyle.renda1} >
-                
-                <View style={homeStyle.txtRenda}>
-                  <Text
-                    style={homeStyle.rendaTxt5}
-                >SUA RENDA</Text>  
-                </View>
-                
-            <View>
-                <Text
-                    style={homeStyle.rendaTxt3}
-                >GASTO DISPONÍVEL</Text>
-            </View>
-                
-            </View>
-
-
             <View
                 style={homeStyle.container4}
             >

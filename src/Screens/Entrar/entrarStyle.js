@@ -27,7 +27,7 @@ const entrarStyle = StyleSheet.create({
         fontWeight: "600",
         fontSize: 24,
         color: '#000',
-        marginBottom: 3,
+        // marginBottom: 3,
     },
     inputs: {
         borderWidth: 1,
@@ -59,6 +59,13 @@ const entrarStyle = StyleSheet.create({
     img: {
         position: 'absolute'
     },
+    entrarMgs: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
+        textAlign: 'center'
+    }
 
 })
 

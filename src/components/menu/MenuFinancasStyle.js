@@ -36,6 +36,7 @@ const menuFinancasStyle = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         textAlign: 'center',
+        marginHorizontal: 10
     },
     midText: {
         color: '#fff',

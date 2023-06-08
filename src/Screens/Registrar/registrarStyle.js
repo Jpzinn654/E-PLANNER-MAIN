@@ -59,6 +59,13 @@ const registrarStyle = StyleSheet.create({
     img: {
         position: 'absolute'
     },
+    registrarMgs: {
+        fontSize: 16,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 5,
+        textAlign: 'center'
+    }
 
 })
 

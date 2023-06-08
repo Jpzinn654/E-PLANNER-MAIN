@@ -23,7 +23,7 @@ const homeStyle = StyleSheet.create({
     menu: {
         position: 'absolute',
         width: '25%',
-        marginTop: '7%',
+        marginTop: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 200
@@ -83,7 +83,7 @@ const homeStyle = StyleSheet.create({
         paddingLeft: '10%',
         marginRight: '2%',
         marginTop: '1%',
-        left: '15%',
+        left: '20%',
     },
     rendaTxt4: {
         color: '#fff',
@@ -98,7 +98,7 @@ const homeStyle = StyleSheet.create({
         fontSize: 14,
         paddingLeft: '0%',
         marginTop: '1%',
-        right: '0%',
+        right: '30%',
     },
     rendaBars: {
         width: '100%',

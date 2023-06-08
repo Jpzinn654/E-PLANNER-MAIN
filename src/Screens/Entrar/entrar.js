@@ -17,7 +17,7 @@ import {
 export default function Entrar({ navigation }) {
 
     //estados de aviso e armazenamento
-    const [display, setDisplay] = useState('')
+    const [display, setDisplay] = useState([''])
     const [email, setEmail] = useState(null)
     const [senha, setSenha] = useState(null)
 
@@ -39,7 +39,7 @@ export default function Entrar({ navigation }) {
 
         //em caso de login incorreto
         if (json === 'error') {
-            setDisplay('Email ou senha inválidos')
+            setDisplay(['Email ou senha inválidos'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
@@ -80,7 +80,11 @@ export default function Entrar({ navigation }) {
 
             <View style={entrarStyle.containerInp}>
                 <Text style={entrarStyle.titulo}>Entrar</Text>
-                <Text>{display}</Text>
+
+                <Text style={entrarStyle.entrarMgs}>
+                    {display[0]}
+                </Text>
+
                 <TextInput
                     style={entrarStyle.inputs}
                     placeholder="E-mail"

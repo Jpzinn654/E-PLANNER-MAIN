@@ -129,27 +129,30 @@ export default function Card({ usuario, navigation, onChildData }) {
               <Text style={styles.title}>{item.nome}</Text>
               <View style={styles.infoContainer}>
                 <Text style={styles.infoText}>Valor Disponível:</Text>
-                {item.valor == item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)) ? (
-                  <Text style={styles.valueText}>
-                    {accounting.formatMoney(
-                      item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
-                      'R$',
-                      2,
-                      '.',
-                      ','
-                    )}
-                  </Text>
-                ) : (
-                  <Text style={styles.valueText2}>
-                    {accounting.formatMoney(
-                      item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
-                      'R$',
-                      2,
-                      '.',
-                      ','
-                    )}
-                  </Text>
-                )}
+                {
+                  (item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)) > item.valor / 4) ? (
+                    <Text style={styles.valueText}>
+                      {accounting.formatMoney(
+                        item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
+                        'R$',
+                        2,
+                        '.',
+                        ','
+                      )}
+                    </Text>
+                  ) : (
+                    <Text style={styles.valueText2}>
+                      {accounting.formatMoney(
+                        item.valor - (Number(item.valorTotalGastos) + Number(item.valorTotalGastosAgendados)),
+                        'R$',
+                        2,
+                        '.',
+                        ','
+                      )}
+                    </Text>
+                  )
+                }
+
               </View>
             </View>
           </Swipeable>

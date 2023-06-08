@@ -137,7 +137,6 @@ export default function AgendarGasto({ navigation }) {
                 setDescricao('')
                 setDate(new Date())
                 setDateOfBirth()
-                setSelected('')
             } else {
                 setDisplay(json.erros)
                 setTimeout(() => {

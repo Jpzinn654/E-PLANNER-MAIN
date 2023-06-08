@@ -257,13 +257,13 @@ export default function Home({ navigation, route }) {
                 <View style={homeStyle.txtRenda}>
                     <Text
                         style={homeStyle.rendaTxt5}
-                    >SUA RENDA</Text>
+                    >SEU SALÁRIO</Text>
                 </View>
 
                 <View>
                     <Text
                         style={homeStyle.rendaTxt3}
-                    >GASTO DISPONÍVEL</Text>
+                    >DISPONÍVEL</Text>
                 </View>
 
             </View>

@@ -78,7 +78,7 @@ export default function CardGasto({ data }) {
     return (
         <View style={styles.container}>
             {data.length === 0 ? (
-                <Text style={styles.message}>Você ainda não possuí gastos no período selecionado</Text>
+                <Text style={styles.message}>Você ainda não possui gastos no período selecionado</Text>
             ) : (
                 <FlatList
                     data={data}
@@ -86,30 +86,30 @@ export default function CardGasto({ data }) {
                     renderItem={({ item }) => (
                         <TouchableOpacity style={styles.card} onPress={() => toggleCard(item.id)}>
                             <Swipeable renderLeftActions={() => rightSwipe(item)}>
-                                <View style={styles.upContainer}>
-                                    <Text style={styles.title}>{item.categoria.nome}</Text>
-                                    <Text style={styles.value}> -{accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
-                                </View>
-                            </Swipeable>
-
-                            {cardStates[item.id] && (
-                                <View>
-                                    <View style={styles.separatorDesc} />
-                                    <View style={styles.cardContent}>
-
-                                        <Text style={styles.text}>
-                                            {item.descricao}
-                                        </Text>
+                                <View style={styles.cardContent}>
+                                    <View style={styles.headerContainer}>
+                                        <Text style={styles.title}>{item.categoria.nome}</Text>
                                         <Text style={styles.infoData}>
                                             {new Date(item.updatedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
                                         </Text>
                                     </View>
+                                    <View style={styles.infoContainer}>
+                                        <Text style={styles.infoText}>Valor gasto:</Text>
+                                        <Text style={styles.valueText2}> -{accounting.formatMoney(item.valor, 'R$', 2, '.', ',')}</Text>
+                                    </View>
+                                </View>
+                            </Swipeable>
 
+                            {cardStates[item.id] && (
+                                <View style={styles.cardContent}>
+                                    <View style={styles.separatorDesc} />
+                                    <Text style={styles.subtitle}>{item.descricao}</Text>
                                 </View>
                             )}
                         </TouchableOpacity>
                     )}
                 />
+
             )}
         </View>
 
@@ -124,16 +124,67 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 1,
-        height: '30%',
+        paddingBottom: 40
     },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+
+      },
     card: {
         padding: 10,
         marginBottom: 10,
         width: 340,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#e1e1e1',
         borderRadius: 10,
         elevation: 3,
-        // height: 0,
+        
+    },
+    cardContent: {
+        marginTop: 2,
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 2,
+        paddingHorizontal: 10,
+        color: '#333333',
+    },
+    subtitle: {
+        fontSize: 16,
+        color: '#222233',
+        marginBottom: 2,
+        paddingHorizontal: 10,
+    },
+    infoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 2,
+        paddingHorizontal: 10,
+    },
+    infoText: {
+        fontSize: 16,
+        marginRight: 8,
+        color: '#444',
+    },
+    infoTextDisp: {
+        fontSize: 16,
+        marginRight: 8,
+        paddingHorizontal: 10,
+        color: '#444',
+    },
+    valueText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginRight: 8,
+        color: 'green',
+    },
+    valueText2: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginRight: 8,
+        color: '#ed5c53',
     },
     rightView: {
         backgroundColor: '#e74c3c',
@@ -142,47 +193,26 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: 40,
         height: 40,
-        top: "2%",
-
+        top: "2%"
     },
     right: {
-        padding: 4,
+        padding: 5,
     },
-    upContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 2,
-        paddingVertical: 12
-
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 2,
-        paddingHorizontal: 20,
-        color: '#333333',
-    },
-    value: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        paddingHorizontal: 20,
-        color: 'red'
-    },
-    cardContent: {
-        marginTop: 2,
-
-    },
-    text: {
-        fontSize: 16,
-        color: '#888888',
-        marginBottom: 4,
-        paddingHorizontal: 20,
-    },
-    message: {
+    loading: {
         fontSize: 15,
         textAlign: 'center',
         color: '#333333',
+    },
+    noItems: {
+        fontSize: 15,
+        textAlign: 'center',
+        color: '#333333',
+    },
+    separator: {
+        height: 1,
+        backgroundColor: '#cccccc',
+        marginHorizontal: 10,
+        marginTop: 10,
     },
     separatorDesc: {
         height: 1,
@@ -191,10 +221,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
     },
-    infoData: {
-        fontSize: 16,
-        marginRight: 8,
-        paddingHorizontal: 20,
-        color: '#333333',
-    }
+    blankSpace: {
+        height: 70,
+    },
 });

@@ -22,14 +22,14 @@ export default function PrincipalHome({navigation}) {
             <View style={stylesPrincipal.logoContainer}>
                 <Image style={stylesPrincipal.image} source={ require('../../assets/carrosel3.png') }></Image>
                 <Text style={stylesPrincipal.texto2}>Bem Vindo</Text>
-                <Text style={stylesPrincipal.texto3}>Aqui você pode gerenciar suas finanças com completa facilidade, se tornando o mais intuitivo possível Aqui você pode gerenciar suas finanças com completa facilidade, se tornando o mais intuitivo possível </Text>
+                <Text style={stylesPrincipal.texto3}>Aqui, oferecemos uma solução simples para o seu gerenciamento financeiro, permitindo que você administre suas despesas com facilidade e evite o acúmulo de dívidas! </Text>
             </View>
             
             <View style={stylesPrincipal.containerForm}>
 
                 <TouchableOpacity 
                 style={stylesPrincipal.btn}
-                onPress={ () => navigation.navigate('Registrar')}
+                onPress={ () => navigation.navigate('Register')}
                 >
                 <Text style={stylesPrincipal.btnText}>Começar</Text>
                 </TouchableOpacity>

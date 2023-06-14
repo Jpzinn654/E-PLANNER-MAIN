@@ -40,7 +40,7 @@ const Drawer = createDrawerNavigator();
 function Navigation() {
   return (
     <Stack.Navigator
-      initialRouteName='Register'
+      initialRouteName='PrincipalHome'
       screenOptions={{ headerShown: false }} >
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="AdicionarGastos" component={AdicionarGastos} />

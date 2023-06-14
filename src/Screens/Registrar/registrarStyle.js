@@ -16,7 +16,8 @@ const registrarStyle = StyleSheet.create({
         marginRight: 200,
     },
     back: {
-        left: '10%'
+        left: '10%',
+        zIndex: 20,
     },
     containerInp: {
         flex: 1,

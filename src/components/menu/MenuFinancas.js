@@ -142,13 +142,6 @@ function MenuFinancas({ navigation, route }) {
                 />
                 <View
                     style={gastosGeraisStyles.menuContainer}>
-                    <TouchableOpacity 
-                     onPress={() => navigation.dispatch()}>
-                        <Image
-                            style={gastosGeraisStyles.menu}
-                            source={require('../../assets/menu.png')}
-                        />
-                    </TouchableOpacity>
 
                     <Text style={gastosGeraisStyles.texto1}>E-PLANNER</Text>
                 </View>
@@ -204,13 +197,13 @@ function MenuFinancas({ navigation, route }) {
                                         </Text>
                                     ) :(
                                         <Text style={gastosGeraisStyles.midText1}>
-                                            -
+                                            R$0,00
                                         </Text>
                                     )
                                 )}
                                 {!gastosComp && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                        -
+                                        R$0,00
                                     </Text>
                                 )}
 

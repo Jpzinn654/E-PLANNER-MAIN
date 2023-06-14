@@ -131,12 +131,6 @@ export default function GastoAgendado({ navigation, route }) {
             <View style={gastoAgendadoStyle.upContainer}>
                 <View
                     style={gastoAgendadoStyle.menuContainer}>
-                    <TouchableOpacity >
-                        <Image
-                            style={gastoAgendadoStyle.menu}
-                            source={require('../../assets/menuDark.png')}
-                        />
-                    </TouchableOpacity>
 
                     <Text style={gastoAgendadoStyle.texto1}>E-PLANNER</Text>
                 </View>

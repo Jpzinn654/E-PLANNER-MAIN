@@ -58,8 +58,8 @@ export default function Registrar({ navigation }) {
             }, 6000)
             await AsyncStorage.clear()
         }
-        else if (senha.length < 4 || senha.length > 8) {
-            setDisplay(['A senha deve ter entre 4 e 8 caracteres'])
+        else if (senha.length < 8) {
+            setDisplay(['A senha deve ter 8 ou mais caracteres'])
             setTimeout(() => {
                 setDisplay('')
             }, 6000)

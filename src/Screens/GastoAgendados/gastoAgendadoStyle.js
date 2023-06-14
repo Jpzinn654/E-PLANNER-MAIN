@@ -12,18 +12,18 @@ const gastoAgendadoStyle = StyleSheet.create({
         borderBottomRightRadius: 30,
     },
     menuContainer: {
-        flexDirection: 'row',
+        // justifyContent: 'center',
+        alignItems: 'center',
         top: 20,
     },
     texto1: {
         fontWeight: "bold",
         fontSize: 18,
         color: '#000',
-        marginLeft: '8%'
     },
     menu: {
         marginRight: 200,
-        left: '10%'
+        // left: '10%'
     },
     dateContainer: {
         justifyContent: 'center',

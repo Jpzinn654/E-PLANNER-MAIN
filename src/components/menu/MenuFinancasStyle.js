@@ -9,18 +9,16 @@ const menuFinancasStyle = StyleSheet.create({
         flex: 1,
     },
     menuContainer: {
-        flexDirection: 'row',
+        alignItems: 'center',
         top: 20,
     },
     texto1: {
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 20,
         color: '#fff',
-        marginLeft: '8%'
     },
     menu: {
         marginRight: 200,
-        left: '10%'
     },
     midContainer: {
         width: 180,

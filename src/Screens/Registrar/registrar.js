@@ -25,6 +25,15 @@ export default function Registrar({ navigation }) {
     const [senha, setSenha] = useState(null)
     const [confirmeSenha, setConfirmeSenha] = useState(null)
 
+    const [isValidEmail, setIsValidEmail] = useState(true);
+
+    const validateEmail = (text) => {
+        // Expressão regular para verificar se o e-mail é válido
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(text);
+        setIsValidEmail(isValid);
+        setEmail(text);
+      };
 
     //enviar dados do formulario para a api
     async function sendForm() {
@@ -32,14 +41,28 @@ export default function Registrar({ navigation }) {
             setDisplay(['Senha e confirmação de senha não conferem'])
             setTimeout(() => {
                 setDisplay('')
-            }, 5000)
+            }, 6000)
+            await AsyncStorage.clear()
+        }
+        else if (!isValidEmail) {
+            setDisplay(['Preencha um email válido'])
+            setTimeout(() => {
+                setDisplay('')
+            }, 6000)
             await AsyncStorage.clear()
         }
         else if (senha === null || nome === null || email === null) {
             setDisplay(['Preeencha todos os campos'])
             setTimeout(() => {
                 setDisplay('')
-            }, 5000)
+            }, 6000)
+            await AsyncStorage.clear()
+        }
+        else if (senha.length < 4 || senha.length > 8) {
+            setDisplay(['A senha deve ter entre 4 e 8 caracteres'])
+            setTimeout(() => {
+                setDisplay('')
+            }, 6000)
             await AsyncStorage.clear()
         }
         else {
@@ -102,11 +125,12 @@ export default function Registrar({ navigation }) {
                 <TextInput
                     style={registrarStyle.inputs}
                     placeholder="E-mail"
-                    autoCapitalize="words"
-                    keyboardType="default"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
                     underlineColorAndroid="transparent"
-                    onChangeText={value => setEmail(value)}
-                    returnKeyType="next" />
+                    onChangeText={validateEmail}
+                    returnKeyType="next"
+                />
                 <TextInput
                     style={registrarStyle.inputs}
                     placeholder="Senha"

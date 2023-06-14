@@ -85,14 +85,15 @@ export default function Entrar({ navigation }) {
                     {display[0]}
                 </Text>
 
-                <TextInput
+                    <TextInput
                     style={entrarStyle.inputs}
                     placeholder="E-mail"
                     autoCapitalize="words"
-                    keyboardType="default"
+                    keyboardType="email-address"
                     underlineColorAndroid="transparent"
                     onChangeText={value => setEmail(value)}
-                    returnKeyType="next" />
+                    returnKeyType="next"
+                />
                 <TextInput
                     style={entrarStyle.inputs}
                     placeholder="Senha"

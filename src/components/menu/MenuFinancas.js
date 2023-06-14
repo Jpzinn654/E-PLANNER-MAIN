@@ -125,6 +125,11 @@ function MenuFinancas({ navigation, route }) {
         { id: 3, tela: 'CompGastos' },
     ]
 
+    const [buttonPressed, setButtonPressed] = useState(1);
+
+    const handleButtonPress = (buttonId) => {
+        setButtonPressed(buttonId);
+      };
 
     return (
         <View style={gastosGeraisStyles.container}>
@@ -227,20 +232,34 @@ function MenuFinancas({ navigation, route }) {
                 <View
                     style={gastosGeraisStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.buttons}
-                        onPress={() => { setTelaAtual(1); }}
+                        style={[
+                            gastosGeraisStyles.buttons,
+                            buttonPressed === 1 && { backgroundColor: '#e1e1e1' },
+                          ]}
+                          onPress={() => {
+                            setTelaAtual(1);
+                            handleButtonPress(1);
+                          }}
                     ><Text style={gastosGeraisStyles.buttonTexts}>Gastos</Text></TouchableOpacity>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.buttons}
-                        onPress={() => {
+                        style={[
+                            gastosGeraisStyles.buttons,
+                            buttonPressed === 2 && { backgroundColor: '#e1e1e1' },
+                          ]}
+                          onPress={() => {
                             setTelaAtual(2);
-                        }}
+                            handleButtonPress(2);
+                          }}
                     ><Text style={gastosGeraisStyles.buttonTexts}>Categorias</Text></TouchableOpacity>
                     <TouchableOpacity
-                        style={gastosGeraisStyles.buttons}
-                        onPress={() => {
+                        style={[
+                            gastosGeraisStyles.buttons,
+                            buttonPressed === 3 && { backgroundColor: '#e1e1e1' },
+                          ]}
+                          onPress={() => {
                             setTelaAtual(3);
-                        }}>
+                            handleButtonPress(3);
+                          }}>
                         <Text style={gastosGeraisStyles.buttonTexts}>Comparação</Text></TouchableOpacity>
                 </View>
 

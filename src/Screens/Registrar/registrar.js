@@ -65,6 +65,13 @@ export default function Registrar({ navigation }) {
             }, 6000)
             await AsyncStorage.clear()
         }
+        else if (nome.length < 3) {
+            setDisplay(['O nome deve ter 3 ou mais caracteres'])
+            setTimeout(() => {
+                setDisplay('')
+            }, 6000)
+            await AsyncStorage.clear()
+        }
         else {
             let response = await fetch(`${config.urlRoot}/usuario/adicionar`, {
                 method: 'POST',

@@ -30,22 +30,33 @@ const registrarStyle = StyleSheet.create({
         color: '#000',
         marginBottom: 3,
     },
-    inputs: {
+    inputName: {
         borderWidth: 1,
         marginBottom: 10,
         width: 250,
         height: 50,
         borderRadius: 15,
-        paddingLeft: 30,
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
-    finalContainer:{
+    inputIcons:{
+        marginLeft: 10,
+        marginRight: 10
+    },
+    inputs: {
+        width: 170,
+        height: 50,
+        // backgroundColor: 'red'
+    },
+    finalContainer: {
         justifyContent: 'center',
         alignItems: 'center'
     },
-    txt:{
+    txt: {
         fontSize: 16
     },
-    btn:{
+    btn: {
         width: 200,
         height: 40,
         backgroundColor: '#354458',
@@ -54,7 +65,7 @@ const registrarStyle = StyleSheet.create({
         alignItems: 'center',
         marginTop: '2%'
     },
-    btnText:{
+    btnText: {
         color: 'white'
     },
     img: {

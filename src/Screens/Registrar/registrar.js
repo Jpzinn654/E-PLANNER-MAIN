@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
+import { FontAwesome, Zocial, Fontisto } from '@expo/vector-icons'
+
 import {
     View,
     Text,
@@ -33,7 +35,7 @@ export default function Registrar({ navigation }) {
         const isValid = emailRegex.test(text);
         setIsValidEmail(isValid);
         setEmail(text);
-      };
+    };
 
     //enviar dados do formulario para a api
     async function sendForm() {
@@ -121,39 +123,91 @@ export default function Registrar({ navigation }) {
                     {display[0]}
                 </Text>
 
-                <TextInput
-                    style={registrarStyle.inputs}
-                    placeholder="Nome Completo"
-                    autoCapitalize="words"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent"
-                    onChangeText={value => setNome(value)}
-                    returnKeyType="next" />
-                <TextInput
-                    style={registrarStyle.inputs}
-                    placeholder="E-mail"
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    underlineColorAndroid="transparent"
-                    onChangeText={validateEmail}
-                    returnKeyType="next"
-                />
-                <TextInput
-                    style={registrarStyle.inputs}
-                    placeholder="Senha"
-                    autoCapitalize="words"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent"
-                    onChangeText={value => setSenha(value)}
-                    returnKeyType="next" />
-                <TextInput
-                    style={registrarStyle.inputs}
-                    placeholder="Confirme a senha"
-                    autoCapitalize="words"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent"
-                    onChangeText={value => setConfirmeSenha(value)}
-                    returnKeyType="done" />
+                <View
+                    style={registrarStyle.inputName}
+                >
+                    <FontAwesome
+                        name="user"
+                        size={20}
+                        style={registrarStyle.inputIcons} />
+                    <TextInput
+                        style={registrarStyle.inputs}
+                        placeholder="Nome Completo"
+                        autoCapitalize="words"
+                        keyboardType="default"
+                        underlineColorAndroid="transparent"
+                        onChangeText={value => setNome(value)}
+                        returnKeyType="next" />
+
+                </View>
+                <View
+                    style={registrarStyle.inputName}
+                >
+                    <Zocial
+                        name="email"
+                        size={20}
+                        style={registrarStyle.inputIcons}
+                    />
+                    <TextInput
+                        style={registrarStyle.inputs}
+                        placeholder="E-mail"
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                        underlineColorAndroid="transparent"
+                        onChangeText={validateEmail}
+                        returnKeyType="next"
+                    />
+                </View>
+                <View
+                    style={registrarStyle.inputName}
+                >
+                    <Fontisto
+                        name="locked"
+                        size={20}
+                        style={registrarStyle.inputIcons}
+                    />
+                    <TextInput
+                        style={registrarStyle.inputs}
+                        placeholder="Senha"
+                        autoCapitalize="words"
+                        keyboardType="default"
+                        underlineColorAndroid="transparent"
+                        onChangeText={value => setSenha(value)}
+                        returnKeyType="next" />
+                    <TouchableOpacity>
+                        <FontAwesome
+                            name="eye"
+                            size={20}
+                            style={registrarStyle.inputIcons}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <View
+                    style={registrarStyle.inputName}
+                >
+                    <Fontisto
+                        name="locked"
+                        size={20}
+                        style={registrarStyle.inputIcons}
+                    />
+                    <TextInput
+                        style={registrarStyle.inputs}
+                        placeholder="Confirme a senha"
+                        autoCapitalize="words"
+                        keyboardType="default"
+                        underlineColorAndroid="transparent"
+                        onChangeText={value => setConfirmeSenha(value)}
+                        returnKeyType="done" />
+                    <TouchableOpacity>
+                        <FontAwesome
+                            name="eye"
+                            size={20}
+                            style={registrarStyle.inputIcons}
+                        />
+                    </TouchableOpacity>
+                </View>
+
 
                 <View style={registrarStyle.finalContainer}>
                     <TouchableOpacity

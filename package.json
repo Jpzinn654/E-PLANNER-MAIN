@@ -25,6 +25,7 @@
     "expo": "^48.0.0",
     "expo-cli": "^6.3.2",
     "expo-status-bar": "~1.4.4",
+    "lottie-react-native": "^5.1.6",
     "moment": "^2.29.4",
     "nodemon": "^2.0.22",
     "react": "18.2.0",

@@ -29,13 +29,23 @@ const entrarStyle = StyleSheet.create({
         color: '#000',
         // marginBottom: 3,
     },
-    inputs: {
+    inputName: {
         borderWidth: 1,
         marginBottom: 10,
         width: 250,
         height: 50,
         borderRadius: 15,
-        paddingLeft: 30,
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    inputIcons:{
+        marginLeft: 10,
+        marginRight: 10
+    },
+    inputs: {
+        width: 170,
+        height: 50,
     },
     finalContainer:{
         justifyContent: 'center',

@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import entrarStyle from "./entrarStyle";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
+
+import { Zocial, Fontisto, FontAwesome } from '@expo/vector-icons'
 
 import {
     View,
@@ -15,6 +17,8 @@ import {
 } from "react-native";
 
 export default function Entrar({ navigation }) {
+
+    const [eyeShow, eyeHide] = useState(false)
 
     //estados de aviso e armazenamento
     const [display, setDisplay] = useState([''])
@@ -42,7 +46,7 @@ export default function Entrar({ navigation }) {
             setDisplay(['Email ou senha inválidos'])
             setTimeout(() => {
                 setDisplay('')
-            }, 5000)
+            }, 2000)
             await AsyncStorage.clear()
         }
         //login correto 
@@ -85,24 +89,59 @@ export default function Entrar({ navigation }) {
                     {display[0]}
                 </Text>
 
+                <View
+                    style={entrarStyle.inputName}
+                >
+                    <Zocial
+                        name="email"
+                        size={20}
+                        style={entrarStyle.inputIcons}
+                    />
                     <TextInput
-                    style={entrarStyle.inputs}
-                    placeholder="E-mail"
-                    autoCapitalize="words"
-                    keyboardType="email-address"
-                    underlineColorAndroid="transparent"
-                    onChangeText={value => setEmail(value)}
-                    returnKeyType="next"
-                />
-                <TextInput
-                    style={entrarStyle.inputs}
-                    placeholder="Senha"
-                    autoCapitalize="words"
-                    keyboardType="default"
-                    underlineColorAndroid="transparent"
-                    onChangeText={value => setSenha(value)}
-                    secureTextEntry={false}
-                    returnKeyType="next" />
+                        style={entrarStyle.inputs}
+                        placeholder="E-mail"
+                        autoCapitalize="words"
+                        keyboardType="email-address"
+                        underlineColorAndroid="transparent"
+                        onChangeText={value => setEmail(value)}
+                        returnKeyType="next"
+                    />
+                </View>
+
+                <View
+                    style={entrarStyle.inputName}
+                >
+                    <Fontisto
+                        name="locked"
+                        size={20}
+                        style={entrarStyle.inputIcons}
+                    />
+                    <TextInput
+                        style={entrarStyle.inputs}
+                        placeholder="Senha"
+                        autoCapitalize="words"
+                        keyboardType="default"
+                        underlineColorAndroid="transparent"
+                        onChangeText={value => setSenha(value)}
+                        secureTextEntry={false}
+                        returnKeyType="next" />
+                    <TouchableOpacity onPress={() => {!eyeShow}}>
+                        { eyeHide == true ?
+        
+                        <FontAwesome 
+                            name="eye-slash"
+                            size={20}
+                            style={entrarStyle.inputIcons}
+                        /> :
+                        <FontAwesome 
+                            name="eye"
+                            size={20}
+                            style={entrarStyle.inputIcons}
+                        />
+                    }
+                    </TouchableOpacity>
+                </View>
+
 
                 <View style={entrarStyle.finalContainer}>
                     <TouchableOpacity
@@ -110,9 +149,9 @@ export default function Entrar({ navigation }) {
                     >
                         <Text style={entrarStyle.txt}>Não tenho uma conta</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
-                    onPress={() => sendForm()}
-                    style={entrarStyle.btn}>
+                    <TouchableOpacity
+                        onPress={() => sendForm()}
+                        style={entrarStyle.btn}>
                         <Text style={entrarStyle.btnText}>Entrar</Text>
                     </TouchableOpacity>
                 </View>

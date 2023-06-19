@@ -6,15 +6,14 @@ import { CommonActions } from '@react-navigation/native';
 import {
     View,
     Text,
-    FlatList,
-    TouchableOpacity,
-    Image,
     ScrollView,
     StatusBar,
+    // Animated
 } from "react-native"
 
+import Animated, { Keyframe } from "react-native-reanimated"; 
+
 import gastoAgendadoStyle from "./gastoAgendadoStyle";
-import Card from "../../components/card/card";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import CardAgendado from "../../components/cardAgendado/cardAgendado";
@@ -29,9 +28,19 @@ import config from '../../../config/config.json'
 
 export default function GastoAgendado({ navigation, route }) {
 
+    const enteringKeyFrame = new Keyframe({
+        0: {
+            opacity: 0
+        },
+        50: {
+            opacity: 0.3
+        },
+        100: {
+            opacity: 1
+        }
+    })
+
     const isFocused = useIsFocused();
-
-
     let etiqueta = route.params?.etiqueta ?? ''
     console.log(etiqueta)
 
@@ -156,21 +165,19 @@ export default function GastoAgendado({ navigation, route }) {
                     style={gastoAgendadoStyle.cards}>
 
                     <Msg />
-
-
-
                     < Text
                         style={gastoAgendadoStyle.gastoText}>Gastos Agendados</Text>
 
-                 
-                       <View style={gastoAgendadoStyle.cards2}>
+                    <Animated.View 
+                    entering={enteringKeyFrame}
+                    style={gastoAgendadoStyle.cards2}>
                         <ScrollView>
-                            <CardAgendado data={data}
+                            <CardAgendado 
+                            data={data}
                                 navigation={navigation} />
                         </ScrollView>
-                  
-                    </View>
-                    
+                    </Animated.View>
+
                 </View>
             </View>
 

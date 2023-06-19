@@ -12,6 +12,8 @@ import 'moment/locale/pt-br';
 
 import accounting from 'accounting';
 
+import Animated, { Keyframe } from "react-native-reanimated";
+
 import { CommonActions } from '@react-navigation/native';
 
 import { Toast } from "react-native-toast-message/lib/src/Toast";
@@ -26,7 +28,6 @@ import {
     View,
     Text,
     TouchableOpacity,
-    SafeAreaView,
     StatusBar,
     Image,
     Alert,
@@ -37,6 +38,19 @@ import { useIsFocused } from '@react-navigation/native';
 
 //função que gerencia a tela, juntamente com seus parâmetros
 export default function Home({ navigation, route }) {
+
+    //Animação via KeyFrame
+    const enteringKeyFrame = new Keyframe({
+        0: {
+            opacity: 0
+        },
+        50: {
+            opacity: 0.3
+        },
+        100: {
+            opacity: 1
+        }
+    })
 
 
     // Limpa os parâmetros quando o usuário clica em um botão
@@ -202,12 +216,9 @@ export default function Home({ navigation, route }) {
             />
             <Toast />
 
-
             <Text style={homeStyle.texto1}>E-PLANNER</Text>
 
             <View style={homeStyle.menu} >
-
-
                 <TouchableOpacity
                     onPress={() => navigation.openDrawer()}
                 >
@@ -218,7 +229,8 @@ export default function Home({ navigation, route }) {
                             />
                         </View>
                     </View>
-                </TouchableOpacity></View>
+                </TouchableOpacity>
+            </View>
 
             <View
                 style={homeStyle.container2}
@@ -239,13 +251,9 @@ export default function Home({ navigation, route }) {
 
             <View
                 style={homeStyle.renda1} >
-
                 <Text style={homeStyle.rendaTxt2}>
                     {accounting.formatMoney(orcamento, 'R$', 2, '.', ',')}
                 </Text>
-
-
-
                 <Text
                     style={homeStyle.rendaTxt4}
                 > {accounting.formatMoney(disponivel, 'R$', 2, '.', ',')}</Text>
@@ -253,7 +261,6 @@ export default function Home({ navigation, route }) {
 
             <View
                 style={homeStyle.renda1} >
-
                 <View style={homeStyle.txtRenda}>
                     <Text
                         style={homeStyle.rendaTxt5}
@@ -316,7 +323,8 @@ export default function Home({ navigation, route }) {
                 style={homeStyle.container5}
             >
 
-                <View
+                <Animated.View
+                    entering={enteringKeyFrame}
                     style={homeStyle.components}>
 
                     <Text style={
@@ -328,7 +336,7 @@ export default function Home({ navigation, route }) {
                         navigation={navigation}
                     />
 
-                </View>
+                </Animated.View>
 
                 <View style={homeStyle.buttonCategoria}>
                     <TouchableOpacity

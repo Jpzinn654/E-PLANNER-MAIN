@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 
+
 const adcGastoSyle = StyleSheet.create({
     container: {
         flex: 1,
@@ -40,22 +41,23 @@ const adcGastoSyle = StyleSheet.create({
         backgroundColor: '#EEEEEF',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     texto4: {
+        marginLeft: 10,
         fontSize: 22,
         fontWeight: '600',
         marginTop: '5%'
     },
     texto5: {
+        marginLeft: 10,
         fontSize: 22,
         fontWeight: '600',
     },
     input: {
-        borderWidth: 1,
-        borderBottomColor: '#000',
+        borderBottomWidth: 2,
         borderRadius: 2,
-        width: 280,
+        width: '90%',
         margin: 10,
         height: 40,
         paddingLeft: 10,

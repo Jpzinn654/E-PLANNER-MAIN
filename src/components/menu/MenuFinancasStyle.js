@@ -25,7 +25,7 @@ const menuFinancasStyle = StyleSheet.create({
         height: 180,
         borderRadius: 800,
         backgroundColor: '#02CB7F',
-        top: 60,
+        top: 50,
         left: 100,
         justifyContent: 'center',
         alignItems: 'center'
@@ -92,7 +92,7 @@ const menuFinancasStyle = StyleSheet.create({
         backgroundColor: 'red',
     },
     fundo: {
-        top: -10,
+        top: -2,
         position: 'absolute',
     }
 })

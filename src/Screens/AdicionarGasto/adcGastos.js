@@ -111,12 +111,12 @@ export default function AdicionarGastos({ navigation }) {
 
     //função que envia dados do formuário para a api
     async function sendForm() {
-        if (selected === '' || selected == undefined){
+        if (selected === '' || selected == undefined) {
             setDisplay(['Selecione uma categoria!'])
             setTimeout(() => {
                 setDisplay('')
             }, 5000)
-        } else{
+        } else {
             let response = await fetch(`${config.urlRoot}/gastoRealizado/adicionar`, {
                 method: 'POST',
                 headers: {
@@ -129,7 +129,7 @@ export default function AdicionarGastos({ navigation }) {
                     categoriaId: selected,
                     valor: valor,
                     descricao: descricao,
-                   
+
                 }),
             })
             let json = await response.json()
@@ -145,11 +145,11 @@ export default function AdicionarGastos({ navigation }) {
                 }, 5000)
             }
         }
-        
+
 
     }
 
-   
+
 
 
 
@@ -206,17 +206,16 @@ export default function AdicionarGastos({ navigation }) {
                     </Text>
                 </View>
 
-                <View  style={{ width: 280 }}>
-                <SelectList data={categorias} 
-                setSelected={setSelected}
-                placeholder = "Selecione uma categoria" 
-                searchPlaceholder = "Pesquise"
-                notFoundText = "Nenhuma categoria encontrada!"
-                dropdownShown= {false}
-                maxHeight={100}
-               />
-
-            </View>
+                <View style={{ width: 280, marginLeft:'15%' }}>
+                    <SelectList data={categorias}
+                        setSelected={setSelected}
+                        placeholder="Selecione uma categoria"
+                        searchPlaceholder="Pesquise"
+                        notFoundText="Nenhuma categoria encontrada!"
+                        dropdownShown={false}
+                        maxHeight={100}
+                    />
+                </View>
 
                 <Text
                     style={adcGastoSyle.texto4}>
@@ -225,22 +224,22 @@ export default function AdicionarGastos({ navigation }) {
 
                 <CurrencyInput
                     style={adcGastoSyle.input}
-                        value={valor}
-                        placeholder="R$0,00"
-                        onChangeValue={setValor}
-                        prefix="R$"
-                        delimiter="."
-                        separator=","
-                        precision={2}
-                        minValue={0}
-                        onChangeText={(formattedValue) => {
-                            console.log(formattedValue); // R$ +2.310,46
-                        }}
-                    />
+                    value={valor}
+                    placeholder="R$0,00"
+                    onChangeValue={setValor}
+                    prefix="R$"
+                    delimiter="."
+                    separator=","
+                    precision={2}
+                    minValue={0}
+                    onChangeText={(formattedValue) => {
+                        console.log(formattedValue); // R$ +2.310,46
+                    }}
+                />
 
                 <Text
                     style={adcGastoSyle.texto5}
-                >Descrição do seu gasto
+                >Descrição do seu gasto:
                 </Text>
 
                 <TextInput

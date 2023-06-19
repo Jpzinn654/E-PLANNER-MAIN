@@ -232,7 +232,7 @@ export default function AgendarGasto({ navigation }) {
                             </Text>
                         </View>
 
-                        <View style={{ width: 280 }}>
+                        <View style={{ width: 280, marginLeft:'15%'}}>
                             <SelectList data={categorias}
                                 setSelected={setSelected}
                                 placeholder="Selecione uma categori a"
@@ -266,7 +266,7 @@ export default function AgendarGasto({ navigation }) {
 
                         <Text
                             style={agdGastoStyle.texto5}
-                        >Descrição do seu gasto
+                        >Descrição do seu gasto:
                         </Text>
 
                         <TextInput
@@ -282,7 +282,7 @@ export default function AgendarGasto({ navigation }) {
 
                         <Text
                             style={agdGastoStyle.texto6}
-                        >Data</Text>
+                        >Data:</Text>
                         <View
                             style={agdGastoStyle.cardInput}>
 

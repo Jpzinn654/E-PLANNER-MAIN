@@ -46,7 +46,7 @@ export default function Entrar({ navigation }) {
             setDisplay(['Email ou senha inválidos'])
             setTimeout(() => {
                 setDisplay('')
-            }, 2000)
+            }, 3000)
             await AsyncStorage.clear()
         }
         //login correto 

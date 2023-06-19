@@ -40,7 +40,7 @@ const agdGastoStyle = StyleSheet.create({
         backgroundColor: '#EEEEEF',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems:'center',
+        // alignItems:'center',
         overflow: 'hidden',
         
     },
@@ -49,34 +49,37 @@ const agdGastoStyle = StyleSheet.create({
         backgroundColor: '#EEEEEF',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems:'center',
+        // alignItems:'center',
         overflow: 'hidden',
         paddingVertical: 25,
-        paddingHorizontal: 45,
     },
     texto4:{
+        marginLeft: 10,
         fontSize: 22,
         fontWeight: '600',
         marginTop: '10%'
     },
     texto5:{
+        marginLeft: 10,
         fontSize: 22,
         fontWeight: '600',
     },
     texto6:{
+        marginLeft: 10,
         fontSize: 18,
         fontWeight: '600',
     },
     input:{
-        borderWidth: 1,
+        borderBottomWidth: 2,
         borderBottomColor: '#000',
         borderRadius: 2,
-        width: 280,
+        width: '90%',
         margin: 10,
         height: 40,
         paddingLeft: 10,
     },
     cardInput:{
+        // width: '90%',
         flexDirection: 'row',
         marginBottom: 60
     },

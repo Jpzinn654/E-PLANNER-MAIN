@@ -142,7 +142,6 @@ function MenuFinancas({ navigation, route }) {
                 />
                 <View
                     style={gastosGeraisStyles.menuContainer}>
-
                     <Text style={gastosGeraisStyles.texto1}>E-PLANNER</Text>
                 </View>
 
@@ -197,13 +196,13 @@ function MenuFinancas({ navigation, route }) {
                                         </Text>
                                     ) :(
                                         <Text style={gastosGeraisStyles.midText1}>
-                                            R$0,00
+                                            TOTAL ECONOMIZADO R$0,00
                                         </Text>
                                     )
                                 )}
                                 {!gastosComp && (
                                     <Text style={gastosGeraisStyles.midText1}>
-                                        R$0,00
+                                    TOTAL ECONOMIZADO R$0,00
                                     </Text>
                                 )}
 
@@ -278,7 +277,7 @@ export default MenuFinancas
 
 const gastosGeraisAltStyle = StyleSheet.create({
     testeContainer: {
-        top: '10%',
+        top: '8%',
         width: '100%',
         height: '85%',
         justifyContent: 'center',

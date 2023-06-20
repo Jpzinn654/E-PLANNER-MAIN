@@ -14,7 +14,6 @@ import {
     Image,
     TextInput,
     KeyboardAvoidingView,
-    Input,
     Pressable,
     BackHandler,
     ScrollView

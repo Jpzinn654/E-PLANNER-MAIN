@@ -55,13 +55,13 @@ const agdGastoStyle = StyleSheet.create({
     },
     texto4:{
         marginLeft: 10,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: '600',
         marginTop: '10%'
     },
     texto5:{
         marginLeft: 10,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: '600',
     },
     texto6:{
@@ -70,7 +70,7 @@ const agdGastoStyle = StyleSheet.create({
         fontWeight: '600',
     },
     input:{
-        borderBottomWidth: 2,
+        borderBottomWidth: 1.8,
         borderBottomColor: '#000',
         borderRadius: 2,
         width: '90%',
@@ -113,7 +113,7 @@ const agdGastoStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         top: '95%',
-        left: '10%',
+        left: '13%',
         position: "absolute",
     }, 
     btnContinuarTxt: {

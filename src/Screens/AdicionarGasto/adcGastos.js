@@ -213,7 +213,8 @@ export default function AdicionarGastos({ navigation }) {
                         </View>
 
                         <View style={{ width: 280, marginLeft: '15%' }}>
-                            <SelectList data={categorias}
+                            <SelectList 
+                                data={categorias}
                                 setSelected={setSelected}
                                 placeholder="Selecione uma categoria"
                                 searchPlaceholder="Pesquise"

@@ -55,17 +55,18 @@ const adcGastoSyle = StyleSheet.create({
     },
     texto4: {
         marginLeft: 10,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: '600',
         marginTop: '5%'
     },
     texto5: {
         marginLeft: 10,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: '600',
+        marginTop: '5%'
     },
     input: {
-        borderBottomWidth: 2,
+        borderBottomWidth: 1.8,
         borderRadius: 2,
         width: '90%',
         margin: 10,
@@ -75,7 +76,7 @@ const adcGastoSyle = StyleSheet.create({
     btnContinuar: {
         width: 290,
         height: 45,
-        // marginTop: 10,
+        marginTop: '10%',
         borderRadius: 20,
         backgroundColor: '#02CB7F',
         justifyContent: 'center',

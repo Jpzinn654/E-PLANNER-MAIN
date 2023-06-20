@@ -8,26 +8,22 @@ import {
     Text,
     ScrollView,
     StatusBar,
-    // Animated
 } from "react-native"
 
 import Animated, { Keyframe } from "react-native-reanimated"; 
-
 import gastoAgendadoStyle from "./gastoAgendadoStyle";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import CardAgendado from "../../components/cardAgendado/cardAgendado";
-
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-
 import { useIsFocused } from '@react-navigation/native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
 
 export default function GastoAgendado({ navigation, route }) {
 
+    //Adiconando key frame de opacidade do 0 a 100%
     const enteringKeyFrame = new Keyframe({
         0: {
             opacity: 0

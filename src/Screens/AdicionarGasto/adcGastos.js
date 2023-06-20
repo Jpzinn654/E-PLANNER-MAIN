@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { SelectList } from "react-native-dropdown-select-list"
+import Animated, { Keyframe } from "react-native-reanimated";
 
 import adcGastoSyle from "./adcGastoStyle";
 
@@ -27,6 +28,19 @@ import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function AdicionarGastos({ navigation }) {
+
+    //Adiconando key frame de opacidade do 0 a 100%
+    const enteringKeyFrame = new Keyframe({
+        0: {
+            opacity: 0
+        },
+        50: {
+            opacity: 0.5
+        },
+        100: {
+            opacity: 1
+        }
+    })
 
     //msg ao adicionar gasto
     const showToast = () => {
@@ -168,12 +182,12 @@ export default function AdicionarGastos({ navigation }) {
 
             <Toast />
 
-            <View
+            <Animated.View
+                entering={enteringKeyFrame}
                 style={adcGastoSyle.upContainer}>
 
                 <View
-                    style={adcGastoSyle.menuContainer}
-                >
+                    style={adcGastoSyle.menuContainer}>
                     <TouchableOpacity
                         style={adcGastoSyle.back}
                         onPress={() => navigation.navigate('Home')}>
@@ -191,17 +205,12 @@ export default function AdicionarGastos({ navigation }) {
                     style={adcGastoSyle.texto2}>
                     ADICIONAR GASTOS
                 </Text>
-
-
-            </View>
+            </Animated.View>
 
             <View
-              behavior="padding"
+                behavior="padding"
                 style={adcGastoSyle.card}>
-
-
                 <ScrollView style={adcGastoSyle.scrollContainer}>
-
                     <KeyboardAvoidingView
                         behavior="height"
                         style={adcGastoSyle.card2}>
@@ -213,7 +222,7 @@ export default function AdicionarGastos({ navigation }) {
                         </View>
 
                         <View style={{ width: 280, marginLeft: '15%' }}>
-                            <SelectList 
+                            <SelectList
                                 data={categorias}
                                 setSelected={setSelected}
                                 placeholder="Selecione uma categoria"

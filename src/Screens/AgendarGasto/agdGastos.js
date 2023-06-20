@@ -1,9 +1,5 @@
 import React from "react";
 
-import CurrencyInput from 'react-native-currency-input';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import agdGastoStyle from "./agdGastoStyle";
 
 import {
@@ -25,10 +21,25 @@ import config from '../../../config/config.json'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import moment from "moment";
 import { SelectList } from "react-native-dropdown-select-list"
-
+import CurrencyInput from 'react-native-currency-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Animated, { Keyframe } from "react-native-reanimated";
 
 export default function AgendarGasto({ navigation }) {
+
+    //Adiconando key frame de opacidade do 0 a 100%
+    const enteringKeyFrame = new Keyframe({
+        0: {
+            opacity: 0
+        },
+        50: {
+            opacity: 0.5
+        },
+        100: {
+            opacity: 1
+        }
+    })
 
     //função responsável por voltar a tela home ao pressionar o botão de voltar do dispositivo
     useEffect(() => {
@@ -187,7 +198,8 @@ export default function AgendarGasto({ navigation }) {
                 source={require('../../assets/fundo.png')}
             />
 
-            <View
+            <Animated.View
+                entering={enteringKeyFrame}
                 style={agdGastoStyle.upContainer}>
 
                 <View
@@ -212,7 +224,7 @@ export default function AgendarGasto({ navigation }) {
                     AGENDAR GASTOS
                 </Text>
 
-            </View>
+            </Animated.View>
 
             <View behavior="padding"
                 style={agdGastoStyle.card}>

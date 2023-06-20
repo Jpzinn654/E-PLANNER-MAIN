@@ -232,7 +232,7 @@ export default function AgendarGasto({ navigation }) {
                             </Text>
                         </View>
 
-                        <View style={{ width: 280, marginLeft:'15%'}}>
+                        <View style={{ width: 280, marginLeft: '15%' }}>
                             <SelectList data={categorias}
                                 setSelected={setSelected}
                                 placeholder="Selecione uma categori a"
@@ -336,13 +336,15 @@ export default function AgendarGasto({ navigation }) {
 
                         </View>
                         <TouchableOpacity
-                style={agdGastoStyle.btnContinuar}
-                onPress={() => sendForm()}>
-                <Text
-                    style={agdGastoStyle.btnContinuarTxt}>Continuar</Text>
-            </TouchableOpacity>
-                    </KeyboardAvoidingView></ScrollView></View>
-            
+                            style={agdGastoStyle.btnContinuar}
+                            onPress={() => sendForm()}>
+                            <Text
+                                style={agdGastoStyle.btnContinuarTxt}>Continuar</Text>
+                        </TouchableOpacity>
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
+
         </View>
     )
 }

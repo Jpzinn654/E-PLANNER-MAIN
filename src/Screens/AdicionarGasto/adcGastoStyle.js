@@ -42,6 +42,16 @@ const adcGastoSyle = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         // alignItems: 'center'
+        
+    },
+    card2: {
+        flex: 1,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        // alignItems: 'center'
+        // paddingVertical: 100
+        paddingBottom: 40,
+        paddingVertical: 20
     },
     texto4: {
         marginLeft: 10,
@@ -63,15 +73,16 @@ const adcGastoSyle = StyleSheet.create({
         paddingLeft: 10,
     },
     btnContinuar: {
-        width: 320,
-        height: 50,
+        width: 290,
+        height: 45,
+        // marginTop: 10,
         borderRadius: 20,
         backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
-        top: '90%',
-        left: '10%',
-        position: "absolute",
+        top: '10%',
+        left: '12%',
+        // position: "absolute",
     },
     btnContinuarTxt: {
         color: '#fff',

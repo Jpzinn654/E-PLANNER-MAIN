@@ -23,6 +23,7 @@ import {
     BackHandler,
     Alert
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function AdicionarGastos({ navigation }) {
@@ -194,71 +195,79 @@ export default function AdicionarGastos({ navigation }) {
 
             </View>
 
-
-
-            <KeyboardAvoidingView
-                behavior="padding"
+            <View
+              behavior="padding"
                 style={adcGastoSyle.card}>
 
-                <View>
-                    <Text style={adcGastoSyle.gastoMsg}>
-                        {display[0]}
-                    </Text>
-                </View>
 
-                <View style={{ width: 280, marginLeft:'15%' }}>
-                    <SelectList data={categorias}
-                        setSelected={setSelected}
-                        placeholder="Selecione uma categoria"
-                        searchPlaceholder="Pesquise"
-                        notFoundText="Nenhuma categoria encontrada!"
-                        dropdownShown={false}
-                        maxHeight={100}
-                    />
-                </View>
+                <ScrollView style={adcGastoSyle.scrollContainer}>
 
-                <Text
-                    style={adcGastoSyle.texto4}>
-                    Valor:
-                </Text>
+                    <KeyboardAvoidingView
+                        behavior="height"
+                        style={adcGastoSyle.card2}>
 
-                <CurrencyInput
-                    style={adcGastoSyle.input}
-                    value={valor}
-                    placeholder="R$0,00"
-                    onChangeValue={setValor}
-                    prefix="R$"
-                    delimiter="."
-                    separator=","
-                    precision={2}
-                    minValue={0}
-                    onChangeText={(formattedValue) => {
-                        console.log(formattedValue); // R$ +2.310,46
-                    }}
-                />
+                        <View>
+                            <Text style={adcGastoSyle.gastoMsg}>
+                                {display[0]}
+                            </Text>
+                        </View>
 
-                <Text
-                    style={adcGastoSyle.texto5}
-                >Descrição do seu gasto:
-                </Text>
+                        <View style={{ width: 280, marginLeft: '15%' }}>
+                            <SelectList data={categorias}
+                                setSelected={setSelected}
+                                placeholder="Selecione uma categoria"
+                                searchPlaceholder="Pesquise"
+                                notFoundText="Nenhuma categoria encontrada!"
+                                dropdownShown={false}
+                                maxHeight={100}
+                            />
+                        </View>
 
-                <TextInput
-                    style={adcGastoSyle.input}
-                    keyboardType="default"
-                    returnKeyType="done"
-                    multiline={true}
-                    placeholder={'DESCRIÇÃO'}
-                    maxLength={50}
-                    onChangeText={value => setDescricao(value)}
-                    value={descricao}
-                />
-            </KeyboardAvoidingView>
-            <TouchableOpacity
-                style={adcGastoSyle.btnContinuar}
-                onPress={() => sendForm()}>
-                <Text
-                    style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
-            </TouchableOpacity>
+                        <Text
+                            style={adcGastoSyle.texto4}>
+                            Valor:
+                        </Text>
+
+                        <CurrencyInput
+                            style={adcGastoSyle.input}
+                            value={valor}
+                            placeholder="R$0,00"
+                            onChangeValue={setValor}
+                            prefix="R$"
+                            delimiter="."
+                            separator=","
+                            precision={2}
+                            minValue={0}
+                            onChangeText={(formattedValue) => {
+                                console.log(formattedValue); // R$ +2.310,46
+                            }}
+                        />
+
+                        <Text
+                            style={adcGastoSyle.texto5}
+                        >Descrição do seu gasto:
+                        </Text>
+
+                        <TextInput
+                            style={adcGastoSyle.input}
+                            keyboardType="default"
+                            returnKeyType="done"
+                            multiline={true}
+                            placeholder={'DESCRIÇÃO'}
+                            maxLength={50}
+                            onChangeText={value => setDescricao(value)}
+                            value={descricao}
+                        />
+
+                        <TouchableOpacity
+                            style={adcGastoSyle.btnContinuar}
+                            onPress={() => sendForm()}>
+                            <Text
+                                style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
+                        </TouchableOpacity>
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
         </View>
     )
 }

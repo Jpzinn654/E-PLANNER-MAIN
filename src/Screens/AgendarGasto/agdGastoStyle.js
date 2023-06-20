@@ -113,7 +113,7 @@ const agdGastoStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         top: '95%',
-        // left: '10%',
+        left: '10%',
         position: "absolute",
     }, 
     btnContinuarTxt: {

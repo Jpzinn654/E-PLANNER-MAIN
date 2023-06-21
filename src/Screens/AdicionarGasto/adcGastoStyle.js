@@ -51,7 +51,7 @@ const adcGastoSyle = StyleSheet.create({
         // alignItems: 'center'
         // paddingVertical: 100
         paddingBottom: 40,
-        paddingVertical: 20
+        paddingVertical: 5
     },
     texto4: {
         marginLeft: 10,
@@ -81,9 +81,10 @@ const adcGastoSyle = StyleSheet.create({
         backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
-        top: '10%',
+        top: '0%',
         left: '12%',
         // position: "absolute",
+        marginBottom:" 3%"
     },
     btnContinuarTxt: {
         color: '#fff',

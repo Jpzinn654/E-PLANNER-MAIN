@@ -171,16 +171,10 @@ export default function Registrar({ navigation }) {
                         placeholder="Senha"
                         autoCapitalize="words"
                         keyboardType="default"
+                        secureTextEntry={true}
                         underlineColorAndroid="transparent"
                         onChangeText={value => setSenha(value)}
                         returnKeyType="next" />
-                    <TouchableOpacity>
-                        <FontAwesome
-                            name="eye"
-                            size={20}
-                            style={registrarStyle.inputIcons}
-                        />
-                    </TouchableOpacity>
                 </View>
 
                 <View
@@ -199,13 +193,6 @@ export default function Registrar({ navigation }) {
                         underlineColorAndroid="transparent"
                         onChangeText={value => setConfirmeSenha(value)}
                         returnKeyType="done" />
-                    <TouchableOpacity>
-                        <FontAwesome
-                            name="eye"
-                            size={20}
-                            style={registrarStyle.inputIcons}
-                        />
-                    </TouchableOpacity>
                 </View>
 
 

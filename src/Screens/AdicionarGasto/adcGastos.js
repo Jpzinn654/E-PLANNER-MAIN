@@ -212,7 +212,7 @@ export default function AdicionarGastos({ navigation }) {
                 style={adcGastoSyle.card}>
                 <ScrollView style={adcGastoSyle.scrollContainer}>
                     <KeyboardAvoidingView
-                        behavior="height"
+                        behavior="padding"
                         style={adcGastoSyle.card2}>
 
                         <View>
@@ -269,13 +269,14 @@ export default function AdicionarGastos({ navigation }) {
                             value={descricao}
                         />
 
-                        <TouchableOpacity
+                        
+                    </KeyboardAvoidingView>
+                    <TouchableOpacity
                             style={adcGastoSyle.btnContinuar}
                             onPress={() => sendForm()}>
                             <Text
                                 style={adcGastoSyle.btnContinuarTxt}>Continuar</Text>
                         </TouchableOpacity>
-                    </KeyboardAvoidingView>
                 </ScrollView>
             </View>
         </View>

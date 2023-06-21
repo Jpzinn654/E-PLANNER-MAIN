@@ -81,28 +81,15 @@ const agdGastoStyle = StyleSheet.create({
     cardInput:{
         // width: '90%',
         flexDirection: 'row',
-        marginBottom: 60
+        marginBottom: 90
     },
     inputData:{
         width: 40,
         margin: 10,
         height: 40,
         paddingLeft: 5,
-        backgroundColor: '#d9d9d9'
-    },
-    inputAno:{
-        width: 120,
-        margin: 10,
-        height: 40,
-        paddingLeft: 5,
-        backgroundColor: '#d9d9d9'
-    },
-    inputMes:{
-        width: 120,
-        margin: 10,
-        height: 40,
-        paddingLeft: 5,
-        backgroundColor: '#d9d9d9'
+        backgroundColor: '#d9d9d9',
+        // marginBottom:" 30%"
     },
     btnContinuar:{
         width: 290,
@@ -112,9 +99,10 @@ const agdGastoStyle = StyleSheet.create({
         backgroundColor: '#02CB7F',
         justifyContent: 'center',
         alignItems: 'center',
-        top: '95%',
+        top: '92%',
         left: '13%',
         position: "absolute",
+        
     }, 
     btnContinuarTxt: {
         color: '#fff',

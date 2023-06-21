@@ -5,8 +5,8 @@ import entrarStyle from "./entrarStyle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import config from '../../../config/config.json'
-
-import { Zocial, Fontisto, FontAwesome } from '@expo/vector-icons'
+import { Zocial, Fontisto } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
     View,
@@ -18,7 +18,7 @@ import {
 
 export default function Entrar({ navigation }) {
 
-    const [eyeShow, eyeHide] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
 
     //estados de aviso e armazenamento
     const [display, setDisplay] = useState([''])
@@ -122,24 +122,11 @@ export default function Entrar({ navigation }) {
                         autoCapitalize="words"
                         keyboardType="default"
                         underlineColorAndroid="transparent"
+                        secureTextEntry={true}
                         onChangeText={value => setSenha(value)}
-                        secureTextEntry={false}
-                        returnKeyType="next" />
-                    <TouchableOpacity onPress={() => {!eyeShow}}>
-                        { eyeHide == true ?
-        
-                        <FontAwesome 
-                            name="eye-slash"
-                            size={20}
-                            style={entrarStyle.inputIcons}
-                        /> :
-                        <FontAwesome 
-                            name="eye"
-                            size={20}
-                            style={entrarStyle.inputIcons}
-                        />
-                    }
-                    </TouchableOpacity>
+                        returnKeyType="next"
+                    />
+                    
                 </View>
 
 
@@ -156,8 +143,6 @@ export default function Entrar({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-
-
         </View>
     )
 }

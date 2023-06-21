@@ -31,22 +31,23 @@ const homeStyle = StyleSheet.create({
     },
     txt1: {
         top: '40%',
-        marginLeft: '16%',
+        marginLeft: '12%',
         fontWeight: "bold",
+        textTransform:"capitalize",
         fontSize: 20,
         color: '#fff',
         textTransform: 'uppercase'
     },
     txt2: {
         top: '40%',
-        marginLeft: '16%',
+        marginLeft: '12%',
         fontWeight: "bold",
         fontSize: 26,
         color: '#fff',
     },
     txt3: {
         top: '40%',
-        marginLeft: '16%',
+        marginLeft: '12%',
         fontWeight: "500",
         fontSize: 26,
         color: '#fff',
@@ -83,7 +84,7 @@ const homeStyle = StyleSheet.create({
         paddingLeft: '10%',
         marginRight: '2%',
         marginTop: '1%',
-        left: '20%',
+        left: '10%',
     },
     rendaTxt4: {
         color: '#fff',
@@ -98,7 +99,7 @@ const homeStyle = StyleSheet.create({
         fontSize: 14,
         paddingLeft: '0%',
         marginTop: '1%',
-        right: '30%',
+        right: '0%',
     },
     rendaBars: {
         width: '100%',

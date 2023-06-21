@@ -3,26 +3,17 @@ import React, { useEffect, useState } from "react";
 import homeStyle from "./homeStyle";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import config from '../../../config/config.json'
-
 import Card from "../../components/card/card";
 import moment from 'moment';
 import 'moment/locale/pt-br';
-
 import accounting from 'accounting';
-
 import Animated, { Keyframe } from "react-native-reanimated";
-
 import { CommonActions } from '@react-navigation/native';
-
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-
 import { AntDesign } from '@expo/vector-icons'
-
-import { ProgressBar, MD3Colors, Button } from 'react-native-paper';
-
-import { useDrawerStatus } from "@react-navigation/drawer";
+import { ProgressBar, MD3Colors } from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
 
 import {
     View,
@@ -33,8 +24,6 @@ import {
     Alert,
     BackHandler
 } from "react-native";
-
-import { useIsFocused } from '@react-navigation/native';
 
 //função que gerencia a tela, juntamente com seus parâmetros
 export default function Home({ navigation, route }) {
@@ -98,9 +87,6 @@ export default function Home({ navigation, route }) {
 
 
     // if (route.params){
-
-
-
 
     //estados de listagem e armazenamento
     const [usuario, setUsuario] = useState([])
@@ -216,9 +202,16 @@ export default function Home({ navigation, route }) {
             />
             <Toast />
 
-            <Text style={homeStyle.texto1}>E-PLANNER</Text>
+            <Animated.View
+            entering={enteringKeyFrame}
+            style={homeStyle.texto1}
+            >
+                <Text style={homeStyle.texto1}>E-PLANNER</Text>
+            </Animated.View>
 
-            <View style={homeStyle.menu} >
+            <Animated.View
+                entering={enteringKeyFrame}
+                style={homeStyle.menu} >
                 <TouchableOpacity
                     onPress={() => navigation.openDrawer()}
                 >
@@ -230,9 +223,11 @@ export default function Home({ navigation, route }) {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </Animated.View>
 
-            <View
+
+            <Animated.View
+                entering={enteringKeyFrame}
                 style={homeStyle.container2}
             >
                 <Text
@@ -245,8 +240,24 @@ export default function Home({ navigation, route }) {
 
                 <Text
                     style={homeStyle.txt3}
-                >Aqui está sua renda</Text>
+                >Aqui está seu orçamento</Text>
+            </Animated.View>
 
+
+
+            <View
+                style={homeStyle.renda1} >
+                <View style={homeStyle.txtRenda}>
+                    <Text
+                        style={homeStyle.rendaTxt5}
+                    >SEU SALÁRIO</Text>
+                </View>
+
+                <View>
+                    <Text
+                        style={homeStyle.rendaTxt3}
+                    >VALOR DISPONÍVEL</Text>
+                </View>
             </View>
 
             <View
@@ -260,24 +271,8 @@ export default function Home({ navigation, route }) {
             </View>
 
             <View
-                style={homeStyle.renda1} >
-                <View style={homeStyle.txtRenda}>
-                    <Text
-                        style={homeStyle.rendaTxt5}
-                    >SEU SALÁRIO</Text>
-                </View>
-
-                <View>
-                    <Text
-                        style={homeStyle.rendaTxt3}
-                    >DISPONÍVEL</Text>
-                </View>
-
-            </View>
-            <View
                 style={homeStyle.rendaBars}
             >
-
                 <ProgressBar
                     style={homeStyle.barra1}
                     progress={porcentagem}

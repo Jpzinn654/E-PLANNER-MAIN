@@ -6,12 +6,26 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import accounting from 'accounting';
 import { useIsFocused } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
+import Animated, { Keyframe } from "react-native-reanimated";
 
 import homeStyle from '../../Screens/Home/homeStyle';
 import config from '../../../config/config.json';
 
 export default function Card({ usuario, navigation, onChildData }) {
+
+  //Animação via KeyFrame
+  const enteringKeyFrame = new Keyframe({
+    0: {
+      opacity: 0
+    },
+    50: {
+      opacity: 0.3
+    },
+    100: {
+      opacity: 1
+    }
+  })
+
   const isFocused = useIsFocused();
 
   const [activeIndex, setActiveIndex] = useState(null);
@@ -122,7 +136,9 @@ export default function Card({ usuario, navigation, onChildData }) {
     const isActive = activeIndex === index;
 
     return (
-      <View>
+      <Animated.View
+      entering={enteringKeyFrame}
+      >
         <TouchableOpacity style={styles.card} onPress={() => handleCardPress(index)}>
           <Swipeable renderLeftActions={() => leftSwipe(item)} renderRightActions={() => rightSwipe(item)}>
             <View style={styles.cardContent}>
@@ -166,12 +182,12 @@ export default function Card({ usuario, navigation, onChildData }) {
             </View>
           )}
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View entering={enteringKeyFrame} style={styles.container}>
       {carregando ? (
         <Text style={styles.loading}>Carregando...</Text>
       ) : data.length === 0 ? (
@@ -179,7 +195,7 @@ export default function Card({ usuario, navigation, onChildData }) {
       ) : (
         <FlatList data={data} keyExtractor={({ id }, index) => id} renderItem={renderCard} ListFooterComponent={<View style={styles.blankSpace} />} />
       )}
-    </View>
+    </Animated.View>
   );
 }
 
@@ -196,7 +212,7 @@ const styles = StyleSheet.create({
     width: 340,
     backgroundColor: '#e1e1e1',
     borderRadius: 10,
-    elevation: 3,
+    // elevation: 3,
   },
   cardContent: {
     marginTop: 2,

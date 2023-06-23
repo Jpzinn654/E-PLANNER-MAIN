@@ -245,13 +245,18 @@ export default function CompGastos({ gastosComp, mes }) {
                                 >{accounting.formatMoney(data.valorTotalGastos1, 'R$', 2, '.', ',')}</Text>
                             </View>
                             <View style={styles.pickerContainer2}>
-                                <Picker
-                                    style={styles.picker2}
-                                    selectedValue={selectedComparisonDate}
-                                    onValueChange={handleComparisonChange}
-                                >
-                                    {itemsPicker2}
-                                </Picker>
+                                {itemsPicker2.length > 0 ? (
+                                    <Picker
+                                        style={styles.picker2}
+                                        selectedValue={selectedComparisonDate}
+                                        onValueChange={handleComparisonChange}
+                                    >
+                                        {itemsPicker2}
+                                    </Picker>
+                                ) : (
+                                    <Text>Sem períodos anteriores ao selecionado...</Text>
+                                )}
+
 
                             </View>
                             <View style={compGastoStyles.valorTeste}>
